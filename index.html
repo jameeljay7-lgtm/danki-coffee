@@ -116,70 +116,125 @@
                     <p class="section-grind-notice"><i class="fa-solid fa-mortar-pestle"></i> We grind your coffee exactly how you want it—just let us know your preferred brewing method!</p>
                 </div>
                 
+                <h3 class="category-title">Medium Roast</h3>
+                <p class="category-desc">Smooth, balanced, and perfect for everyday brewing.</p>
                 <div class="product-grid">
-                    <!-- Medium Roast -->
                     <div class="product-card">
-                        <div class="product-image" style="background-image: url('assets/coffee_bag_medium.png')">
-                            <div class="product-badge">Medium</div>
-                        </div>
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_medium.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium Roast</h3>
-                            <p class="product-desc">Smooth, balanced, and perfect for everyday brewing.</p>
-                            <div class="product-pricing">
-                                <select class="variant-select" id="variant-medium">
-                                    <option value="15500|Beans 500g">Beans 500g - 15,500 TZS</option>
-                                    <option value="30000|Beans 1kg">Beans 1kg - 30,000 TZS</option>
-                                    <option value="32000|Ground 1kg">Ground 1kg - 32,000 TZS</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'variant-medium', 'assets/coffee_bag_medium.png')">
-                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
-                            </button>
+                            <p class="product-desc">Beans 500g</p>
+                            <div class="product-price-large">15,500 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'Beans 500g', 15500, 'assets/coffee_bag_medium.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-
-                    <!-- Medium to Dark Roast -->
                     <div class="product-card">
-                        <div class="product-image" style="background-image: url('assets/coffee_bag_meddark.png')">
-                            <div class="product-badge">Med-Dark</div>
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_medium.png')"></div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium Roast</h3>
+                            <p class="product-desc">Beans 1kg</p>
+                            <div class="product-price-large">30,000 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'Beans 1kg', 30000, 'assets/coffee_bag_medium.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_medium.png')"></div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium Roast</h3>
+                            <p class="product-desc">Ground 1kg</p>
+                            <div class="product-price-large">32,000 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'Ground 1kg', 32000, 'assets/coffee_bag_medium.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="category-title">Medium to Dark</h3>
+                <p class="category-desc">A rich, full-bodied profile bridging balance and intensity.</p>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_meddark.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium to Dark</h3>
-                            <p class="product-desc">A rich, full-bodied profile bridging balance and intensity.</p>
-                            <div class="product-pricing">
-                                <select class="variant-select" id="variant-meddark">
-                                    <option value="10000|Beans 250g">Beans 250g - 10,000 TZS</option>
-                                    <option value="11000|Ground 250g">Ground 250g - 11,000 TZS</option>
-                                    <option value="15500|Beans 500g">Beans 500g - 15,500 TZS</option>
-                                    <option value="17000|Ground 500g">Ground 500g - 17,000 TZS</option>
-                                    <option value="30000|Beans 1kg">Beans 1kg - 30,000 TZS</option>
-                                    <option value="32000|Ground 1kg">Ground 1kg - 32,000 TZS</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'variant-meddark', 'assets/coffee_bag_meddark.png')">
-                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
-                            </button>
+                            <p class="product-desc">Beans 250g</p>
+                            <div class="product-price-large">10,000 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Beans 250g', 10000, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-
-                    <!-- Dark Roast -->
                     <div class="product-card">
-                        <div class="product-image" style="background-image: url('assets/coffee_bag_dark.png')">
-                            <div class="product-badge">Dark</div>
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_meddark.png')"></div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium to Dark</h3>
+                            <p class="product-desc">Ground 250g</p>
+                            <div class="product-price-large">11,000 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Ground 250g', 11000, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_meddark.png')"></div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium to Dark</h3>
+                            <p class="product-desc">Beans 500g</p>
+                            <div class="product-price-large">15,500 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Beans 500g', 15500, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_meddark.png')"></div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium to Dark</h3>
+                            <p class="product-desc">Ground 500g</p>
+                            <div class="product-price-large">17,000 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Ground 500g', 17000, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_meddark.png')"></div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium to Dark</h3>
+                            <p class="product-desc">Beans 1kg</p>
+                            <div class="product-price-large">30,000 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Beans 1kg', 30000, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_meddark.png')"></div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium to Dark</h3>
+                            <p class="product-desc">Ground 1kg</p>
+                            <div class="product-price-large">32,000 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Ground 1kg', 32000, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="category-title">Dark Roast</h3>
+                <p class="category-desc">Bold, intense, and deeply aromatic for a classic cup.</p>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_dark.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Dark Roast</h3>
-                            <p class="product-desc">Bold, intense, and deeply aromatic for a classic cup.</p>
-                            <div class="product-pricing">
-                                <select class="variant-select" id="variant-dark">
-                                    <option value="15500|Beans 500g">Beans 500g - 15,500 TZS</option>
-                                    <option value="30000|Beans 1kg">Beans 1kg - 30,000 TZS</option>
-                                    <option value="32000|Ground 1kg">Ground 1kg - 32,000 TZS</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'variant-dark', 'assets/coffee_bag_dark.png')">
-                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
-                            </button>
+                            <p class="product-desc">Beans 500g</p>
+                            <div class="product-price-large">15,500 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'Beans 500g', 15500, 'assets/coffee_bag_dark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_dark.png')"></div>
+                        <div class="product-details">
+                            <h3 class="product-name">Dark Roast</h3>
+                            <p class="product-desc">Beans 1kg</p>
+                            <div class="product-price-large">30,000 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'Beans 1kg', 30000, 'assets/coffee_bag_dark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('assets/coffee_bag_dark.png')"></div>
+                        <div class="product-details">
+                            <h3 class="product-name">Dark Roast</h3>
+                            <p class="product-desc">Ground 1kg</p>
+                            <div class="product-price-large">32,000 TZS</div>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'Ground 1kg', 32000, 'assets/coffee_bag_dark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>

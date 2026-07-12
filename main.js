@@ -39,12 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Cart Functions
-function addToCart(productName, selectId, imgUrl) {
-    const selectElem = document.getElementById(selectId);
-    const selectedVal = selectElem.value; // format: "15500|Beans 500g"
-    const [priceStr, variantName] = selectedVal.split('|');
-    const price = parseInt(priceStr);
-
+function addToCart(productName, variantName, price, imgUrl) {
     // Check if item already exists in cart
     const existingItemIndex = cart.findIndex(item => item.product === productName && item.variant === variantName);
     
