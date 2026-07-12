@@ -418,8 +418,9 @@ body {
 }
 
 .product-image {
-    height: 250px;
-    background-size: cover;
+    height: 350px;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: center;
     position: relative;
 }
@@ -443,6 +444,8 @@ body {
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     flex-grow: 1;
 }
 
