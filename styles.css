@@ -868,3 +868,13 @@ body {
     font-weight: bold;
     margin-bottom: 1.5rem;
 }
+
+.bag-250g {
+    height: 200px !important;
+}
+.bag-500g {
+    height: 280px !important;
+}
+.bag-1kg {
+    height: 380px !important;
+}
