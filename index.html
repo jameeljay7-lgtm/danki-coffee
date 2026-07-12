@@ -46,9 +46,9 @@
             </nav>
 
             <div class="nav-actions">
-                <button class="cart-btn" aria-label="Shopping Cart">
+                <button class="cart-btn" aria-label="Shopping Cart" onclick="toggleCart()">
                     <i class="fa-solid fa-bag-shopping"></i>
-                    <!-- The badge is hidden if count is 0 -->
+                    <span class="cart-badge" id="cart-badge" style="display: none;">0</span>
                 </button>
                 <button class="mobile-menu-btn" aria-label="Toggle Menu" id="mobile-menu-btn">
                     <i class="fa-solid fa-bars"></i>
@@ -126,13 +126,15 @@
                             <h3 class="product-name">Medium Roast</h3>
                             <p class="product-desc">Smooth, balanced, and perfect for everyday brewing.</p>
                             <div class="product-pricing">
-                                <div class="price-row"><span>Beans 500g</span><span>15,500 TZS</span></div>
-                                <div class="price-row"><span>Beans 1kg</span><span>30,000 TZS</span></div>
-                                <div class="price-row"><span>Ground 1kg</span><span>32,000 TZS</span></div>
+                                <select class="variant-select" id="variant-medium">
+                                    <option value="15500|Beans 500g">Beans 500g - 15,500 TZS</option>
+                                    <option value="30000|Beans 1kg">Beans 1kg - 30,000 TZS</option>
+                                    <option value="32000|Ground 1kg">Ground 1kg - 32,000 TZS</option>
+                                </select>
                             </div>
-                            <a href="https://wa.me/255744600042?text=Hello! I would like to order the Medium Roast coffee." target="_blank" class="btn btn-primary btn-full">
-                                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
-                            </a>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'variant-medium', 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=150&auto=format&fit=crop')">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
                         </div>
                     </div>
 
@@ -145,16 +147,18 @@
                             <h3 class="product-name">Medium to Dark</h3>
                             <p class="product-desc">A rich, full-bodied profile bridging balance and intensity.</p>
                             <div class="product-pricing">
-                                <div class="price-row"><span>Beans 250g</span><span>10,000 TZS</span></div>
-                                <div class="price-row"><span>Ground 250g</span><span>11,000 TZS</span></div>
-                                <div class="price-row"><span>Beans 500g</span><span>15,500 TZS</span></div>
-                                <div class="price-row"><span>Ground 500g</span><span>17,000 TZS</span></div>
-                                <div class="price-row"><span>Beans 1kg</span><span>30,000 TZS</span></div>
-                                <div class="price-row"><span>Ground 1kg</span><span>32,000 TZS</span></div>
+                                <select class="variant-select" id="variant-meddark">
+                                    <option value="10000|Beans 250g">Beans 250g - 10,000 TZS</option>
+                                    <option value="11000|Ground 250g">Ground 250g - 11,000 TZS</option>
+                                    <option value="15500|Beans 500g">Beans 500g - 15,500 TZS</option>
+                                    <option value="17000|Ground 500g">Ground 500g - 17,000 TZS</option>
+                                    <option value="30000|Beans 1kg">Beans 1kg - 30,000 TZS</option>
+                                    <option value="32000|Ground 1kg">Ground 1kg - 32,000 TZS</option>
+                                </select>
                             </div>
-                            <a href="https://wa.me/255744600042?text=Hello! I would like to order the Medium to Dark Roast coffee." target="_blank" class="btn btn-primary btn-full">
-                                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
-                            </a>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'variant-meddark', 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=150&auto=format&fit=crop')">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
                         </div>
                     </div>
 
@@ -167,13 +171,15 @@
                             <h3 class="product-name">Dark Roast</h3>
                             <p class="product-desc">Bold, intense, and deeply aromatic for a classic cup.</p>
                             <div class="product-pricing">
-                                <div class="price-row"><span>Beans 500g</span><span>15,500 TZS</span></div>
-                                <div class="price-row"><span>Beans 1kg</span><span>30,000 TZS</span></div>
-                                <div class="price-row"><span>Ground 1kg</span><span>32,000 TZS</span></div>
+                                <select class="variant-select" id="variant-dark">
+                                    <option value="15500|Beans 500g">Beans 500g - 15,500 TZS</option>
+                                    <option value="30000|Beans 1kg">Beans 1kg - 30,000 TZS</option>
+                                    <option value="32000|Ground 1kg">Ground 1kg - 32,000 TZS</option>
+                                </select>
                             </div>
-                            <a href="https://wa.me/255744600042?text=Hello! I would like to order the Dark Roast coffee." target="_blank" class="btn btn-primary btn-full">
-                                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
-                            </a>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'variant-dark', 'https://images.unsplash.com/photo-1524350876685-274059332603?q=80&w=150&auto=format&fit=crop')">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -199,6 +205,52 @@
                 <p>&copy; 2026 Danki Coffee. All rights reserved.</p>
             </div>
         </footer>
+
+        <!-- Cart Sidebar -->
+        <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+        <div class="cart-sidebar" id="cart-sidebar">
+            <div class="cart-header">
+                <h2>Your Cart</h2>
+                <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be injected here via JS -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total-price">0 TZS</span>
+                </div>
+                <button class="btn btn-primary btn-full" onclick="openLipaModal()" id="checkout-btn" disabled>
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+
+        <!-- LIPA Checkout Modal -->
+        <div class="lipa-overlay" id="lipa-overlay">
+            <div class="lipa-modal">
+                <div class="lipa-header">
+                    <h2>Complete Payment</h2>
+                    <button class="close-modal" onclick="closeLipaModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="lipa-body">
+                    <div class="lipa-instructions">
+                        <p class="lipa-step">1. Dial <strong>*150*00#</strong> on your phone</p>
+                        <p class="lipa-step">2. Select <strong>Pay by M-Pesa</strong></p>
+                        <p class="lipa-step">3. Enter LIPA Number: <strong class="lipa-highlight">[YOUR NUMBER HERE]</strong></p>
+                        <p class="lipa-step">4. Enter Amount: <strong class="lipa-highlight" id="lipa-amount">0 TZS</strong></p>
+                    </div>
+                    <div class="lipa-input-group">
+                        <label for="receipt-code">Enter your M-Pesa Confirmation Code:</label>
+                        <input type="text" id="receipt-code" placeholder="e.g. Q1W2E3R4" required>
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="submitOrder()">
+                        <i class="fa-brands fa-whatsapp"></i> Send Order via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Scripts -->
