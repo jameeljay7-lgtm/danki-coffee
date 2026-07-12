@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Perfect SEO Meta Tags -->
+    <title>Danki Coffee | Premium 100% Arabica Roasters</title>
+    <meta name="description" content="Experience the depth of 100% Arabica beans, masterfully roasted in small batches in Cape Town. Discover premium, artisanal single-origin coffee.">
+    <meta name="keywords" content="coffee, arabica, artisan coffee, coffee roaster, cape town, premium coffee beans">
+    
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="Danki Coffee | Masterfully Roasted">
+    <meta property="og:description" content="Experience the depth of 100% Arabica beans, masterfully roasted in small batches.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts: Inter and Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+:root {
+    --color-bg: #0c0a09; /* stone-950 */
+    --color-bg-light: #1c1917; /* stone-900 */
+    --color-text-main: #fafaf9; /* stone-50 */
+    --color-text-muted: #a8a29e; /* stone-400 */
+    --color-accent-gold: #fbbf24; /* amber-400 */
+    --color-accent-gold-dark: #b45309; /* amber-700 */
+    --color-accent-gold-hover: #d97706; /* amber-600 */
+    
+    --font-sans: 'Inter', sans-serif;
+    --font-display: 'Playfair Display', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* =========================================
+   HEADER & NAVIGATION
+========================================= */
+#main-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    transition: all 0.3s ease;
+    background-color: transparent;
+}
+
+#main-nav.scrolled {
+    background-color: rgba(12, 10, 9, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    color: var(--color-accent-gold);
+}
+
+.logo-tagline {
+    font-size: 0.75rem;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+}
+
+.desktop-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+}
+
+.desktop-nav a {
+    text-decoration: none;
+    color: var(--color-text-main);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: color 0.2s ease;
+}
+
+.desktop-nav a:hover {
+    color: var(--color-accent-gold);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.cart-btn, .mobile-menu-btn {
+    background: none;
+    border: none;
+    color: var(--color-text-main);
+    font-size: 1.25rem;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.cart-btn:hover {
+    color: var(--color-accent-gold);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--color-accent-gold-dark);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    display: none; /* hidden by default */
+}
+
+.mobile-menu-btn {
+    display: none;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-bg-light);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobile-menu.active {
+    display: flex;
+}
+
+.mobile-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.mobile-menu a {
+    text-decoration: none;
+    color: var(--color-text-main);
+    font-size: 1.125rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* =========================================
+   HERO SECTION
+========================================= */
+.hero-section {
+    position: relative;
+    min-height: max(100vh, 720px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url('https://images.unsplash.com/photo-1638126687923-31912a6ee0ff?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    padding: 0 2rem;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(12,10,9,0.9) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    margin-top: 4rem;
+    animation: fadeUp 1s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title {
+    font-family: var(--font-sans);
+    font-weight: 200; /* extralight */
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+}
+
+.italic-accent {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--color-accent-gold);
+}
+
+.hero-subtitle {
+    color: var(--color-text-muted);
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    font-weight: 300;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--color-accent-gold-dark);
+    color: white;
+    box-shadow: 0 4px 14px rgba(180, 83, 9, 0.4);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent-gold-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(180, 83, 9, 0.6);
+}
+
+.btn-primary i {
+    transition: transform 0.3s ease;
+}
+
+.btn-primary:hover i {
+    transform: translateX(4px);
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Hero Features (Footer style in hero) */
+.hero-features {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 0 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.feature-title {
+    font-weight: 700;
+    color: var(--color-accent-gold);
+    font-size: 1.125rem;
+}
+
+.feature-desc {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none;
+    }
+    .mobile-menu-btn {
+        display: block;
+    }
+    .hero-features {
+        gap: 1rem;
+    }
+    .feature-title {
+        font-size: 1rem;
+    }
+    .feature-desc {
+        font-size: 0.65rem;
+    }
+}
+
+/* =========================================
+   COFFEE COLLECTION SECTION
+========================================= */
+.coffee-section {
+    padding: 6rem 2rem;
+    background-color: var(--color-bg);
+}
+
+.section-container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    color: var(--color-accent-gold);
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.section-subtitle {
+    color: var(--color-text-muted);
+    font-size: 1.125rem;
+    font-weight: 300;
+}
+
+.section-grind-notice {
+    color: var(--color-accent-gold);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    background: rgba(251, 191, 36, 0.1);
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.section-grind-notice i {
+    margin-right: 0.5rem;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem;
+}
+
+.product-card {
+    background-color: var(--color-bg-light);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-color: rgba(251, 191, 36, 0.2);
+}
+
+.product-image {
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.product-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: var(--color-bg);
+    color: var(--color-accent-gold);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--color-accent-gold);
+}
+
+.product-details {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-name {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-main);
+}
+
+.product-desc {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+}
+
+.product-pricing {
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    font-size: 0.875rem;
+}
+
+.price-row:last-child {
+    border-bottom: none;
+}
+
+.price-row span:first-child {
+    color: var(--color-text-muted);
+}
+
+.price-row span:last-child {
+    font-weight: 600;
+    color: var(--color-accent-gold);
+}
+
+.btn-full {
+    width: 100%;
+    justify-content: center;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+.site-footer {
+    background-color: #050404;
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-brand h2 {
+    font-family: var(--font-display);
+    color: var(--color-accent-gold);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+}
+
+.footer-brand p, .footer-contact p {
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+}
+
+.footer-contact h3 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.footer-contact i {
+    color: var(--color-accent-gold);
+    width: 20px;
+}
+
+.footer-bottom {
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+</style>
+</head>
+<body>
+
+    <!-- Semantic Header / Navigation -->
+    <header id="main-nav">
+        <div class="nav-container">
+            <div class="logo-area">
+                <a href="#" class="logo-link" aria-label="Danki Coffee Home">
+                    <span class="logo-text">DANKI</span>
+                    <span class="logo-tagline">its not just coffee its love</span>
+                </a>
+            </div>
+            
+            <nav class="desktop-nav" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#coffee">The Coffee</a></li>
+                    <li><a href="#story">Our Story</a></li>
+                    <li><a href="#contact">Order Now</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="cart-btn" aria-label="Shopping Cart">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <!-- The badge is hidden if count is 0 -->
+                </button>
+                <button class="mobile-menu-btn" aria-label="Toggle Menu" id="mobile-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu" id="mobile-menu">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#coffee">The Coffee</a></li>
+                <li><a href="#story">Our Story</a></li>
+                <li><a href="#contact">Order Now</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <!-- Perfect H1 Tag for SEO -->
+                <h1 class="hero-title">
+                    Pure Arabica,<br>
+                    <span class="italic-accent">Masterfully</span> Roasted
+                </h1>
+                <p class="hero-subtitle">
+                    Experience the depth of 100% Arabica beans, roasted in small batches to preserve every nuanced flavor of the terroir.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#coffee" class="btn btn-primary">
+                        Explore Collections <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#story" class="btn btn-secondary">
+                        Our Craft Story
+                    </a>
+                </div>
+            </div>
+
+            <!-- Footer-style Features in Hero -->
+            <div class="hero-features">
+                <div class="feature">
+                    <span class="feature-title">100%</span>
+                    <span class="feature-desc">SINGLE ORIGIN</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-title">PREMIUM</span>
+                    <span class="feature-desc">ARABICA BEANS</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-title">ARTISAN</span>
+                    <span class="feature-desc">SMALL BATCHES</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- The Coffee Section -->
+        <section id="coffee" class="coffee-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">The Collection</h2>
+                    <p class="section-subtitle">Premium Tanzanian Arabica, roasted to perfection in Dar es Salaam.</p>
+                    <p class="section-grind-notice"><i class="fa-solid fa-mortar-pestle"></i> We grind your coffee exactly how you want it—just let us know your preferred brewing method!</p>
+                </div>
+                
+                <div class="product-grid">
+                    <!-- Medium Roast -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=600&auto=format&fit=crop')">
+                            <div class="product-badge">Medium</div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium Roast</h3>
+                            <p class="product-desc">Smooth, balanced, and perfect for everyday brewing.</p>
+                            <div class="product-pricing">
+                                <div class="price-row"><span>Beans 500g</span><span>15,500 TZS</span></div>
+                                <div class="price-row"><span>Beans 1kg</span><span>30,000 TZS</span></div>
+                                <div class="price-row"><span>Ground 1kg</span><span>32,000 TZS</span></div>
+                            </div>
+                            <a href="https://wa.me/255744600042?text=Hello! I would like to order the Medium Roast coffee." target="_blank" class="btn btn-primary btn-full">
+                                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Medium to Dark Roast -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop')">
+                            <div class="product-badge">Med-Dark</div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium to Dark</h3>
+                            <p class="product-desc">A rich, full-bodied profile bridging balance and intensity.</p>
+                            <div class="product-pricing">
+                                <div class="price-row"><span>Beans 250g</span><span>10,000 TZS</span></div>
+                                <div class="price-row"><span>Ground 250g</span><span>11,000 TZS</span></div>
+                                <div class="price-row"><span>Beans 500g</span><span>15,500 TZS</span></div>
+                                <div class="price-row"><span>Ground 500g</span><span>17,000 TZS</span></div>
+                                <div class="price-row"><span>Beans 1kg</span><span>30,000 TZS</span></div>
+                                <div class="price-row"><span>Ground 1kg</span><span>32,000 TZS</span></div>
+                            </div>
+                            <a href="https://wa.me/255744600042?text=Hello! I would like to order the Medium to Dark Roast coffee." target="_blank" class="btn btn-primary btn-full">
+                                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Dark Roast -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1524350876685-274059332603?q=80&w=600&auto=format&fit=crop')">
+                            <div class="product-badge">Dark</div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Dark Roast</h3>
+                            <p class="product-desc">Bold, intense, and deeply aromatic for a classic cup.</p>
+                            <div class="product-pricing">
+                                <div class="price-row"><span>Beans 500g</span><span>15,500 TZS</span></div>
+                                <div class="price-row"><span>Beans 1kg</span><span>30,000 TZS</span></div>
+                                <div class="price-row"><span>Ground 1kg</span><span>32,000 TZS</span></div>
+                            </div>
+                            <a href="https://wa.me/255744600042?text=Hello! I would like to order the Dark Roast coffee." target="_blank" class="btn btn-primary btn-full">
+                                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer / Contact -->
+        <footer id="contact" class="site-footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <h2>DANKI</h2>
+                    <p>DANKI INVESTMENTS</p>
+                    <p>Box 60332, Dar es Salaam, Tanzania</p>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fa-solid fa-phone"></i> +255 744 600042</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@dankicoffee.co.tz</p>
+                    <p>Contact: Catherine Kikkides</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Danki Coffee. All rights reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Navigation Scroll Effect
+    const nav = document.getElementById('main-nav');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+
+    // 2. Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const icon = mobileMenuBtn.querySelector('i');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        
+        // Toggle icon between bars and x
+        if (mobileMenu.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-xmark');
+        } else {
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    // Close mobile menu when a link is clicked
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
+        });
+    });
+});
+
+</script>
+</body>
+</html>

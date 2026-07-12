@@ -1,0 +1,71 @@
+<section id="coffee" class="coffee-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">The Collection</h2>
+                    <p class="section-subtitle">Premium Tanzanian Arabica, roasted to perfection in Dar es Salaam.</p>
+                    <p class="section-grind-notice"><i class="fa-solid fa-mortar-pestle"></i> We grind your coffee exactly how you want it—just let us know your preferred brewing method!</p>
+                </div>
+                
+                <div class="product-grid">
+                    <!-- Medium Roast -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=600&auto=format&fit=crop')">
+                            <div class="product-badge">Medium</div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium Roast</h3>
+                            <p class="product-desc">Smooth, balanced, and perfect for everyday brewing.</p>
+                            <div class="product-pricing">
+                                <div class="price-row"><span>Beans 500g</span><span>15,500 TZS</span></div>
+                                <div class="price-row"><span>Beans 1kg</span><span>30,000 TZS</span></div>
+                                <div class="price-row"><span>Ground 1kg</span><span>32,000 TZS</span></div>
+                            </div>
+                            <a href="https://wa.me/255744600042?text=Hello! I would like to order the Medium Roast coffee." target="_blank" class="btn btn-primary btn-full">
+                                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Medium to Dark Roast -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop')">
+                            <div class="product-badge">Med-Dark</div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Medium to Dark</h3>
+                            <p class="product-desc">A rich, full-bodied profile bridging balance and intensity.</p>
+                            <div class="product-pricing">
+                                <div class="price-row"><span>Beans 250g</span><span>10,000 TZS</span></div>
+                                <div class="price-row"><span>Ground 250g</span><span>11,000 TZS</span></div>
+                                <div class="price-row"><span>Beans 500g</span><span>15,500 TZS</span></div>
+                                <div class="price-row"><span>Ground 500g</span><span>17,000 TZS</span></div>
+                                <div class="price-row"><span>Beans 1kg</span><span>30,000 TZS</span></div>
+                                <div class="price-row"><span>Ground 1kg</span><span>32,000 TZS</span></div>
+                            </div>
+                            <a href="https://wa.me/255744600042?text=Hello! I would like to order the Medium to Dark Roast coffee." target="_blank" class="btn btn-primary btn-full">
+                                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Dark Roast -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1524350876685-274059332603?q=80&w=600&auto=format&fit=crop')">
+                            <div class="product-badge">Dark</div>
+                        </div>
+                        <div class="product-details">
+                            <h3 class="product-name">Dark Roast</h3>
+                            <p class="product-desc">Bold, intense, and deeply aromatic for a classic cup.</p>
+                            <div class="product-pricing">
+                                <div class="price-row"><span>Beans 500g</span><span>15,500 TZS</span></div>
+                                <div class="price-row"><span>Beans 1kg</span><span>30,000 TZS</span></div>
+                                <div class="price-row"><span>Ground 1kg</span><span>32,000 TZS</span></div>
+                            </div>
+                            <a href="https://wa.me/255744600042?text=Hello! I would like to order the Dark Roast coffee." target="_blank" class="btn btn-primary btn-full">
+                                <i class="fa-brands fa-whatsapp"></i> Order via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>

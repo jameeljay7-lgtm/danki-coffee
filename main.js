@@ -145,33 +145,47 @@ function closeLipaModal() {
     modal.classList.remove('active');
 }
 
-function submitOrder() {
-    const receiptCode = document.getElementById('receipt-code').value.trim();
-    if (!receiptCode) {
-        alert("Please paste your full M-Pesa confirmation message first!");
+async function submitOrder() {
+    const phone = document.getElementById('receipt-code').value.trim();
+    if (!phone) {
+        alert("Please enter your M-Pesa phone number!");
         return;
     }
 
-    let orderText = "Hello! New Order:\n\n";
     let total = 0;
-
     cart.forEach(item => {
-        orderText += `${item.quantity}x ${item.product} (${item.variant}) - ${(item.price * item.quantity).toLocaleString()} TZS\n`;
         total += (item.price * item.quantity);
     });
 
-    orderText += `\nTotal: ${total.toLocaleString()} TZS\n`;
-    orderText += `\n--- M-Pesa Confirmation Message ---\n${receiptCode}`;
+    const btn = document.querySelector('.btn-full');
+    const originalText = btn.innerText;
+    btn.innerText = "Processing...";
+    btn.disabled = true;
 
-    const encodedText = encodeURIComponent(orderText);
-    const whatsappUrl = `https://wa.me/255773421941?text=${encodedText}`;
-    
-    // Close modal and clear cart
-    closeLipaModal();
-    cart = [];
-    updateCartUI();
-    document.getElementById('receipt-code').value = '';
-    
-    // Redirect to WhatsApp
-    window.open(whatsappUrl, '_blank');
+    try {
+        const response = await fetch('/api/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ phone: phone, amount: total })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            alert("Payment initiated! Check your phone for the M-Pesa PIN prompt.");
+            closeLipaModal();
+            cart = [];
+            updateCartUI();
+            document.getElementById('receipt-code').value = '';
+        } else {
+            alert("Payment failed: " + JSON.stringify(data.error));
+        }
+    } catch (err) {
+        alert("An error occurred: " + err.message);
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
 }
