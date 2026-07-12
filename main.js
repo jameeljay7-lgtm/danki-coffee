@@ -164,7 +164,7 @@ function submitOrder() {
     orderText += `M-Pesa Confirmation Code: ${receiptCode}`;
 
     const encodedText = encodeURIComponent(orderText);
-    const whatsappUrl = `https://wa.me/255744600042?text=${encodedText}`;
+    const whatsappUrl = `https://wa.me/255773421941?text=${encodedText}`;
     
     // Close modal and clear cart
     closeLipaModal();
