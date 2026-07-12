@@ -148,7 +148,7 @@ function closeLipaModal() {
 function submitOrder() {
     const receiptCode = document.getElementById('receipt-code').value.trim();
     if (!receiptCode) {
-        alert("Please enter your M-Pesa confirmation code first!");
+        alert("Please paste your full M-Pesa confirmation message first!");
         return;
     }
 
@@ -161,7 +161,7 @@ function submitOrder() {
     });
 
     orderText += `\nTotal: ${total.toLocaleString()} TZS\n`;
-    orderText += `M-Pesa Confirmation Code: ${receiptCode}`;
+    orderText += `\n--- M-Pesa Confirmation Message ---\n${receiptCode}`;
 
     const encodedText = encodeURIComponent(orderText);
     const whatsappUrl = `https://wa.me/255773421941?text=${encodedText}`;

@@ -826,7 +826,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.lipa-input-group input {
+.lipa-input-group input, .lipa-input-group textarea {
     width: 100%;
     padding: 0.75rem;
     background: var(--color-bg);
@@ -836,9 +836,10 @@ body {
     font-family: monospace;
     font-size: 1rem;
     transition: border-color 0.3s;
+    resize: vertical;
 }
 
-.lipa-input-group input:focus {
+.lipa-input-group input:focus, .lipa-input-group textarea:focus {
     outline: none;
     border-color: var(--color-accent-gold);
 }
