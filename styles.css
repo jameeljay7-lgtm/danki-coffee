@@ -1551,3 +1551,82 @@ body {
 @media (max-width: 768px) {
     .guide-grid { grid-template-columns: 1fr; }
 }
+
+/* =========================================
+   WHOLESALE PAGE
+========================================= */
+.wholesale-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    align-items: flex-start;
+}
+
+.wholesale-info h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-style: italic;
+    color: var(--color-text-main);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.wholesale-info p {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.8;
+}
+
+.wholesale-form-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-divider);
+    border-radius: 6px;
+    padding: 3rem 2.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.wholesale-form-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--color-text-main);
+    margin-bottom: 0.5rem;
+}
+
+/* =========================================
+   CART GRIND SELECTION
+========================================= */
+.cart-item-grind {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.cart-item-grind label {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+}
+
+.cart-item-grind select {
+    background: var(--color-bg);
+    border: 1px solid var(--color-divider);
+    border-radius: 2px;
+    color: white;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    padding: 0.15rem 0.4rem;
+    outline: none;
+    cursor: pointer;
+}
+
+.cart-item-grind select:focus {
+    border-color: var(--color-accent-gold);
+}
+
+/* Responsive Wholesale */
+@media (max-width: 1024px) {
+    .wholesale-grid { grid-template-columns: 1fr; gap: 3rem; }
+}

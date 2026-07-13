@@ -121,7 +121,8 @@ function addToCart(productName, variantName, price, imgUrl) {
             variant: variantName,
             price: price,
             img: imgUrl,
-            quantity: 1
+            quantity: 1,
+            grind: 'Whole Beans'
         });
     }
 
@@ -163,12 +164,24 @@ function updateCartUI() {
             totalItems += item.quantity;
             totalPrice += item.price * item.quantity;
 
+            // Ensure grind profile is initialized
+            if (!item.grind) item.grind = 'Whole Beans';
+
             itemsContainer.innerHTML += `
                 <div class="cart-item">
                     <div class="cart-item-img" style="background-image: url('${item.img}')"></div>
                     <div class="cart-item-info">
                         <div class="cart-item-title">${item.product}</div>
                         <div class="cart-item-variant">${item.variant}</div>
+                        <div class="cart-item-grind">
+                            <label for="grind-${index}">Grind:</label>
+                            <select id="grind-${index}" onchange="updateGrind(${index}, this.value)">
+                                <option value="Whole Beans" ${item.grind === 'Whole Beans' ? 'selected' : ''}>Whole Beans</option>
+                                <option value="Fine (Espresso)" ${item.grind === 'Fine (Espresso)' ? 'selected' : ''}>Fine (Espresso)</option>
+                                <option value="Medium (Filter)" ${item.grind === 'Medium (Filter)' ? 'selected' : ''}>Medium (Filter)</option>
+                                <option value="Coarse (French Press)" ${item.grind === 'Coarse (French Press)' ? 'selected' : ''}>Coarse (French Press)</option>
+                            </select>
+                        </div>
                         <div class="cart-item-controls">
                             <div class="qty-control">
                                 <button class="qty-btn" onclick="updateQuantity(${index}, -1)"><i class="fa-solid fa-minus"></i></button>
@@ -247,9 +260,9 @@ async function submitOrder() {
         if (successModal) {
             const waBtn = document.getElementById('whatsapp-confirm-btn');
             if (waBtn) {
-                let orderDetails = "Hello Danki Coffee! I have just placed an order:\n\n";
+                 let orderDetails = "Hello Danki Coffee! I have just placed an order:\n\n";
                 cart.forEach(item => {
-                    orderDetails += `☕ ${item.product} (${item.variant}) x ${item.quantity}\n`;
+                    orderDetails += `☕ ${item.product} (${item.variant}) [${item.grind || 'Whole Beans'}] x ${item.quantity}\n`;
                 });
                 orderDetails += `\n💰 Total: ${total.toLocaleString()} TZS\n`;
                 orderDetails += `📱 Paid from Phone: ${phone}\n\n`;
@@ -291,4 +304,29 @@ async function submitOrder() {
 function closeSuccessModal() {
     const modal = document.getElementById('success-overlay');
     if (modal) modal.classList.remove('active');
+}
+
+function updateGrind(index, value) {
+    if (index < 0 || index >= cart.length) return;
+    cart[index].grind = value;
+    saveCart();
+}
+
+function submitWholesaleInquiry(e) {
+    e.preventDefault();
+    const company = document.getElementById('ws-company').value.trim();
+    const contact = document.getElementById('ws-contact').value.trim();
+    const phone = document.getElementById('ws-phone').value.trim();
+    const volume = document.getElementById('ws-volume').value;
+    const notes = document.getElementById('ws-notes').value.trim();
+
+    let message = `Hello Danki Coffee! I am interested in a wholesale partnership:\n\n`;
+    message += `🏢 Company: ${company}\n`;
+    message += `👤 Contact Person: ${contact}\n`;
+    message += `📱 Phone Number: ${phone}\n`;
+    message += `📦 Estimated Volume: ${volume} / month\n`;
+    message += `📝 Details: ${notes}`;
+
+    const encoded = encodeURIComponent(message);
+    window.open(`https://wa.me/255744600042?text=${encoded}`, '_blank');
 }
