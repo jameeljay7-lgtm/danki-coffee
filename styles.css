@@ -1468,3 +1468,80 @@ body {
 .success-details strong {
     color: var(--color-accent-gold);
 }
+
+/* =========================================
+   BREWING GUIDE
+========================================= */
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.guide-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-divider);
+    border-radius: 4px;
+    padding: 2.5rem 1.75rem;
+    transition: all 0.3s ease;
+}
+
+.guide-card:hover {
+    border-color: rgba(212, 168, 83, 0.15);
+    transform: translateY(-3px);
+}
+
+.guide-icon {
+    font-size: 1.5rem;
+    color: var(--color-accent-gold);
+    margin-bottom: 1.25rem;
+}
+
+.guide-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    margin-bottom: 1.25rem;
+    color: var(--color-text-main);
+}
+
+.guide-specs {
+    list-style: none;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-divider);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.guide-specs li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.guide-specs li span {
+    color: var(--color-text-muted);
+}
+
+.guide-specs li strong {
+    color: var(--color-text-main);
+    font-weight: 500;
+}
+
+.guide-card p {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+/* Responsive Overrides */
+@media (max-width: 1024px) {
+    .guide-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+    .guide-grid { grid-template-columns: 1fr; }
+}
