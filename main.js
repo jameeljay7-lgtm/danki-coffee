@@ -102,6 +102,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isInnerPage && nav) {
         nav.classList.add('scrolled');
     }
+
+    // 7. FAQ Accordion Click Handlers
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const faqItem = button.parentElement;
+            const faqAnswer = faqItem.querySelector('.faq-answer');
+            const isActive = faqItem.classList.contains('active');
+            
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+                item.querySelector('.faq-answer').style.maxHeight = null;
+            });
+            
+            if (!isActive) {
+                faqItem.classList.add('active');
+                faqAnswer.style.maxHeight = faqAnswer.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // 8. Testimonials slide auto-advance
+    if (document.querySelector('.testimonial-slide')) {
+        startTestimonialTimer();
+    }
 });
 
 // =========================================
@@ -226,7 +250,11 @@ function openLipaModal() {
     if (cart.length === 0) return;
     toggleCart();
     const modal = document.getElementById('lipa-overlay');
-    if (modal) modal.classList.add('active');
+    if (modal) {
+        modal.classList.add('active');
+        ussdStep = 0;
+        updateUssdScreen();
+    }
 }
 
 function closeLipaModal() {
@@ -329,4 +357,201 @@ function submitWholesaleInquiry(e) {
 
     const encoded = encodeURIComponent(message);
     window.open(`https://wa.me/255744600042?text=${encoded}`, '_blank');
+}
+
+// =========================================
+// M-PESA USSD DIALER SIMULATOR
+// =========================================
+let ussdStep = 0;
+
+function updateUssdScreen() {
+    const display = document.getElementById('ussd-display');
+    const inputVal = document.getElementById('ussd-input-val');
+    const backBtn = document.getElementById('ussd-back-btn');
+    const nextBtn = document.getElementById('ussd-next-btn');
+    
+    if (!display || !inputVal) return;
+    
+    let total = 0;
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+    });
+    
+    const steps = [
+        {
+            menu: "Dialing...\n\nPress NEXT to connect to Vodacom M-Pesa",
+            input: "*150*00#"
+        },
+        {
+            menu: "M-Pesa\n1: Tuma Pesa\n2: Toa Pesa\n3: Nunua Kifurushi\n4: Lipa Bili (Pay Bills)\n5: Huduma za Kifedha",
+            input: "4"
+        },
+        {
+            menu: "Lipa Bili\n1: LIPA Kwa M-Pesa\n2: Nunua Luku\n3: Nunua King'amuzi",
+            input: "1"
+        },
+        {
+            menu: "Enter LIPA Number:",
+            input: "58223806"
+        },
+        {
+            menu: `Enter Amount (TZS):\n\n(Your Cart Total is ${total.toLocaleString()} TZS)`,
+            input: `${total.toLocaleString()}`
+        },
+        {
+            menu: `Enter PIN to confirm payment of ${total.toLocaleString()} TZS to DANKI INVESTMENTS:`,
+            input: "••••"
+        },
+        {
+            menu: "Payment request sent!\n\nWait for the confirmation SMS from M-Pesa, then enter your phone number on the right and click Pay.",
+            input: "OK"
+        }
+    ];
+    
+    const current = steps[ussdStep];
+    display.innerText = current.menu;
+    inputVal.innerText = current.input;
+    
+    if (backBtn) backBtn.disabled = (ussdStep === 0);
+    if (nextBtn) {
+        if (ussdStep === steps.length - 1) {
+            nextBtn.innerText = "Restart";
+        } else {
+            nextBtn.innerText = "Next";
+        }
+    }
+}
+
+function nextUssdStep() {
+    ussdStep = (ussdStep + 1) % 7;
+    updateUssdScreen();
+}
+
+function prevUssdStep() {
+    if (ussdStep > 0) {
+        ussdStep--;
+        updateUssdScreen();
+    }
+}
+
+// =========================================
+// TESTIMONIALS SLIDER
+// =========================================
+let activeSlide = 0;
+let slideInterval;
+
+function setTestimonial(index) {
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    if (slides.length === 0) return;
+    
+    activeSlide = index;
+    slides.forEach((slide, idx) => {
+        slide.classList.toggle('active', idx === index);
+    });
+    dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === index);
+    });
+}
+
+function startTestimonialTimer() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(() => {
+        const slides = document.querySelectorAll('.testimonial-slide');
+        if (slides.length > 0) {
+            const next = (activeSlide + 1) % slides.length;
+            setTestimonial(next);
+        }
+    }, 6000);
+}
+
+// =========================================
+// PRODUCT QUICK VIEW MODAL
+// =========================================
+function openQuickView(card) {
+    const overlay = document.getElementById('quickview-overlay');
+    if (!overlay) return;
+
+    const name = card.getAttribute('data-name');
+    const variant = card.getAttribute('data-variant');
+    const price = parseInt(card.getAttribute('data-price'));
+    const img = card.getAttribute('data-img');
+    const desc = card.getAttribute('data-desc');
+    const acidity = parseInt(card.getAttribute('data-acidity') || '3');
+    const body = parseInt(card.getAttribute('data-body') || '3');
+    const sweetness = parseInt(card.getAttribute('data-sweetness') || '3');
+    const aroma = parseInt(card.getAttribute('data-aroma') || '3');
+    const altitude = card.getAttribute('data-altitude');
+    const process = card.getAttribute('data-process');
+
+    document.getElementById('qv-title').innerText = name + ' (' + variant + ')';
+    document.getElementById('qv-price').innerText = price.toLocaleString() + ' TZS';
+    document.getElementById('qv-desc').innerText = desc;
+    document.getElementById('qv-image').style.backgroundImage = `url('${img}')`;
+    document.getElementById('qv-altitude').innerText = altitude;
+    document.getElementById('qv-process').innerText = process;
+
+    const drawDots = (containerId, activeCount) => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '';
+        for (let i = 1; i <= 5; i++) {
+            container.innerHTML += `<div class="profile-dot ${i <= activeCount ? 'active' : ''}"></div>`;
+        }
+    };
+
+    drawDots('qv-acidity-dots', acidity);
+    drawDots('qv-body-dots', body);
+    drawDots('qv-sweetness-dots', sweetness);
+    drawDots('qv-aroma-dots', aroma);
+
+    // Setup Add to Cart button
+    document.getElementById('qv-add-btn').onclick = () => {
+        const grind = document.getElementById('qv-grind-select').value;
+        addToCartWithGrind(name, variant, price, img, grind);
+        closeQuickView();
+    };
+
+    overlay.classList.add('active');
+}
+
+function closeQuickView(event) {
+    const overlay = document.getElementById('quickview-overlay');
+    if (!overlay) return;
+
+    if (event) {
+        if (event.target === overlay) {
+            overlay.classList.remove('active');
+        }
+    } else {
+        overlay.classList.remove('active');
+    }
+}
+
+function addToCartWithGrind(productName, variantName, price, imgUrl, grind) {
+    const existingIndex = cart.findIndex(
+        item => item.product === productName && item.variant === variantName
+    );
+
+    if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
+        cart[existingIndex].grind = grind;
+    } else {
+        cart.push({
+            product: productName,
+            variant: variantName,
+            price: price,
+            img: imgUrl,
+            quantity: 1,
+            grind: grind
+        });
+    }
+
+    saveCart();
+    updateCartUI();
+
+    const sidebar = document.getElementById('cart-sidebar');
+    if (sidebar && !sidebar.classList.contains('active')) {
+        toggleCart();
+    }
 }

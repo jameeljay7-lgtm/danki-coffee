@@ -221,6 +221,38 @@
             </div>
         </section>
 
+        <!-- Testimonials Section -->
+        <section class="section section-alt">
+            <div class="section-container">
+                <div class="section-header animate-on-load">
+                    <span class="section-label">Love from Dar</span>
+                    <h2 class="section-title">What Our Community Says</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="testimonial-slider animate-on-load animate-delay-1" id="testimonial-slider">
+                    <div class="testimonial-slide active">
+                        <p class="testimonial-quote">"Danki Coffee is our go-to roast at our guest house in Masaki. Our visitors constantly praise the rich flavor and smooth crema."</p>
+                        <span class="testimonial-author">— Catherine M. · Boutique Owner</span>
+                    </div>
+                    <div class="testimonial-slide">
+                        <p class="testimonial-quote">"Artisan small-batch roasting at its absolute best in Tanzania. Sourcing local Arabica beans makes all the difference in the world."</p>
+                        <span class="testimonial-author">— Thomas K. · Coffee Lover, Oysterbay</span>
+                    </div>
+                    <div class="testimonial-slide">
+                        <p class="testimonial-quote">"The WhatsApp order flow is brilliant. I pay via M-Pesa, confirm on WhatsApp, and receive freshly roasted beans the next morning!"</p>
+                        <span class="testimonial-author">— Sarah L. · Home Barista</span>
+                    </div>
+                </div>
+
+                <div class="slider-dots" id="slider-dots">
+                    <div class="slider-dot active" onclick="setTestimonial(0)"></div>
+                    <div class="slider-dot" onclick="setTestimonial(1)"></div>
+                    <div class="slider-dot" onclick="setTestimonial(2)"></div>
+                </div>
+            </div>
+        </section>
+
         <!-- CTA Banner -->
         <section class="cta-banner">
             <div class="section-container animate-on-load">
@@ -294,19 +326,41 @@
                 <button class="close-modal" onclick="closeLipaModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="lipa-body">
-                <div class="lipa-instructions">
-                    <p class="lipa-step">1. Dial <strong>*150*00#</strong> on your phone</p>
-                    <p class="lipa-step">2. Select <strong>Pay by M-Pesa</strong></p>
-                    <p class="lipa-step">3. Enter LIPA Number: <strong class="lipa-highlight">58223806</strong></p>
-                    <p class="lipa-step">4. Enter Amount: <strong class="lipa-highlight" id="lipa-amount">0 TZS</strong></p>
+                <div class="lipa-layout">
+                    <!-- Left: Phone Simulator -->
+                    <div class="phone-mockup">
+                        <div class="ussd-screen">
+                            <div class="ussd-menu" id="ussd-display">
+                                Dial *150*00# to start payment process.
+                            </div>
+                            <div class="ussd-input-sim">
+                                <span>Input:</span>
+                                <strong id="ussd-input-val">-</strong>
+                            </div>
+                        </div>
+                        <div class="phone-keyboard">
+                            <button class="phone-btn" id="ussd-back-btn" onclick="prevUssdStep()" disabled>Back</button>
+                            <button class="phone-btn" id="ussd-next-btn" onclick="nextUssdStep()">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Actual Form -->
+                    <div>
+                        <div class="lipa-instructions">
+                            <p class="lipa-step">1. Dial <strong>*150*00#</strong> on your phone</p>
+                            <p class="lipa-step">2. Select <strong>Pay by M-Pesa</strong></p>
+                            <p class="lipa-step">3. Enter LIPA Number: <strong class="lipa-highlight">58223806</strong></p>
+                            <p class="lipa-step">4. Enter Amount: <strong class="lipa-highlight" id="lipa-amount">0 TZS</strong></p>
+                        </div>
+                        <div class="lipa-input-group" style="margin-top: 1.25rem;">
+                            <label for="receipt-code">M-Pesa Phone Number</label>
+                            <input type="tel" id="receipt-code" placeholder="e.g. 2557XXXXXXXX" required>
+                        </div>
+                        <button class="btn btn-primary btn-full" onclick="submitOrder()">
+                            Pay with M-Pesa
+                        </button>
+                    </div>
                 </div>
-                <div class="lipa-input-group">
-                    <label for="receipt-code">M-Pesa Phone Number</label>
-                    <input type="tel" id="receipt-code" placeholder="e.g. 2557XXXXXXXX" required>
-                </div>
-                <button class="btn btn-primary btn-full" onclick="submitOrder()">
-                    Pay with M-Pesa
-                </button>
             </div>
         </div>
     </div>

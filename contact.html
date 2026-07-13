@@ -113,6 +113,68 @@
             </div>
         </section>
 
+        <!-- FAQ Section -->
+        <section class="section">
+            <div class="section-container">
+                <div class="section-header animate-on-load">
+                    <span class="section-label">Questions & Answers</span>
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-subtitle">Got questions? We've got answers. If you don't find what you're looking for, feel free to reach out directly.</p>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="faq-container animate-on-load animate-delay-1">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I pay using M-Pesa?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Dial *150*00# on your phone, choose Pay by M-Pesa, enter our Lipa Number 58223806, enter the total amount from your order, and confirm. Once you get the SMS, submit your order on our site and tap "Confirm on WhatsApp" to send us the details.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How fast is delivery in Dar es Salaam?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                We roast our coffee beans fresh to order. Deliveries within Dar es Salaam typically take 24 to 48 hours from payment verification to ensure you receive your roasts at peak freshness.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I order pre-ground coffee?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Yes! You can select your preferred grind type (Whole Beans, Espresso, Filter, or French Press) directly inside the shopping cart sidebar before completing your order.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Where are your coffee beans sourced?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                We source 100% premium Arabica beans from the fertile volcanic soils of the Tanzanian Southern and Northern highlands. Every batch is roasted right here in Dar es Salaam by our family business.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- CTA Section -->
         <section class="section section-dark">
             <div class="section-container">
@@ -180,6 +242,7 @@
         </div>
     </div>
 
+    <!-- LIPA Checkout Modal -->
     <div class="lipa-overlay" id="lipa-overlay">
         <div class="lipa-modal">
             <div class="lipa-header">
@@ -187,19 +250,41 @@
                 <button class="close-modal" onclick="closeLipaModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="lipa-body">
-                <div class="lipa-instructions">
-                    <p class="lipa-step">1. Dial <strong>*150*00#</strong> on your phone</p>
-                    <p class="lipa-step">2. Select <strong>Pay by M-Pesa</strong></p>
-                    <p class="lipa-step">3. Enter LIPA Number: <strong class="lipa-highlight">58223806</strong></p>
-                    <p class="lipa-step">4. Enter Amount: <strong class="lipa-highlight" id="lipa-amount">0 TZS</strong></p>
+                <div class="lipa-layout">
+                    <!-- Left: Phone Simulator -->
+                    <div class="phone-mockup">
+                        <div class="ussd-screen">
+                            <div class="ussd-menu" id="ussd-display">
+                                Dial *150*00# to start payment process.
+                            </div>
+                            <div class="ussd-input-sim">
+                                <span>Input:</span>
+                                <strong id="ussd-input-val">-</strong>
+                            </div>
+                        </div>
+                        <div class="phone-keyboard">
+                            <button class="phone-btn" id="ussd-back-btn" onclick="prevUssdStep()" disabled>Back</button>
+                            <button class="phone-btn" id="ussd-next-btn" onclick="nextUssdStep()">Next</button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Actual Form -->
+                    <div>
+                        <div class="lipa-instructions">
+                            <p class="lipa-step">1. Dial <strong>*150*00#</strong> on your phone</p>
+                            <p class="lipa-step">2. Select <strong>Pay by M-Pesa</strong></p>
+                            <p class="lipa-step">3. Enter LIPA Number: <strong class="lipa-highlight">58223806</strong></p>
+                            <p class="lipa-step">4. Enter Amount: <strong class="lipa-highlight" id="lipa-amount">0 TZS</strong></p>
+                        </div>
+                        <div class="lipa-input-group" style="margin-top: 1.25rem;">
+                            <label for="receipt-code">M-Pesa Phone Number</label>
+                            <input type="tel" id="receipt-code" placeholder="e.g. 2557XXXXXXXX" required>
+                        </div>
+                        <button class="btn btn-primary btn-full" onclick="submitOrder()">
+                            Pay with M-Pesa
+                        </button>
+                    </div>
                 </div>
-                <div class="lipa-input-group">
-                    <label for="receipt-code">M-Pesa Phone Number</label>
-                    <input type="tel" id="receipt-code" placeholder="e.g. 2557XXXXXXXX" required>
-                </div>
-                <button class="btn btn-primary btn-full" onclick="submitOrder()">
-                    Pay with M-Pesa
-                </button>
             </div>
         </div>
     </div>
