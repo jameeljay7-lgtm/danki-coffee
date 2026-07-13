@@ -68,46 +68,73 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="home" class="hero-section">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <!-- Perfect H1 Tag for SEO -->
-                <h1 class="hero-title">
-                    Pure Arabica,<br>
-                    <span class="italic-accent">Masterfully</span> Roasted
-                </h1>
-                <p class="hero-subtitle">
-                    Experience the depth of 100% Arabica beans, roasted in small batches to preserve every nuanced flavor of the terroir.
-                </p>
-                <div class="hero-buttons">
-                    <a href="shop.html" class="btn btn-primary">
-                        Explore Collections <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a href="about.html" class="btn btn-secondary">
-                        Our Craft Story
-                    </a>
-                </div>
-            </div>
+        <!-- Footer / Contact -->
 
-            <!-- Footer-style Features in Hero -->
-            <div class="hero-features">
-                <div class="feature">
-                    <span class="feature-title">100%</span>
-                    <span class="feature-desc">SINGLE ORIGIN</span>
+        <footer id="contact" class="site-footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <h2>DANKI</h2>
+                    <p>DANKI INVESTMENTS</p>
+                    <p>Box 60332, Dar es Salaam, Tanzania</p>
                 </div>
-                <div class="feature">
-                    <span class="feature-title">PREMIUM</span>
-                    <span class="feature-desc">ARABICA BEANS</span>
-                </div>
-                <div class="feature">
-                    <span class="feature-title">ARTISAN</span>
-                    <span class="feature-desc">SMALL BATCHES</span>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fa-solid fa-phone"></i> +255 744 600042</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@dankicoffee.co.tz</p>
+                    <p>Contact: Catherine Kikkides</p>
                 </div>
             </div>
-        </section>
-        
-            </main>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Danki Coffee. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <!-- Cart Sidebar -->
+        <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+        <div class="cart-sidebar" id="cart-sidebar">
+            <div class="cart-header">
+                <h2>Your Cart</h2>
+                <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be injected here via JS -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total-price">0 TZS</span>
+                </div>
+                <button class="btn btn-primary btn-full" onclick="openLipaModal()" id="checkout-btn" disabled>
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+
+        <!-- LIPA Checkout Modal -->
+        <div class="lipa-overlay" id="lipa-overlay">
+            <div class="lipa-modal">
+                <div class="lipa-header">
+                    <h2>Complete Payment</h2>
+                    <button class="close-modal" onclick="closeLipaModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="lipa-body">
+                    <div class="lipa-instructions">
+                        <p class="lipa-step">1. Dial <strong>*150*00#</strong> on your phone</p>
+                        <p class="lipa-step">2. Select <strong>Pay by M-Pesa</strong></p>
+                        <p class="lipa-step">3. Enter LIPA Number: <strong class="lipa-highlight">58223806</strong> (LIPA DANKI INVESTMENT(COFFEE))</p>
+                        <p class="lipa-step">4. Enter Amount: <strong class="lipa-highlight" id="lipa-amount">0 TZS</strong></p>
+                    </div>
+                    <div class="lipa-input-group">
+                        <label for="receipt-code">Enter your M-Pesa Phone Number:</label>
+                        <input type="tel" id="receipt-code" placeholder="e.g. 2557XXXXXXXX" required>
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="submitOrder()">
+                        Pay with M-Pesa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <!-- Scripts -->
     <script src="main.js"></script>

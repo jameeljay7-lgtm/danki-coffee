@@ -1,8 +1,11 @@
 // Global Cart State
-let cart = [];
+let cart = JSON.parse(localStorage.getItem('danki_cart')) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Navigation Scroll Effect
+    // 1. Initial UI Update
+    updateCartUI();
+
+    // 2. Navigation Scroll Effect
     const nav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
@@ -12,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Mobile Menu Toggle
+    // 3. Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const icon = mobileMenuBtn.querySelector('i');
@@ -47,15 +50,15 @@ function addToCart(productName, variantName, price, imgUrl) {
         cart[existingItemIndex].quantity += 1;
     } else {
         cart.push({
-            id: Date.now().toString(),
             product: productName,
             variant: variantName,
             price: price,
-            quantity: 1,
-            img: imgUrl
+            img: imgUrl,
+            quantity: 1
         });
     }
 
+    saveCart();
     updateCartUI();
     
     // Optional: open cart when added
@@ -63,6 +66,10 @@ function addToCart(productName, variantName, price, imgUrl) {
     if (!cartSidebar.classList.contains('active')) {
         toggleCart();
     }
+}
+
+function saveCart() {
+    localStorage.setItem('danki_cart', JSON.stringify(cart));
 }
 
 function updateCartUI() {
@@ -82,7 +89,7 @@ function updateCartUI() {
         badge.style.display = 'none';
         checkoutBtn.disabled = true;
     } else {
-        cart.forEach(item => {
+        cart.forEach((item, index) => {
             totalItems += item.quantity;
             totalPrice += (item.price * item.quantity);
 
@@ -94,9 +101,9 @@ function updateCartUI() {
                         <div class="cart-item-variant">${item.variant}</div>
                         <div class="cart-item-controls">
                             <div class="qty-control">
-                                <button class="qty-btn" onclick="updateQty('${item.id}', -1)"><i class="fa-solid fa-minus"></i></button>
+                                <button class="qty-btn" onclick="updateQuantity('${index}', -1)"><i class="fa-solid fa-minus"></i></button>
                                 <span style="color: white; font-size: 0.9rem;">${item.quantity}</span>
-                                <button class="qty-btn" onclick="updateQty('${item.id}', 1)"><i class="fa-solid fa-plus"></i></button>
+                                <button class="qty-btn" onclick="updateQuantity('${index}', 1)"><i class="fa-solid fa-plus"></i></button>
                             </div>
                             <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} TZS</div>
                         </div>
@@ -115,13 +122,14 @@ function updateCartUI() {
     lipaAmountElem.innerText = formattedTotal;
 }
 
-function updateQty(id, change) {
-    const itemIndex = cart.findIndex(i => i.id === id);
+function updateQuantity(index, change) {
+    const itemIndex = parseInt(index);
     if (itemIndex > -1) {
         cart[itemIndex].quantity += change;
         if (cart[itemIndex].quantity <= 0) {
             cart.splice(itemIndex, 1);
         }
+        saveCart();
         updateCartUI();
     }
 }
@@ -177,6 +185,7 @@ async function submitOrder() {
             alert("Payment initiated! Check your phone for the M-Pesa PIN prompt.");
             closeLipaModal();
             cart = [];
+            saveCart();
             updateCartUI();
             document.getElementById('receipt-code').value = '';
         } else {
