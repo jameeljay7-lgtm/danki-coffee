@@ -130,7 +130,7 @@
                 </div>
                 <div class="featured-grid">
                     <div class="featured-card animate-on-load animate-delay-1">
-                        <div class="featured-card-img" style="background-image: url('assets/danki_bag_black.png')"></div>
+                        <div class="featured-card-img" style="background-image: url('assets/coffee_bag_medium.png')"></div>
                         <div class="featured-card-body">
                             <h3>Medium Roast</h3>
                             <p class="sub">Beans · 500g</p>
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div class="featured-card animate-on-load animate-delay-2">
-                        <div class="featured-card-img" style="background-image: url('assets/danki_bag_brown.png')"></div>
+                        <div class="featured-card-img" style="background-image: url('assets/coffee_bag_meddark.png')"></div>
                         <div class="featured-card-body">
                             <h3>Medium to Dark</h3>
                             <p class="sub">Beans · 1kg</p>
@@ -148,7 +148,7 @@
                         </div>
                     </div>
                     <div class="featured-card animate-on-load animate-delay-3">
-                        <div class="featured-card-img" style="background-image: url('assets/danki_bag_black.png')"></div>
+                        <div class="featured-card-img" style="background-image: url('assets/coffee_bag_dark.png')"></div>
                         <div class="featured-card-body">
                             <h3>Dark Roast</h3>
                             <p class="sub">Beans · 1kg</p>
@@ -246,6 +246,26 @@
                     Pay with M-Pesa
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- Order Success Modal -->
+    <div class="success-overlay" id="success-overlay">
+        <div class="success-modal">
+            <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h2>Order Placed!</h2>
+            <p>Thank you for choosing Danki Coffee. Your order is pending verification.</p>
+            <div class="success-details">
+                <p><strong>Step 1:</strong> Dial <strong>*150*00#</strong> on your phone</p>
+                <p><strong>Step 2:</strong> Pay by M-Pesa to LIPA: <strong>58223806</strong></p>
+                <p><strong>Step 3:</strong> Click below to verify via WhatsApp</p>
+            </div>
+            <a href="#" id="whatsapp-confirm-btn" target="_blank" class="btn btn-primary btn-full">
+                <i class="fa-brands fa-whatsapp"></i> Confirm on WhatsApp
+            </a>
+            <button class="btn btn-secondary btn-full" onclick="closeSuccessModal()" style="margin-top: 0.75rem;">
+                Close
+            </button>
         </div>
     </div>
 

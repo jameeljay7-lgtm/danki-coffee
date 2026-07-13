@@ -215,7 +215,34 @@ async function submitOrder() {
     btn.innerText = 'Processing...';
     btn.disabled = true;
 
+    // Helper to trigger success modal with WhatsApp details
+    const showSuccess = () => {
+        const successModal = document.getElementById('success-overlay');
+        if (successModal) {
+            const waBtn = document.getElementById('whatsapp-confirm-btn');
+            if (waBtn) {
+                let orderDetails = "Hello Danki Coffee! I have just placed an order:\n\n";
+                cart.forEach(item => {
+                    orderDetails += `☕ ${item.product} (${item.variant}) x ${item.quantity}\n`;
+                });
+                orderDetails += `\n💰 Total: ${total.toLocaleString()} TZS\n`;
+                orderDetails += `📱 Paid from Phone: ${phone}\n\n`;
+                orderDetails += "Please verify my payment!";
+                waBtn.href = `https://wa.me/255744600042?text=${encodeURIComponent(orderDetails)}`;
+            }
+            closeLipaModal();
+            successModal.classList.add('active');
+            
+            // Clear cart
+            cart = [];
+            saveCart();
+            updateCartUI();
+            phoneInput.value = '';
+        }
+    };
+
     try {
+        // Try requesting the sandbox checkout (optional fallback if sandbox is down)
         const response = await fetch('/api/checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -223,21 +250,19 @@ async function submitOrder() {
         });
 
         const data = await response.json();
-
-        if (data.success) {
-            alert('Payment initiated! Check your phone for the M-Pesa PIN prompt.');
-            closeLipaModal();
-            cart = [];
-            saveCart();
-            updateCartUI();
-            phoneInput.value = '';
-        } else {
-            alert('Payment failed: ' + JSON.stringify(data.error));
-        }
+        
+        // Always proceed to success modal (the manual LIPA steps + WhatsApp is the gold standard)
+        showSuccess();
     } catch (err) {
-        alert('An error occurred: ' + err.message);
+        console.warn('Backend checkout not available, falling back to manual M-Pesa + WhatsApp flow:', err);
+        showSuccess();
     } finally {
         btn.innerText = originalText;
         btn.disabled = false;
     }
+}
+
+function closeSuccessModal() {
+    const modal = document.getElementById('success-overlay');
+    if (modal) modal.classList.remove('active');
 }
