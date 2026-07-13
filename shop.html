@@ -3,48 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Perfect SEO Meta Tags -->
-    <title>Danki Coffee | Premium 100% Arabica Roasters</title>
-    <meta name="description" content="Experience the depth of 100% Arabica beans, masterfully roasted in small batches in Cape Town. Discover premium, artisanal single-origin coffee.">
-    <meta name="keywords" content="coffee, arabica, artisan coffee, coffee roaster, cape town, premium coffee beans">
-    
-    <!-- Open Graph for Social Sharing -->
-    <meta property="og:title" content="Danki Coffee | Masterfully Roasted">
-    <meta property="og:description" content="Experience the depth of 100% Arabica beans, masterfully roasted in small batches.">
+    <title>The Collection | Danki Coffee — Premium Arabica Beans</title>
+    <meta name="description" content="Shop Danki Coffee's full collection of premium 100% Arabica beans. Medium, Medium-Dark, and Dark roast — available in 250g, 500g, and 1kg bags.">
+    <meta name="keywords" content="buy coffee beans, arabica beans tanzania, coffee dar es salaam, medium roast, dark roast">
+    <meta property="og:title" content="Shop Danki Coffee | Premium Arabica Collection">
+    <meta property="og:description" content="Shop our full collection of premium 100% Arabica beans. Roasted in Dar es Salaam.">
     <meta property="og:type" content="website">
-    
-    <!-- Fonts: Inter and Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Semantic Header / Navigation -->
     <header id="main-nav">
         <div class="nav-container">
             <div class="logo-area">
                 <a href="index.html" class="logo-link" aria-label="Danki Coffee Home">
                     <span class="logo-text">DANKI</span>
-                    <span class="logo-tagline">its not just coffee its love</span>
+                    <span class="logo-tagline">it's not just coffee, it's love</span>
                 </a>
             </div>
-            
             <nav class="desktop-nav" aria-label="Main Navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="shop.html">The Coffee</a></li>
                     <li><a href="about.html">Our Story</a></li>
-                    <li><a href="contact.html">Order Now</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
-
             <div class="nav-actions">
                 <button class="cart-btn" aria-label="Shopping Cart" onclick="toggleCart()">
                     <i class="fa-solid fa-bag-shopping"></i>
@@ -55,157 +43,237 @@
                 </button>
             </div>
         </div>
-
-        <!-- Mobile Menu Overlay -->
         <div class="mobile-menu" id="mobile-menu">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="shop.html">The Coffee</a></li>
                 <li><a href="about.html">Our Story</a></li>
-                <li><a href="contact.html">Order Now</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
     </header>
 
     <main>
-        <!-- The Coffee Section -->
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <h1 class="animate-on-load">The <span class="italic-accent">Collection</span></h1>
+            <p class="animate-on-load animate-delay-1">Premium Tanzanian Arabica, roasted to perfection in Dar es Salaam.</p>
+            <div class="page-hero-divider animate-on-load animate-delay-2"></div>
+        </section>
 
-        <section id="coffee" class="coffee-section">
+        <!-- Shop -->
+        <section class="shop-section section-dark">
             <div class="section-container">
                 <div class="section-header">
-                    <h2 class="section-title">The Collection</h2>
-                    <p class="section-subtitle">Premium Tanzanian Arabica, roasted to perfection in Dar es Salaam.</p>
-                    <p class="section-grind-notice"><i class="fa-solid fa-mortar-pestle"></i> We grind your coffee exactly how you want it—just let us know your preferred brewing method!</p>
+                    <p class="grind-notice"><i class="fa-solid fa-mortar-pestle"></i> We grind your coffee exactly how you want it — just let us know your preferred brewing method!</p>
                 </div>
-                
-                <h3 class="category-title">Medium Roast</h3>
+
+                <!-- Medium Roast -->
+                <h3 class="category-title animate-on-load">Medium Roast</h3>
                 <p class="category-desc">Smooth, balanced, and perfect for everyday brewing.</p>
                 <div class="product-grid">
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-1">
                         <div class="product-image bag-500g" style="background-image: url('assets/danki_bag_black.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium Roast</h3>
                             <p class="product-desc">Beans 500g</p>
                             <div class="product-price-large">15,500 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'Beans 500g', 15500, 'assets/coffee_bag_medium.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'Beans 500g', 15500, 'assets/danki_bag_black.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-2">
                         <div class="product-image bag-1kg" style="background-image: url('assets/danki_bag_black.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium Roast</h3>
                             <p class="product-desc">Beans 1kg</p>
                             <div class="product-price-large">30,000 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'Beans 1kg', 30000, 'assets/coffee_bag_medium.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'Beans 1kg', 30000, 'assets/danki_bag_black.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-3">
                         <div class="product-image bag-1kg" style="background-image: url('assets/danki_bag_black.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium Roast</h3>
                             <p class="product-desc">Ground 1kg</p>
                             <div class="product-price-large">32,000 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'Ground 1kg', 32000, 'assets/coffee_bag_medium.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium Roast', 'Ground 1kg', 32000, 'assets/danki_bag_black.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
 
-                <h3 class="category-title">Medium to Dark</h3>
+                <!-- Medium to Dark -->
+                <h3 class="category-title animate-on-load">Medium to Dark</h3>
                 <p class="category-desc">A rich, full-bodied profile bridging balance and intensity.</p>
                 <div class="product-grid">
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-1">
                         <div class="product-image bag-250g" style="background-image: url('assets/danki_bag_brown.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium to Dark</h3>
                             <p class="product-desc">Beans 250g</p>
                             <div class="product-price-large">10,000 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Beans 250g', 10000, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Beans 250g', 10000, 'assets/danki_bag_brown.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-2">
                         <div class="product-image bag-250g" style="background-image: url('assets/danki_bag_brown.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium to Dark</h3>
                             <p class="product-desc">Ground 250g</p>
                             <div class="product-price-large">11,000 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Ground 250g', 11000, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Ground 250g', 11000, 'assets/danki_bag_brown.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-3">
                         <div class="product-image bag-500g" style="background-image: url('assets/danki_bag_black.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium to Dark</h3>
                             <p class="product-desc">Beans 500g</p>
                             <div class="product-price-large">15,500 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Beans 500g', 15500, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Beans 500g', 15500, 'assets/danki_bag_black.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-1">
                         <div class="product-image bag-500g" style="background-image: url('assets/danki_bag_black.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium to Dark</h3>
                             <p class="product-desc">Ground 500g</p>
                             <div class="product-price-large">17,000 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Ground 500g', 17000, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Ground 500g', 17000, 'assets/danki_bag_black.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-2">
                         <div class="product-image bag-1kg" style="background-image: url('assets/danki_bag_black.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium to Dark</h3>
                             <p class="product-desc">Beans 1kg</p>
                             <div class="product-price-large">30,000 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Beans 1kg', 30000, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Beans 1kg', 30000, 'assets/danki_bag_black.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-3">
                         <div class="product-image bag-1kg" style="background-image: url('assets/danki_bag_black.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Medium to Dark</h3>
                             <p class="product-desc">Ground 1kg</p>
                             <div class="product-price-large">32,000 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Ground 1kg', 32000, 'assets/coffee_bag_meddark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Medium to Dark', 'Ground 1kg', 32000, 'assets/danki_bag_black.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
 
-                <h3 class="category-title">Dark Roast</h3>
+                <!-- Dark Roast -->
+                <h3 class="category-title animate-on-load">Dark Roast</h3>
                 <p class="category-desc">Bold, intense, and deeply aromatic for a classic cup.</p>
                 <div class="product-grid">
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-1">
                         <div class="product-image bag-500g" style="background-image: url('assets/danki_bag_black.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Dark Roast</h3>
                             <p class="product-desc">Beans 500g</p>
                             <div class="product-price-large">15,500 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'Beans 500g', 15500, 'assets/coffee_bag_dark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'Beans 500g', 15500, 'assets/danki_bag_black.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-2">
                         <div class="product-image bag-1kg" style="background-image: url('assets/danki_bag_black.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Dark Roast</h3>
                             <p class="product-desc">Beans 1kg</p>
                             <div class="product-price-large">30,000 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'Beans 1kg', 30000, 'assets/coffee_bag_dark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'Beans 1kg', 30000, 'assets/danki_bag_black.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card animate-on-load animate-delay-3">
                         <div class="product-image bag-1kg" style="background-image: url('assets/danki_bag_black.png')"></div>
                         <div class="product-details">
                             <h3 class="product-name">Dark Roast</h3>
                             <p class="product-desc">Ground 1kg</p>
                             <div class="product-price-large">32,000 TZS</div>
-                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'Ground 1kg', 32000, 'assets/coffee_bag_dark.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                            <button class="btn btn-primary btn-full" onclick="addToCart('Dark Roast', 'Ground 1kg', 32000, 'assets/danki_bag_black.png')"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-            </main>
 
-    <!-- Scripts -->
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <h2>DANKI</h2>
+                    <p>DANKI INVESTMENTS</p>
+                    <p>Box 60332, Dar es Salaam, Tanzania</p>
+                    <div class="footer-social">
+                        <a href="https://instagram.com/dankicoffee" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/255744600042" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Navigate</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">The Coffee</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Get in Touch</h3>
+                    <p><i class="fa-solid fa-phone"></i> +255 744 600042</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@dankicoffee.co.tz</p>
+                    <p><i class="fa-solid fa-location-dot"></i> Dar es Salaam, Tanzania</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Danki Coffee. All rights reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">0 TZS</span>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="openLipaModal()" id="checkout-btn" disabled>
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- LIPA Checkout Modal -->
+    <div class="lipa-overlay" id="lipa-overlay">
+        <div class="lipa-modal">
+            <div class="lipa-header">
+                <h2>Complete Payment</h2>
+                <button class="close-modal" onclick="closeLipaModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="lipa-body">
+                <div class="lipa-instructions">
+                    <p class="lipa-step">1. Dial <strong>*150*00#</strong> on your phone</p>
+                    <p class="lipa-step">2. Select <strong>Pay by M-Pesa</strong></p>
+                    <p class="lipa-step">3. Enter LIPA Number: <strong class="lipa-highlight">58223806</strong></p>
+                    <p class="lipa-step">4. Enter Amount: <strong class="lipa-highlight" id="lipa-amount">0 TZS</strong></p>
+                </div>
+                <div class="lipa-input-group">
+                    <label for="receipt-code">M-Pesa Phone Number</label>
+                    <input type="tel" id="receipt-code" placeholder="e.g. 2557XXXXXXXX" required>
+                </div>
+                <button class="btn btn-primary btn-full" onclick="submitOrder()">
+                    Pay with M-Pesa
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="main.js"></script>
 </body>
 </html>

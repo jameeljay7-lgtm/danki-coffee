@@ -1,53 +1,94 @@
-// Global Cart State
+// =========================================
+// DANKI COFFEE — Main Application Logic
+// =========================================
+
+// Cart State (persisted in localStorage)
 let cart = JSON.parse(localStorage.getItem('danki_cart')) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initial UI Update
+
+    // 1. Update cart UI (safe — checks if elements exist)
     updateCartUI();
 
-    // 2. Navigation Scroll Effect
+    // 2. Navigation scroll effect
     const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
+    if (nav) {
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 30);
+        });
+        // Trigger on load for inner pages
+        if (window.scrollY > 30) nav.classList.add('scrolled');
+    }
+
+    // 3. Active nav link
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.desktop-nav a, .mobile-menu a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage) {
+            link.classList.add('active');
         }
     });
 
-    // 3. Mobile Menu Toggle
+    // 4. Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-    const icon = mobileMenuBtn.querySelector('i');
 
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-        if (mobileMenu.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-xmark');
-        } else {
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
-        }
-    });
+    if (mobileMenuBtn && mobileMenu) {
+        const icon = mobileMenuBtn.querySelector('i');
 
-    const mobileLinks = mobileMenu.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            if (mobileMenu.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
         });
-    });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
+    }
+
+    // 5. Scroll-triggered animations (Intersection Observer)
+    const animatedElements = document.querySelectorAll('.animate-on-load');
+    if (animatedElements.length > 0 && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        animatedElements.forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    }
+
+    // 6. Inner pages — force scrolled nav on load
+    const isInnerPage = !document.querySelector('.hero-section');
+    if (isInnerPage && nav) {
+        nav.classList.add('scrolled');
+    }
 });
 
-// Cart Functions
+// =========================================
+// CART FUNCTIONS
+// =========================================
+
 function addToCart(productName, variantName, price, imgUrl) {
-    // Check if item already exists in cart
-    const existingItemIndex = cart.findIndex(item => item.product === productName && item.variant === variantName);
-    
-    if (existingItemIndex > -1) {
-        cart[existingItemIndex].quantity += 1;
+    const existingIndex = cart.findIndex(
+        item => item.product === productName && item.variant === variantName
+    );
+
+    if (existingIndex > -1) {
+        cart[existingIndex].quantity += 1;
     } else {
         cart.push({
             product: productName,
@@ -60,10 +101,10 @@ function addToCart(productName, variantName, price, imgUrl) {
 
     saveCart();
     updateCartUI();
-    
-    // Optional: open cart when added
-    const cartSidebar = document.getElementById('cart-sidebar');
-    if (!cartSidebar.classList.contains('active')) {
+
+    // Auto-open cart sidebar
+    const sidebar = document.getElementById('cart-sidebar');
+    if (sidebar && !sidebar.classList.contains('active')) {
         toggleCart();
     }
 }
@@ -79,19 +120,22 @@ function updateCartUI() {
     const lipaAmountElem = document.getElementById('lipa-amount');
     const checkoutBtn = document.getElementById('checkout-btn');
 
+    // Bail safely if cart elements don't exist on this page
+    if (!badge || !itemsContainer) return;
+
     let totalItems = 0;
     let totalPrice = 0;
-    
+
     itemsContainer.innerHTML = '';
 
     if (cart.length === 0) {
         itemsContainer.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
         badge.style.display = 'none';
-        checkoutBtn.disabled = true;
+        if (checkoutBtn) checkoutBtn.disabled = true;
     } else {
         cart.forEach((item, index) => {
             totalItems += item.quantity;
-            totalPrice += (item.price * item.quantity);
+            totalPrice += item.price * item.quantity;
 
             itemsContainer.innerHTML += `
                 <div class="cart-item">
@@ -101,9 +145,9 @@ function updateCartUI() {
                         <div class="cart-item-variant">${item.variant}</div>
                         <div class="cart-item-controls">
                             <div class="qty-control">
-                                <button class="qty-btn" onclick="updateQuantity('${index}', -1)"><i class="fa-solid fa-minus"></i></button>
-                                <span style="color: white; font-size: 0.9rem;">${item.quantity}</span>
-                                <button class="qty-btn" onclick="updateQuantity('${index}', 1)"><i class="fa-solid fa-plus"></i></button>
+                                <button class="qty-btn" onclick="updateQuantity(${index}, -1)"><i class="fa-solid fa-minus"></i></button>
+                                <span style="color: white; font-size: 0.85rem;">${item.quantity}</span>
+                                <button class="qty-btn" onclick="updateQuantity(${index}, 1)"><i class="fa-solid fa-plus"></i></button>
                             </div>
                             <div class="cart-item-price">${(item.price * item.quantity).toLocaleString()} TZS</div>
                         </div>
@@ -111,88 +155,87 @@ function updateCartUI() {
                 </div>
             `;
         });
-        
+
         badge.innerText = totalItems;
         badge.style.display = 'flex';
-        checkoutBtn.disabled = false;
+        if (checkoutBtn) checkoutBtn.disabled = false;
     }
 
-    const formattedTotal = totalPrice.toLocaleString() + ' TZS';
-    totalPriceElem.innerText = formattedTotal;
-    lipaAmountElem.innerText = formattedTotal;
+    const formatted = totalPrice.toLocaleString() + ' TZS';
+    if (totalPriceElem) totalPriceElem.innerText = formatted;
+    if (lipaAmountElem) lipaAmountElem.innerText = formatted;
 }
 
 function updateQuantity(index, change) {
-    const itemIndex = parseInt(index);
-    if (itemIndex > -1) {
-        cart[itemIndex].quantity += change;
-        if (cart[itemIndex].quantity <= 0) {
-            cart.splice(itemIndex, 1);
-        }
-        saveCart();
-        updateCartUI();
+    if (index < 0 || index >= cart.length) return;
+    cart[index].quantity += change;
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
     }
+    saveCart();
+    updateCartUI();
 }
 
 function toggleCart() {
     const sidebar = document.getElementById('cart-sidebar');
     const overlay = document.getElementById('cart-overlay');
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
+    if (sidebar) sidebar.classList.toggle('active');
+    if (overlay) overlay.classList.toggle('active');
 }
 
 function openLipaModal() {
     if (cart.length === 0) return;
-    toggleCart(); // close sidebar
+    toggleCart();
     const modal = document.getElementById('lipa-overlay');
-    modal.classList.add('active');
+    if (modal) modal.classList.add('active');
 }
 
 function closeLipaModal() {
     const modal = document.getElementById('lipa-overlay');
-    modal.classList.remove('active');
+    if (modal) modal.classList.remove('active');
 }
 
 async function submitOrder() {
-    const phone = document.getElementById('receipt-code').value.trim();
+    const phoneInput = document.getElementById('receipt-code');
+    if (!phoneInput) return;
+
+    const phone = phoneInput.value.trim();
     if (!phone) {
-        alert("Please enter your M-Pesa phone number!");
+        alert('Please enter your M-Pesa phone number.');
         return;
     }
 
     let total = 0;
     cart.forEach(item => {
-        total += (item.price * item.quantity);
+        total += item.price * item.quantity;
     });
 
-    const btn = document.querySelector('.btn-full');
+    const btn = event.target.closest('.btn-full') || event.target;
     const originalText = btn.innerText;
-    btn.innerText = "Processing...";
+    btn.innerText = 'Processing...';
     btn.disabled = true;
 
     try {
         const response = await fetch('/api/checkout', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ phone: phone, amount: total })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone, amount: total })
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
-            alert("Payment initiated! Check your phone for the M-Pesa PIN prompt.");
+            alert('Payment initiated! Check your phone for the M-Pesa PIN prompt.');
             closeLipaModal();
             cart = [];
             saveCart();
             updateCartUI();
-            document.getElementById('receipt-code').value = '';
+            phoneInput.value = '';
         } else {
-            alert("Payment failed: " + JSON.stringify(data.error));
+            alert('Payment failed: ' + JSON.stringify(data.error));
         }
     } catch (err) {
-        alert("An error occurred: " + err.message);
+        alert('An error occurred: ' + err.message);
     } finally {
         btn.innerText = originalText;
         btn.disabled = false;

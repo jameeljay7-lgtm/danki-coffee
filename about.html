@@ -3,48 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Perfect SEO Meta Tags -->
-    <title>Danki Coffee | Premium 100% Arabica Roasters</title>
-    <meta name="description" content="Experience the depth of 100% Arabica beans, masterfully roasted in small batches in Cape Town. Discover premium, artisanal single-origin coffee.">
-    <meta name="keywords" content="coffee, arabica, artisan coffee, coffee roaster, cape town, premium coffee beans">
-    
-    <!-- Open Graph for Social Sharing -->
-    <meta property="og:title" content="Danki Coffee | Masterfully Roasted">
-    <meta property="og:description" content="Experience the depth of 100% Arabica beans, masterfully roasted in small batches.">
-    <meta property="og:type" content="website">
-    
-    <!-- Fonts: Inter and Playfair Display -->
+    <title>Our Story – Danki Coffee | Premium Arabica Roasted in Dar es Salaam</title>
+    <meta name="description" content="Discover the story behind Danki Coffee. Founded by Catherine Kikkides in Dar es Salaam, Tanzania, we roast 100% Arabica beans with love and craft.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- Semantic Header / Navigation -->
     <header id="main-nav">
         <div class="nav-container">
             <div class="logo-area">
                 <a href="index.html" class="logo-link" aria-label="Danki Coffee Home">
                     <span class="logo-text">DANKI</span>
-                    <span class="logo-tagline">its not just coffee its love</span>
+                    <span class="logo-tagline">it's not just coffee, it's love</span>
                 </a>
             </div>
-            
             <nav class="desktop-nav" aria-label="Main Navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="shop.html">The Coffee</a></li>
                     <li><a href="about.html">Our Story</a></li>
-                    <li><a href="contact.html">Order Now</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
-
             <div class="nav-actions">
                 <button class="cart-btn" aria-label="Shopping Cart" onclick="toggleCart()">
                     <i class="fa-solid fa-bag-shopping"></i>
@@ -55,37 +38,181 @@
                 </button>
             </div>
         </div>
-
-        <!-- Mobile Menu Overlay -->
         <div class="mobile-menu" id="mobile-menu">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="shop.html">The Coffee</a></li>
                 <li><a href="about.html">Our Story</a></li>
-                <li><a href="contact.html">Order Now</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </div>
     </header>
 
     <main>
-        <!-- Our Story Section -->
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <h1 class="animate-on-load">Our Story</h1>
+            <p class="animate-on-load animate-delay-1">A family passion roasted into every single bean</p>
+            <div class="page-hero-divider animate-on-load animate-delay-2"></div>
+        </section>
 
-        <section id="story" class="coffee-section" style="background-color: var(--color-bg-light);">
+        <!-- About Content Section -->
+        <section class="section">
             <div class="section-container">
-                <div class="section-header">
-                    <h2 class="section-title">Our Story</h2>
-                    <p class="section-subtitle">Born in Dar es Salaam. Roasted to Perfection.</p>
-                </div>
-                <div style="max-width: 800px; margin: 0 auto; text-align: center; color: var(--color-text-muted);">
-                    <p style="margin-bottom: 1rem;">Danki Coffee started with a simple vision: to bring the world's finest 100% Arabica beans to Tanzania, roasted with an uncompromising dedication to quality.</p>
-                    <p>Every small batch is roasted by our master artisans to bring out the unique, nuanced flavors of the terroir. It's not just coffee. It's love.</p>
+                <div class="about-content">
+                    <div class="about-text animate-on-load">
+                        <div class="section-label">Who We Are</div>
+                        <h2>Born from Love, Brewed with Purpose</h2>
+                        <p>Danki Coffee began as a dream — a dream to bring truly exceptional, 100% Arabica coffee to the people of Tanzania and beyond. Founded by <strong>Catherine Kikkides</strong> in the heart of Dar es Salaam, our family business is built on a simple belief: that every cup of coffee should tell a story of quality, care, and craft.</p>
+                        <p>Operating under <strong>DANKI INVESTMENTS</strong>, we source the finest Arabica beans from the lush highlands of Tanzania — a land blessed with volcanic soil, cool mountain air, and generations of coffee-growing heritage. Every batch is roasted right here in Dar es Salaam, where the aromas of freshly roasted beans fill our workshop and fuel our passion.</p>
+                        <p>Catherine's vision was never just about selling coffee. It was about creating a connection — between the farmer and the cup, between tradition and innovation, between a mother's love and the warmth of a perfect brew. That's why we say: <em>"it's not just coffee, it's love."</em></p>
+                        <p>From our family to yours, every bag of Danki Coffee carries the promise of premium quality, ethical sourcing, and the unmistakable flavour of Tanzania's finest.</p>
+                    </div>
+                    <div class="about-image animate-on-load animate-delay-2">
+                        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop" alt="A beautifully crafted cup of Danki Coffee" loading="lazy">
+                    </div>
                 </div>
             </div>
         </section>
 
-            </main>
+        <!-- Our Process Section -->
+        <section class="section section-alt">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-label animate-on-load">From Farm to Cup</span>
+                    <h2 class="section-title animate-on-load animate-delay-1">Our Process</h2>
+                    <p class="section-subtitle animate-on-load animate-delay-2">Every step is guided by passion, precision, and an unwavering commitment to quality.</p>
+                    <div class="section-divider animate-on-load animate-delay-2"></div>
+                </div>
+                <div class="process-grid">
+                    <div class="process-step animate-on-load animate-delay-1">
+                        <div class="process-number">01</div>
+                        <h3>Sourcing</h3>
+                        <p>Our beans are carefully sourced from the rich volcanic highlands of Tanzania — Kilimanjaro, Arusha, and Mbeya — where altitude and climate create the perfect conditions for exceptional Arabica coffee.</p>
+                    </div>
+                    <div class="process-step animate-on-load animate-delay-2">
+                        <div class="process-number">02</div>
+                        <h3>Selecting</h3>
+                        <p>Only the finest cherries make the cut. Each harvest is hand-picked at peak ripeness, ensuring that every bean meets our exacting standards for flavour, size, and quality.</p>
+                    </div>
+                    <div class="process-step animate-on-load animate-delay-3">
+                        <div class="process-number">03</div>
+                        <h3>Roasting</h3>
+                        <p>In our Dar es Salaam roastery, we roast in small, artisan batches. Each roast is carefully monitored to unlock the bean's full spectrum of flavour — from bright citrus notes to deep chocolate undertones.</p>
+                    </div>
+                    <div class="process-step animate-on-load animate-delay-4">
+                        <div class="process-number">04</div>
+                        <h3>Delivering</h3>
+                        <p>Freshness is everything. Once roasted, our coffee is packed and delivered straight to your door — so every cup you brew is as fresh and flavourful as the day it was roasted.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Scripts -->
+        <!-- Our Values Section -->
+        <section class="section section-dark">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-label animate-on-load">What Drives Us</span>
+                    <h2 class="section-title animate-on-load animate-delay-1">Our Values</h2>
+                    <p class="section-subtitle animate-on-load animate-delay-2">The principles at the heart of every bean we roast.</p>
+                    <div class="section-divider animate-on-load animate-delay-2"></div>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card animate-on-load animate-delay-1">
+                        <i class="fa-solid fa-gem"></i>
+                        <h3>Quality</h3>
+                        <p>We never compromise. From sourcing to roasting to packaging, every step is held to the highest standard. Only 100% premium Arabica beans make it into a Danki bag.</p>
+                    </div>
+                    <div class="value-card animate-on-load animate-delay-2">
+                        <i class="fa-solid fa-heart"></i>
+                        <h3>Family</h3>
+                        <p>Danki Coffee is a family business at its core. We treat our farmers, our team, and our customers as extensions of our own family — with warmth, respect, and genuine care.</p>
+                    </div>
+                    <div class="value-card animate-on-load animate-delay-3">
+                        <i class="fa-solid fa-fire"></i>
+                        <h3>Craft</h3>
+                        <p>Coffee is an art. We approach every roast as a craft — honouring traditional methods while embracing innovation to deliver a cup that's truly extraordinary.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <h2>DANKI</h2>
+                    <p>DANKI INVESTMENTS</p>
+                    <p>Box 60332, Dar es Salaam, Tanzania</p>
+                    <div class="footer-social">
+                        <a href="https://instagram.com/dankicoffee" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://wa.me/255744600042" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Navigate</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">The Coffee</a></li>
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Get in Touch</h3>
+                    <p><i class="fa-solid fa-phone"></i> +255 744 600042</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@dankicoffee.co.tz</p>
+                    <p><i class="fa-solid fa-location-dot"></i> Dar es Salaam, Tanzania</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Danki Coffee. All rights reserved.</p>
+            </div>
+        </footer>
+    </main>
+
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">0 TZS</span>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="openLipaModal()" id="checkout-btn" disabled>
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <div class="lipa-overlay" id="lipa-overlay">
+        <div class="lipa-modal">
+            <div class="lipa-header">
+                <h2>Complete Payment</h2>
+                <button class="close-modal" onclick="closeLipaModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="lipa-body">
+                <div class="lipa-instructions">
+                    <p class="lipa-step">1. Dial <strong>*150*00#</strong> on your phone</p>
+                    <p class="lipa-step">2. Select <strong>Pay by M-Pesa</strong></p>
+                    <p class="lipa-step">3. Enter LIPA Number: <strong class="lipa-highlight">58223806</strong></p>
+                    <p class="lipa-step">4. Enter Amount: <strong class="lipa-highlight" id="lipa-amount">0 TZS</strong></p>
+                </div>
+                <div class="lipa-input-group">
+                    <label for="receipt-code">M-Pesa Phone Number</label>
+                    <input type="tel" id="receipt-code" placeholder="e.g. 2557XXXXXXXX" required>
+                </div>
+                <button class="btn btn-primary btn-full" onclick="submitOrder()">
+                    Pay with M-Pesa
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="main.js"></script>
 </body>
 </html>
