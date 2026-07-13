@@ -7,6 +7,32 @@ let cart = JSON.parse(localStorage.getItem('danki_cart')) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // 0. Page Transition Fade Out
+    const overlay = document.getElementById('page-transition-overlay');
+    if (overlay) {
+        setTimeout(() => {
+            overlay.classList.add('fade-out');
+        }, 50);
+    }
+
+    // Intercept clicks on same-origin nav links for smooth fade out
+    document.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('mailto:') && !href.startsWith('javascript:') && link.target !== '_blank') {
+            link.addEventListener('click', (e) => {
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+                
+                if (overlay) {
+                    e.preventDefault();
+                    overlay.classList.remove('fade-out');
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 400); // Match transition length
+                }
+            });
+        }
+    });
+
     // 1. Update cart UI (safe — checks if elements exist)
     updateCartUI();
 
@@ -16,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', () => {
             nav.classList.toggle('scrolled', window.scrollY > 30);
         });
-        // Trigger on load for inner pages
         if (window.scrollY > 30) nav.classList.add('scrolled');
     }
 
@@ -53,22 +78,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Scroll-triggered animations (Intersection Observer)
+    // 5. Scroll-triggered animations (Intersection Observer reveal)
     const animatedElements = document.querySelectorAll('.animate-on-load');
     if (animatedElements.length > 0 && 'IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
+                    entry.target.classList.add('active');
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
         animatedElements.forEach(el => {
-            el.style.animationPlayState = 'paused';
             observer.observe(el);
         });
+    } else {
+        animatedElements.forEach(el => el.classList.add('active'));
     }
 
     // 6. Inner pages — force scrolled nav on load
