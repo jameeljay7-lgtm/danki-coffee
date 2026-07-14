@@ -2049,4 +2049,341 @@ body {
     .quickview-image-side { min-height: 250px; height: 250px; border-right: none; border-bottom: 1px solid var(--color-divider); }
     .quickview-details-side { padding: 1.75rem; }
     .testimonial-slider { height: 240px; }
+
+    /* Mobile: Cart sidebar full width */
+    .cart-sidebar { width: 100vw; max-width: 100vw; }
+
+    /* Mobile: LIPA modal */
+    .lipa-modal { width: 95vw; max-height: 90vh; overflow-y: auto; }
+
+    /* Mobile: Success modal */
+    .success-modal { width: 92vw; padding: 2rem 1.5rem; }
+
+    /* Mobile: Featured grid single column */
+    .featured-grid { grid-template-columns: 1fr; }
+
+    /* Mobile: Product grid single column */
+    .product-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+
+    /* Mobile: Guide grid single column */
+    .guide-grid { grid-template-columns: 1fr; }
+
+    /* Mobile: Why grid single column */
+    .why-grid { grid-template-columns: 1fr; }
+
+    /* Mobile: Instagram grid 2 cols */
+    .insta-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Mobile: WhatsApp float smaller */
+    .whatsapp-float { width: 52px; height: 52px; font-size: 1.5rem; bottom: 20px; right: 20px; }
+
+    /* Mobile: Toast narrower */
+    .cart-toast { right: 1rem; left: 1rem; max-width: none; }
+
+    /* Mobile: Footer stacked */
+    .footer-container { grid-template-columns: 1fr; text-align: center; }
+    .footer-social { justify-content: center; }
+    .footer-links ul { padding-left: 0; list-style: none; }
+
+    /* Mobile: About content stacked */
+    .about-content { grid-template-columns: 1fr; }
+    .about-image { min-height: 300px; }
+
+    /* Mobile: Contact grid stacked */
+    .contact-grid { grid-template-columns: 1fr; }
+
+    /* Mobile: Hero adjustments */
+    .hero-title { font-size: 2.2rem; }
+    .hero-subtitle { font-size: 0.95rem; }
+    .hero-features { flex-direction: column; gap: 0.5rem; }
+
+    /* Mobile: Page hero */
+    .page-hero h1 { font-size: 2rem; }
+
+    /* Mobile: Section padding */
+    .section-container { padding-left: 1.25rem; padding-right: 1.25rem; }
 }
+
+@media (max-width: 480px) {
+    .hero-title { font-size: 1.8rem; }
+    .hero-buttons { flex-direction: column; gap: 0.75rem; }
+    .hero-buttons .btn { width: 100%; text-align: center; }
+    .nav-container { padding: 0 1rem; }
+    .insta-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+    .quickview-modal { max-height: 92vh; }
+    .quickview-details-side { padding: 1.25rem; }
+    .product-card { max-width: 100%; }
+}
+
+/* =========================================
+   FLOATING WHATSAPP BUTTON
+========================================= */
+.whatsapp-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 60px;
+    height: 60px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.75rem;
+    z-index: 999;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+    animation: waFloat 3s ease-in-out infinite;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.12);
+    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-float .wa-tooltip {
+    position: absolute;
+    right: 72px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-bg-light);
+    color: var(--color-text-main);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    border: 1px solid var(--color-divider);
+}
+
+.whatsapp-float .wa-tooltip::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left-color: var(--color-bg-light);
+}
+
+.whatsapp-float:hover .wa-tooltip {
+    opacity: 1;
+}
+
+@keyframes waFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+.whatsapp-float:hover {
+    animation: none;
+    transform: scale(1.12);
+}
+
+/* =========================================
+   ADD-TO-CART TOAST NOTIFICATION
+========================================= */
+.cart-toast {
+    position: fixed;
+    top: calc(var(--nav-height) + 16px);
+    right: 2rem;
+    background: var(--color-bg-light);
+    border: 1px solid rgba(212, 168, 83, 0.25);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 9998;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    max-width: 380px;
+    transform: translateX(120%);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s;
+    pointer-events: none;
+}
+
+.cart-toast.show {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cart-toast-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-accent-gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-bg);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.cart-toast-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.cart-toast-title {
+    color: var(--color-text-main);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.cart-toast-sub {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
+
+.cart-toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--color-accent-gold);
+    border-radius: 0 0 12px 12px;
+    width: 100%;
+    transform-origin: left;
+    animation: toastProgress 3s linear forwards;
+}
+
+@keyframes toastProgress {
+    from { transform: scaleX(1); }
+    to { transform: scaleX(0); }
+}
+
+/* =========================================
+   BRANDED PRELOADER
+========================================= */
+.page-transition-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.preloader-brand {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-accent-gold);
+    letter-spacing: 0.15em;
+    opacity: 1;
+    animation: preloaderPulse 1.2s ease-in-out infinite;
+}
+
+.preloader-dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 1rem;
+}
+
+.preloader-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent-gold);
+    animation: dotBounce 1.2s ease-in-out infinite;
+}
+
+.preloader-dot:nth-child(2) { animation-delay: 0.2s; }
+.preloader-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes preloaderPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+@keyframes dotBounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+    40% { transform: translateY(-10px); opacity: 1; }
+}
+
+.page-transition-overlay.fade-out .preloader-brand,
+.page-transition-overlay.fade-out .preloader-dots {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+/* =========================================
+   INSTAGRAM FEED SECTION
+========================================= */
+.insta-section {
+    text-align: center;
+}
+
+.insta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+}
+
+.insta-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    cursor: pointer;
+}
+
+.insta-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s;
+}
+
+.insta-item:hover img {
+    transform: scale(1.08);
+    filter: brightness(0.7);
+}
+
+.insta-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.4s;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.insta-item:hover .insta-overlay {
+    opacity: 1;
+}
+
+.insta-cta {
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--color-accent-gold);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: gap 0.3s, color 0.3s;
+}
+
+.insta-cta:hover {
+    gap: 1rem;
+    color: var(--color-accent-gold-hover);
+}
+
+.insta-cta i {
+    font-size: 1.2rem;
+}
+

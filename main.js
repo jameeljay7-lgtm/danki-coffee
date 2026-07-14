@@ -153,11 +153,42 @@ function addToCart(productName, variantName, price, imgUrl) {
     saveCart();
     updateCartUI();
 
-    // Auto-open cart sidebar
-    const sidebar = document.getElementById('cart-sidebar');
-    if (sidebar && !sidebar.classList.contains('active')) {
-        toggleCart();
-    }
+    // Show toast notification instead of opening sidebar
+    showCartToast(productName, variantName, price);
+}
+
+// Toast notification system
+let toastTimeout;
+function showCartToast(productName, variantName, price) {
+    // Remove existing toast if present
+    const existingToast = document.querySelector('.cart-toast');
+    if (existingToast) existingToast.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'cart-toast';
+    toast.innerHTML = `
+        <div class="cart-toast-icon"><i class="fa-solid fa-check"></i></div>
+        <div class="cart-toast-text">
+            <span class="cart-toast-title">${productName} — ${variantName}</span>
+            <span class="cart-toast-sub">Added to cart · ${price.toLocaleString()} TZS</span>
+        </div>
+        <div class="cart-toast-progress"></div>
+    `;
+    document.body.appendChild(toast);
+
+    // Trigger animation
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+        });
+    });
+
+    // Auto-dismiss
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
 }
 
 function saveCart() {
