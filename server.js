@@ -77,6 +77,40 @@ app.post('/api/checkout', async (req, res) => {
     }
 });
 
+// Dynamic sitemap.xml generator
+app.get('/sitemap.xml', (req, res) => {
+    res.header('Content-Type', 'application/xml');
+    
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+    const host = req.get('host');
+    const baseUrl = `${protocol}://${host}`;
+
+    const pages = [
+        { path: '', changefreq: 'daily', priority: 1.0 },
+        { path: '/shop.html', changefreq: 'daily', priority: 0.9 },
+        { path: '/wholesale.html', changefreq: 'weekly', priority: 0.8 },
+        { path: '/about.html', changefreq: 'monthly', priority: 0.7 },
+        { path: '/contact.html', changefreq: 'monthly', priority: 0.7 }
+    ];
+
+    const today = new Date().toISOString().split('T')[0];
+
+    let sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n`;
+    sitemap += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n`;
+
+    pages.forEach(p => {
+        sitemap += `  <url>\n`;
+        sitemap += `    <loc>${baseUrl}${p.path}</loc>\n`;
+        sitemap += `    <lastmod>${today}</lastmod>\n`;
+        sitemap += `    <changefreq>${p.changefreq}</changefreq>\n`;
+        sitemap += `    <priority>${p.priority}</priority>\n`;
+        sitemap += `  </url>\n`;
+    });
+
+    sitemap += `</urlset>`;
+    res.send(sitemap);
+});
+
 // For any other route, send index.html
 app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
