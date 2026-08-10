@@ -1,23 +1,20 @@
 {
   "name": "danki-coffee",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "description": "Danki Coffee premium Tanzanian coffee storefront",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "node --check server.js && node --check main.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jameeljay7-lgtm/danki-coffee.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["coffee", "tanzania", "danki"],
+  "author": "Danki Investments",
   "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/jameeljay7-lgtm/danki-coffee/issues"
-  },
-  "homepage": "https://github.com/jameeljay7-lgtm/danki-coffee#readme",
   "dependencies": {
     "axios": "^1.18.1",
     "cors": "^2.8.6",
