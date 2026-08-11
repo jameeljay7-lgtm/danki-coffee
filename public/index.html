@@ -340,6 +340,7 @@
       <button class="cat-pill" data-cat="1kg" onclick="setCategory('1kg')">1kg</button>
       <button class="cat-pill" data-cat="500g" onclick="setCategory('500g')">500g</button>
       <button class="cat-pill" data-cat="250g" onclick="setCategory('250g')">250g</button>
+      <button class="cat-pill" data-cat="Equipment" onclick="setCategory('Equipment')">⚗️ Equipment</button>
     </div>
   </div>
   <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"></div>
@@ -612,6 +613,8 @@
   // ===== PRODUCTS =====
   function getProductImage(p) {
     if (p.img) return p.img;
+    // Equipment: return null so we render the SVG placeholder
+    if (p.category === 'Equipment' || p.format === 'Equipment') return null;
     let roast = 'medium';
     if (p.category === 'Dark Roast') roast = 'dark';
     else if (p.category && p.category.toLowerCase().includes('medium to dark')) roast = 'medium-dark';
@@ -641,19 +644,40 @@
     const filtered = PRODUCTS.filter(p =>
       currentCategory === 'All' ||
       p.format === currentCategory ||
-      p.weight === currentCategory
+      p.weight === currentCategory ||
+      p.category === currentCategory
     );
 
-    grid.innerHTML = filtered.map(p => `
+    grid.innerHTML = filtered.map(p => {
+      const isEquipment = p.category === 'Equipment' || p.format === 'Equipment';
+      const imgSrc = getProductImage(p);
+
+      const imageHtml = isEquipment
+        ? `<div class="prod-img-wrap relative flex items-center justify-center" style="height:220px;background:linear-gradient(135deg,rgba(230,172,0,0.08),rgba(0,0,0,0.4))">
+             <div class="absolute top-3 left-3 z-10 glass rounded-full px-2 py-1 text-[10px] font-bold">⚗️ Equipment</div>
+             <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+               <!-- French Press SVG -->
+               <rect x="30" y="10" width="50" height="70" rx="6" fill="rgba(230,172,0,0.12)" stroke="rgba(230,172,0,0.5)" stroke-width="2"/>
+               <rect x="38" y="10" width="34" height="5" rx="2" fill="rgba(230,172,0,0.4)"/>
+               <rect x="48" y="2" width="14" height="10" rx="3" fill="rgba(230,172,0,0.6)"/>
+               <rect x="53" y="12" width="4" height="55" rx="2" fill="rgba(230,172,0,0.5)"/>
+               <rect x="35" y="60" width="40" height="3" rx="1.5" fill="rgba(230,172,0,0.5)"/>
+               <rect x="25" y="80" width="60" height="6" rx="3" fill="rgba(230,172,0,0.25)" stroke="rgba(230,172,0,0.4)" stroke-width="1.5"/>
+               <rect x="20" y="86" width="70" height="14" rx="4" fill="rgba(230,172,0,0.15)" stroke="rgba(230,172,0,0.3)" stroke-width="1.5"/>
+             </svg>
+           </div>`
+        : `<div class="prod-img-wrap relative">
+             <div class="absolute top-3 left-3 z-10 glass rounded-full px-2 py-1 text-[10px] font-bold">⭐ 4.9</div>
+             <img src="${imgSrc}" class="prod-img" alt="${p.name}">
+           </div>`;
+
+      return `
       <div class="glass-card product-card rounded-[24px] flex flex-col overflow-hidden opacity-0" style="transform:translateY(30px)">
-        <div class="prod-img-wrap relative">
-          <div class="absolute top-3 left-3 z-10 glass rounded-full px-2 py-1 text-[10px] font-bold">⭐ 4.9</div>
-          <img src="${getProductImage(p)}" class="prod-img" alt="${p.name}">
-        </div>
+        ${imageHtml}
         <div class="p-4 flex flex-col flex-1">
           <p class="section-eyebrow text-[9px] mb-1">${p.category || ''}</p>
           <h3 class="font-display font-bold text-[0.85rem] leading-tight mb-1">${p.name}</h3>
-          <p class="text-xs text-[#9a9690] mb-4 flex-1">${p.format} · ${p.weight}</p>
+          <p class="text-xs text-[#9a9690] mb-4 flex-1">${isEquipment ? p.weight : p.format + ' · ' + p.weight}</p>
           <div class="flex items-center justify-between mt-auto">
             <span class="font-mono text-primary font-bold">${p.price.toLocaleString()}<span class="text-[10px] text-[#9a9690] font-normal"> TZS</span></span>
             <button onclick="addToCart('${p.id}')" data-id="${p.id}"
@@ -663,7 +687,7 @@
           </div>
         </div>
       </div>
-    `).join('');
+    `}).join('');
 
     // Stagger products in
     setTimeout(() => {

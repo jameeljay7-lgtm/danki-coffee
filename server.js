@@ -56,10 +56,16 @@ app.get('/api/products', (req, res) => {
         
         // 250g Dark Roast
         { id:'dark-ground-250g', name:'Dark Roast Coffee', category:'Dark Roast', format:'Ground', weight:'250g', price:11000, desc:'Pre-ground Grade AA Arabica beans (250g), rich and full-bodied.', acidity:3, body:4, sweetness:4, aroma:4, altitude:'1,600m', process:'Pulped Natural', img:'images/bag_dark_ground_250g.jpg' },
-        { id:'dark-beans-250g', name:'Dark Roast Coffee', category:'Dark Roast', format:'Beans', weight:'250g', price:10000, desc:'A rich, full-bodied cup bridging sweet caramel tones and bold dark chocolate notes.', acidity:3, body:4, sweetness:4, aroma:4, altitude:'1,600m', process:'Pulped Natural', img:'images/bag_dark_beans_250g.jpg' }
+        { id:'dark-beans-250g', name:'Dark Roast Coffee', category:'Dark Roast', format:'Beans', weight:'250g', price:10000, desc:'A rich, full-bodied cup bridging sweet caramel tones and bold dark chocolate notes.', acidity:3, body:4, sweetness:4, aroma:4, altitude:'1,600m', process:'Pulped Natural', img:'images/bag_dark_beans_250g.jpg' },
+
+        // BREWING EQUIPMENT
+        { id:'french-press-350ml', name:'French Press', category:'Equipment', format:'Equipment', weight:'350ml', price:35000, desc:'Classic 350ml borosilicate glass French Press. Produces a rich, full-bodied brew in 4 minutes. Perfect for 1–2 cups.', img:null },
+        { id:'french-press-600ml', name:'French Press', category:'Equipment', format:'Equipment', weight:'600ml', price:45000, desc:'600ml French Press for sharing. Double-wall stainless steel frame with heat-resistant borosilicate glass.', img:null },
+        { id:'french-press-1000ml', name:'French Press', category:'Equipment', format:'Equipment', weight:'1000ml', price:55000, desc:'Large 1000ml French Press ideal for offices or families. Premium borosilicate glass with stainless steel plunger.', img:null }
     ];
     res.json(products);
 });
+
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
