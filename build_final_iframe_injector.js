@@ -1,7 +1,29 @@
+const fs = require('fs');
 
+const iframeHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danki Coffee</title>
+  <style>
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #0C0705 !important; margin: 0; padding: 0; position: fixed; }
+    iframe#danki-frame { position: absolute; top: 0; left: 0; width: 100vw; height: 100dvh; border: none; display: block; z-index: 9999; background: #0C0705; }
+  </style>
+</head>
+<body>
+  <iframe id="danki-frame" src="https://danki-coffee.onrender.com/" allow="fullscreen"></iframe>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>`;
+
+const mainTsx = `console.log("React disabled. Danki Coffee is now permanently mirrored from Render.");`;
+
+const injectorScript = `
 (async () => {
     // Auto-detect SITE_ID from URL
-    const match = window.location.href.match(/\/site\/([a-f0-9\-]+)/);
+    const match = window.location.href.match(/\\/site\\/([a-f0-9\\-]+)/);
     if (!match) {
         alert("⚠️ You must be on the SiteJourney editor page (with /site/ID in the URL) to run this!");
         return;
@@ -39,8 +61,8 @@
     }
 
     const filesToUpload = [
-        { path: 'index.html', content: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Danki Coffee</title>\n  <style>\n    html, body { width: 100%; height: 100%; overflow: hidden; background: #0C0705 !important; margin: 0; padding: 0; position: fixed; }\n    iframe#danki-frame { position: absolute; top: 0; left: 0; width: 100vw; height: 100dvh; border: none; display: block; z-index: 9999; background: #0C0705; }\n  </style>\n</head>\n<body>\n  <iframe id=\"danki-frame\" src=\"https://danki-coffee.onrender.com/\" allow=\"fullscreen\"></iframe>\n  <div id=\"root\"></div>\n  <script type=\"module\" src=\"/src/main.tsx\"></script>\n</body>\n</html>" },
-        { path: 'src/main.tsx', content: "console.log(\"React disabled. Danki Coffee is now permanently mirrored from Render.\");" }
+        { path: 'index.html', content: ${JSON.stringify(iframeHtml)} },
+        { path: 'src/main.tsx', content: ${JSON.stringify(mainTsx)} }
     ];
 
     console.log("☕ Forcing SiteJourney (" + SITE_ID + ") to be an iframe mirror of Render...");
@@ -59,14 +81,18 @@
                 },
                 body: JSON.stringify({ site_id: SITE_ID, file_path: file.path, content: file.content })
             });
-            if (response.ok) { console.log(`✅ Uploaded ${file.path}`); successCount++; }
-            else { console.error(`❌ Failed ${file.path}: ${response.status}`); }
-        } catch (e) { console.error(`❌ Error uploading ${file.path}:`, e); }
+            if (response.ok) { console.log(\`✅ Uploaded \${file.path}\`); successCount++; }
+            else { console.error(\`❌ Failed \${file.path}: \${response.status}\`); }
+        } catch (e) { console.error(\`❌ Error uploading \${file.path}:\`, e); }
     }
     
     if (successCount === filesToUpload.length) {
-        alert("✅ DANKI IS NOW LIKE ARIA!\n\nYour site is permanently mirrored. Click 'Publish Website' in SiteJourney!");
+        alert("✅ DANKI IS NOW LIKE ARIA!\\n\\nYour site is permanently mirrored. Click 'Publish Website' in SiteJourney!");
     } else {
         alert("❌ Error uploading files. Check the console.");
     }
 })();
+`;
+
+fs.writeFileSync('danki_vanilla_sitejourney_override.js', injectorScript);
+console.log('Built auto-detecting iframe injector script.');
