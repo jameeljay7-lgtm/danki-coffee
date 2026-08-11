@@ -68,11 +68,25 @@
 
     /* Glassmorphism */
     .glass {
-      background: rgba(25, 25, 25, 0.4);
+      background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    }
+    
+    /* Product card hover effect */
+    .glass.product-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      border-color: rgba(230, 172, 0, 0.3);
+      box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(230, 172, 0, 0.05);
+    }
+    .glass.product-card:hover .product-img {
+      transform: scale(1.05);
+    }
+    .product-img {
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
     }
     
     .glass-strong {
@@ -131,21 +145,25 @@
   </header>
 
   <main class="pt-24 md:pt-32 px-4 max-w-7xl mx-auto">
-    <!-- Hero Banner -->
-    <section class="glass rounded-[32px] p-6 md:p-12 mb-10 relative overflow-hidden flex flex-col justify-end min-h-[350px]">
-      <div class="relative z-10 max-w-xl">
-        <span class="text-primary text-[10px] uppercase tracking-widest font-mono mb-2 block">Premium Roast</span>
-        <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight mb-4 text-white">The Danki<br><span class="text-primary italic">Blend.</span></h1>
-        <button onclick="document.getElementById('shop').scrollIntoView()" class="bg-primary text-black font-bold py-3 px-6 rounded-full inline-flex items-center gap-2 hover:opacity-90 transition">
-          Explore Now <span class="material-symbols-outlined text-sm">arrow_forward</span>
-        </button>
+    <!-- Featured Promo -->
+    <section class="mb-10 gs-fade-up opacity-0 translate-y-[20px]">
+      <div class="glass rounded-3xl p-6 relative overflow-hidden flex items-center justify-between group">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent z-0"></div>
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-primary/20 rounded-full blur-[60px] group-hover:bg-primary/30 transition-colors duration-700"></div>
+        <div class="relative z-10 max-w-xl">
+          <span class="text-primary text-[10px] uppercase tracking-widest font-mono mb-2 block">Premium Roast</span>
+          <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight mb-4 text-white">The Danki<br><span class="text-primary italic">Blend.</span></h1>
+          <button onclick="document.getElementById('shop').scrollIntoView()" class="bg-primary text-black font-bold py-3 px-6 rounded-full inline-flex items-center gap-2 hover:opacity-90 transition">
+            Explore Now <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- Categories -->
     <section class="mb-8 overflow-x-auto hide-scrollbar -mx-4 px-4">
       <div class="flex gap-3 w-max">
-        <button onclick="setCategory('All')" id="cat-All" class="cat-btn glass rounded-full px-6 py-2.5 text-sm bg-white/10 border-white/20">All</button>
+        <button onclick="setCategory('All')" id="cat-All" class="cat-btn glass rounded-full px-6 py-2.5 text-sm bg-primary text-black">All</button>
         <button onclick="setCategory('Beans')" id="cat-Beans" class="cat-btn glass rounded-full px-6 py-2.5 text-sm text-on-surface-variant">Beans</button>
         <button onclick="setCategory('Ground')" id="cat-Ground" class="cat-btn glass rounded-full px-6 py-2.5 text-sm text-on-surface-variant">Ground</button>
         <button onclick="setCategory('250g')" id="cat-250g" class="cat-btn glass rounded-full px-6 py-2.5 text-sm text-on-surface-variant">250g</button>
@@ -154,9 +172,10 @@
 
     <!-- Product Grid -->
     <section id="shop">
-      <div class="flex justify-between items-end mb-6">
+      <!-- App Header -->
+      <header class="flex justify-between items-center mb-6 pt-4 relative z-10 gs-fade-down opacity-0 translate-y-[-20px]">
         <h2 class="font-display text-2xl font-bold">Discover Brews</h2>
-      </div>
+      </header>
       <div id="product-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         <!-- Injected via JS -->
       </div>
@@ -172,7 +191,6 @@
     <button aria-label="Shop" onclick="openCart()" class="relative flex flex-col items-center text-[#E6AC00] drop-shadow-[0_0_12px_rgba(230,172,0,0.6)] transition-all duration-300 transform scale-105">
       <span class="material-symbols-outlined text-[24px] mb-0.5" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
       <span class="text-[9px] font-bold tracking-wide">Shop</span>
-      <!-- Cart Counter Badge -->
       <span id="cart-count" class="absolute -top-1 -right-2 bg-[#E6AC00] text-black text-[9px] w-[16px] h-[16px] rounded-full hidden items-center justify-center font-bold shadow-lg">0</span>
     </button>
     <button aria-label="Beans" class="flex flex-col items-center text-[#A09D98] hover:text-white transition-colors duration-300">
@@ -203,10 +221,34 @@
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script>
     let PRODUCTS = [];
     let cart = [];
     let currentCategory = 'All';
+
+    // GSAP Setup
+    function initAnimations() {
+      gsap.to('.gs-fade-down', { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: 'power3.out', delay: 0.2 });
+      gsap.to('.gs-fade-up', { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.4 });
+      
+      // Animate bottom nav
+      gsap.fromTo('nav[aria-label="Bottom Navigation"]', 
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.6 }
+      );
+    }
+
+    function animateProducts() {
+      gsap.to('.product-card', {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power3.out',
+        overwrite: 'auto'
+      });
+    }
 
     async function loadProducts() {
       try {
@@ -214,6 +256,7 @@
         if (res.ok) {
           PRODUCTS = await res.json();
           renderProducts();
+          initAnimations(); 
         }
       } catch (err) {
         console.error("Failed to load products", err);
@@ -229,18 +272,15 @@
       );
       
       grid.innerHTML = filtered.map(p => {
-        // Fallback images for different formats
         let defaultImg = '/images/danki_photo_full.jpg';
         
         if (p.weight === '250g') {
            if (p.category === 'Dark Roast') defaultImg = p.format === 'Ground' ? '/images/bag_dark_ground_250g.jpg' : '/images/bag_dark_beans_250g.jpg';
            else defaultImg = p.format === 'Ground' ? '/images/bag_med_dark_ground_250g.jpg' : '/images/bag_med_dark_beans_250g.jpg';
         } else if (p.weight === '1kg' || p.weight === '500g') {
-           // For 1kg and 500g, map to our new generated filenames
            let roastStr = 'medium';
            if (p.category === 'Dark Roast') roastStr = 'dark';
            else if (p.category === 'Medium to Dark Roast' || p.category === 'Medium to Dark') roastStr = 'medium-dark';
-           
            let formatStr = p.format.toLowerCase();
            defaultImg = '/images/bag_' + roastStr + '_' + formatStr + '_' + p.weight + '.jpg';
         }
@@ -248,9 +288,9 @@
         const imgPath = p.img || defaultImg;
 
         return `
-        <div class="glass rounded-3xl p-3 flex flex-col relative group">
+        <div class="glass product-card rounded-3xl p-3 flex flex-col relative group opacity-0 translate-y-[30px]">
           <div class="absolute top-4 left-4 z-10 glass px-2 py-1 rounded-full text-[9px] uppercase tracking-wider font-bold">★ 4.9</div>
-          <img src="${imgPath}" class="product-img rounded-2xl bg-black/40 mb-3" alt="${p.name}">
+          <div class="overflow-hidden rounded-2xl mb-3 bg-black/40"><img src="${imgPath}" class="product-img w-full" alt="${p.name}"></div>
           <div class="px-2 pb-2 flex-1 flex flex-col">
             <h3 class="font-display font-bold text-base leading-tight mb-1">${p.name}</h3>
             <p class="text-xs text-on-surface-variant mb-3 flex-1">${p.format} · ${p.weight}</p>
@@ -263,20 +303,26 @@
           </div>
         </div>
       `}).join('');
+      
+      setTimeout(animateProducts, 50);
     }
 
     function setCategory(cat) {
       currentCategory = cat;
-      document.querySelectorAll('.cat-btn').forEach(b => {
-        b.classList.remove('bg-white/10', 'border-white/20', 'text-white');
-        b.classList.add('text-on-surface-variant');
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-black');
+        btn.classList.add('glass', 'text-on-surface-variant');
       });
-      const active = document.getElementById('cat-' + cat);
-      if(active) {
-        active.classList.add('bg-white/10', 'border-white/20', 'text-white');
-        active.classList.remove('text-on-surface-variant');
+      const activeBtn = document.getElementById('cat-' + cat);
+      if(activeBtn) {
+        activeBtn.classList.remove('glass', 'text-on-surface-variant');
+        activeBtn.classList.add('bg-primary', 'text-black');
       }
-      renderProducts();
+      
+      gsap.to('.product-card', { 
+        y: 20, opacity: 0, duration: 0.3, stagger: 0.05, 
+        onComplete: renderProducts 
+      });
     }
 
     function addToCart(id) {
@@ -313,5 +359,8 @@
     loadProducts();
     updateCart();
   </script>
+  
+  <!-- GSAP for Smooth Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </body>
 </html>
