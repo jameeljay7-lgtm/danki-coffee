@@ -27,10 +27,24 @@ app.get('/', (req, res) => {
     res.sendFile(indexPath);
 });
 
+app.get('/dashboard', (req, res) => {
+    const dashPath = path.join(__dirname, 'public', 'dashboard.html');
+    res.sendFile(dashPath);
+});
+
 app.use(express.static(path.join(__dirname, 'public'), { etag: false, maxAge: 0 }));
 
 app.get('/health', (req, res) => {
     res.status(200).json({ status: 'healthy', app: 'Danki Coffee Web Server', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/deploy-logs', (req, res) => {
+    res.json([
+        { date: 'Aug 11', time: '03:56:40 PM', message: 'found 0 vulnerabilities', type: 'info' },
+        { date: 'Aug 11', time: '03:56:41 PM', message: '==> Uploading build...', type: 'build' },
+        { date: 'Aug 11', time: '03:56:44 PM', message: '==> Uploaded in 2.4s. Compression took 0.6s', type: 'build' },
+        { date: 'Aug 11', time: '03:56:44 PM', message: '==> Build successful 🚀', type: 'success' }
+    ]);
 });
 
 // Official Danki Coffee catalogue — grouped by roast section in the storefront.

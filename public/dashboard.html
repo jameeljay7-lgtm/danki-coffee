@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Render | danki-coffee (Web Service)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            renderBg: '#0b0c10',
+            renderPanel: '#12131a',
+            renderSidebar: '#0f1017',
+            renderBorder: '#1e202e',
+            renderBorderLight: '#2a2d40',
+            renderPurple: '#7a3ee8',
+            renderPurpleBg: '#2a154d',
+            renderPurpleText: '#d8b4fe',
+            renderMuted: '#8b8e9e',
+            renderText: '#e2e4ed'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0b0c10;
+      color: #e2e4ed;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    /* Custom Scrollbar for Logs */
+    .log-scroll::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    .log-scroll::-webkit-scrollbar-track {
+      background: #0f1017;
+    }
+    .log-scroll::-webkit-scrollbar-thumb {
+      background: #25283b;
+      border-radius: 4px;
+    }
+    .log-scroll::-webkit-scrollbar-thumb:hover {
+      background: #363a54;
+    }
+    .toast-enter {
+      animation: fadeInOut 2.5s ease forwards;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(10px); }
+      15% { opacity: 1; transform: translateY(0); }
+      85% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-renderPurple selection:text-white">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="h-14 border-b border-renderBorder bg-renderSidebar px-4 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center space-x-3">
+      <!-- Render Logo -->
+      <a href="/dashboard" class="flex items-center space-x-2 text-white hover:opacity-90 transition">
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </svg>
+      </a>
+      <div class="h-4 w-px bg-renderBorder"></div>
+      <!-- Workspace Selector -->
+      <button class="flex items-center space-x-2 text-sm font-medium text-renderText hover:text-white px-2 py-1 rounded hover:bg-renderBorder/50 transition">
+        <span class="w-5 h-5 rounded-full bg-emerald-600 text-[10px] font-bold text-white flex items-center justify-center">M</span>
+        <span>My Workspace</span>
+        <span class="material-symbols-outlined text-sm text-renderMuted">unfold_more</span>
+      </button>
+    </div>
+
+    <!-- Search & Action Controls -->
+    <div class="flex items-center space-x-3">
+      <div class="relative hidden sm:flex items-center">
+        <span class="material-symbols-outlined absolute left-2.5 text-base text-renderMuted">search</span>
+        <input type="text" placeholder="Search" class="bg-[#151722] text-xs text-renderText pl-8 pr-8 py-1.5 rounded-md border border-renderBorder focus:outline-none focus:border-renderPurple w-56 placeholder-renderMuted">
+        <kbd class="absolute right-2 text-[10px] text-renderMuted bg-renderBorder px-1.5 py-0.5 rounded font-mono">⌘K</kbd>
+      </div>
+
+      <a href="/" class="text-xs bg-renderBorder/60 hover:bg-renderBorder text-renderText px-2.5 py-1.5 rounded-md border border-renderBorderLight font-medium transition flex items-center space-x-1">
+        <span class="material-symbols-outlined text-sm text-amber-400">store</span>
+        <span>Open Coffee Shop</span>
+      </a>
+
+      <button class="text-xs bg-white text-black hover:bg-gray-200 px-3 py-1.5 rounded-md font-medium transition flex items-center space-x-1">
+        <span class="material-symbols-outlined text-sm">add</span>
+        <span>New</span>
+      </button>
+      
+      <button class="text-xs border border-renderBorderLight text-renderText hover:text-white hover:border-gray-400 px-3 py-1.5 rounded-md font-medium transition">
+        Upgrade
+      </button>
+
+      <button class="w-7 h-7 rounded-full bg-purple-700 text-white font-semibold text-xs flex items-center justify-center hover:opacity-90 transition">
+        J
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN BODY LAYOUT (Sidebar + Main View) -->
+  <div class="flex-1 flex overflow-hidden">
+    
+    <!-- LEFT SIDEBAR -->
+    <aside class="w-64 border-r border-renderBorder bg-renderSidebar flex flex-col justify-between shrink-0 hidden md:flex">
+      <div class="p-3 space-y-6">
+        <!-- Service Title Breadcrumb -->
+        <div>
+          <a href="#" class="text-xs text-renderMuted hover:text-renderText flex items-center space-x-1 mb-2">
+            <span class="material-symbols-outlined text-xs">arrow_back</span>
+            <span>Dashboard</span>
+          </a>
+          <button class="w-full flex items-center justify-between px-2.5 py-2 rounded-lg bg-renderPanel border border-renderBorder hover:border-renderBorderLight transition">
+            <div class="flex items-center space-x-2">
+              <span class="material-symbols-outlined text-sm text-renderMuted">language</span>
+              <span class="text-sm font-semibold text-white">danki-coffee</span>
+            </div>
+            <span class="material-symbols-outlined text-sm text-renderMuted">unfold_more</span>
+          </button>
+        </div>
+
+        <!-- Main Navigation Links -->
+        <nav class="space-y-1 text-sm font-medium">
+          <a href="#" class="flex items-center space-x-2.5 px-3 py-2 rounded-md bg-renderPurple text-white">
+            <span class="material-symbols-outlined text-lg">format_list_bulleted</span>
+            <span>Events</span>
+          </a>
+          <a href="#" class="flex items-center space-x-2.5 px-3 py-2 rounded-md text-renderMuted hover:text-renderText hover:bg-renderBorder/40 transition">
+            <span class="material-symbols-outlined text-lg">settings</span>
+            <span>Settings</span>
+          </a>
+        </nav>
+
+        <!-- MONITOR SECTION -->
+        <div>
+          <h3 class="px-3 text-[11px] font-bold text-renderMuted tracking-wider uppercase mb-1">Monitor</h3>
+          <nav class="space-y-0.5 text-sm font-medium">
+            <a href="#" class="flex items-center space-x-2.5 px-3 py-1.5 rounded-md text-renderMuted hover:text-renderText hover:bg-renderBorder/40 transition">
+              <span class="material-symbols-outlined text-lg">terminal</span>
+              <span>Logs</span>
+            </a>
+            <a href="#" class="flex items-center space-x-2.5 px-3 py-1.5 rounded-md text-renderMuted hover:text-renderText hover:bg-renderBorder/40 transition">
+              <span class="material-symbols-outlined text-lg">monitoring</span>
+              <span>Metrics</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- MANAGE SECTION -->
+        <div>
+          <h3 class="px-3 text-[11px] font-bold text-renderMuted tracking-wider uppercase mb-1">Manage</h3>
+          <nav class="space-y-0.5 text-sm font-medium">
+            <a href="#" class="flex items-center space-x-2.5 px-3 py-1.5 rounded-md text-renderMuted hover:text-renderText hover:bg-renderBorder/40 transition">
+              <span class="material-symbols-outlined text-lg">tune</span>
+              <span>Environment</span>
+            </a>
+            <a href="#" class="flex items-center space-x-2.5 px-3 py-1.5 rounded-md text-renderMuted hover:text-renderText hover:bg-renderBorder/40 transition">
+              <span class="material-symbols-outlined text-lg">bolt</span>
+              <span>Shell</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- SIDEBAR FOOTER -->
+      <div class="p-3 border-t border-renderBorder space-y-1 text-xs text-renderMuted font-medium">
+        <a href="#" class="flex items-center space-x-2 px-2 py-1.5 hover:text-renderText transition">
+          <span class="material-symbols-outlined text-base">receipt_long</span>
+          <span>Changelog</span>
+        </a>
+        <a href="#" class="flex items-center space-x-2 px-2 py-1.5 hover:text-renderText transition">
+          <span class="material-symbols-outlined text-base">send</span>
+          <span>Invite a friend</span>
+        </a>
+        <a href="#" class="flex items-center space-x-2 px-2 py-1.5 hover:text-renderText transition">
+          <span class="material-symbols-outlined text-base">chat_bubble</span>
+          <span>Contact support</span>
+        </a>
+        <a href="https://status.render.com" target="_blank" class="flex items-center space-x-2 px-2 py-1.5 hover:text-renderText transition">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+          <span>Render Status</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 overflow-y-auto bg-renderBg p-4 md:p-8 space-y-6">
+      
+      <!-- HEADER: SERVICE TITLE & METADATA -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div>
+          <!-- Type Badge -->
+          <div class="flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-renderMuted mb-1">
+            <span class="material-symbols-outlined text-sm">language</span>
+            <span>Web Service</span>
+          </div>
+
+          <!-- Title & Badges -->
+          <div class="flex flex-wrap items-center gap-3">
+            <h1 class="text-2xl font-bold text-white tracking-tight">danki-coffee</h1>
+            <span class="bg-[#1c2030] text-renderText text-xs font-medium px-2.5 py-0.5 rounded border border-renderBorder">Node</span>
+            <span class="bg-renderPurpleBg text-renderPurpleText text-xs font-medium px-2.5 py-0.5 rounded border border-purple-800/40">Free</span>
+            <a href="#" class="text-xs text-renderPurpleText hover:underline flex items-center space-x-0.5">
+              <span>Upgrade your instance</span>
+              <span class="material-symbols-outlined text-xs">arrow_forward</span>
+            </a>
+          </div>
+
+          <!-- Metadata Links -->
+          <div class="mt-3 flex flex-wrap items-center text-xs text-renderMuted gap-x-4 gap-y-1">
+            <div class="flex items-center space-x-1.5">
+              <span>Service ID: <code class="text-renderText font-mono">srv-d9t8tiijobas73cbnjh0</code></span>
+              <button onclick="copyServiceId()" class="hover:text-white transition title-copy" title="Copy Service ID">
+                <span class="material-symbols-outlined text-xs">content_copy</span>
+              </button>
+            </div>
+            
+            <div class="flex items-center space-x-1.5">
+              <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              <a href="https://github.com/jameeljay7-lgtm/danki-coffee" target="_blank" class="hover:text-renderText underline">jameeljay7-lgtm / danki-coffee</a>
+              <span class="flex items-center space-x-0.5 text-renderMuted">
+                <span class="material-symbols-outlined text-xs">account_tree</span>
+                <span>main</span>
+              </span>
+            </div>
+
+            <div class="flex items-center space-x-1.5">
+              <a href="https://danki-coffee-2bmn.onrender.com" target="_blank" class="text-indigo-400 hover:underline font-mono">https://danki-coffee-2bmn.onrender.com</a>
+              <button onclick="copyLiveUrl()" class="hover:text-white transition" title="Copy URL">
+                <span class="material-symbols-outlined text-xs">content_copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center space-x-2">
+          <button class="bg-[#151722] hover:bg-renderBorder border border-renderBorder text-xs text-renderText px-3 py-2 rounded-md font-medium flex items-center space-x-1 transition">
+            <span>Connect</span>
+            <span class="material-symbols-outlined text-sm">expand_more</span>
+          </button>
+          
+          <button onclick="triggerManualDeploy()" class="bg-white text-black hover:bg-gray-200 text-xs px-3.5 py-2 rounded-md font-semibold flex items-center space-x-1 transition">
+            <span>Manual Deploy</span>
+            <span class="material-symbols-outlined text-sm">expand_more</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- FREE INSTANCE NOTICE BANNER -->
+      <div class="bg-[#1e1333] border border-purple-900/60 rounded-lg p-3.5 flex items-center justify-between text-xs sm:text-sm text-purple-200 shadow-lg">
+        <div class="flex items-center space-x-2.5">
+          <span class="material-symbols-outlined text-purple-400 text-base">info</span>
+          <span>Your free instance will spin down with inactivity, which can delay requests by 50 seconds or more.</span>
+        </div>
+        <a href="#" class="shrink-0 text-xs font-semibold text-purple-300 hover:text-white underline ml-2">Upgrade now</a>
+      </div>
+
+      <!-- LATEST DEPLOY EVENT CARD -->
+      <div class="bg-renderPanel border border-renderBorder rounded-lg p-4 space-y-2">
+        <div class="text-xs font-semibold text-renderMuted">
+          August 11, 2026 at 3:56 PM
+        </div>
+        <div class="flex items-center space-x-2">
+          <a href="#" class="font-mono text-xs text-purple-400 hover:underline bg-purple-950/60 border border-purple-800/50 px-1.5 py-0.5 rounded">094b3b2</a>
+          <span class="text-sm font-medium text-white">Refactor server.js for improved structure and clarity</span>
+        </div>
+      </div>
+
+      <!-- LOG TERMINAL CONSOLE -->
+      <div class="bg-renderPanel border border-renderBorder rounded-lg overflow-hidden flex flex-col shadow-2xl">
+        
+        <!-- LOG CONTROLS BAR -->
+        <div class="p-3 border-b border-renderBorder flex flex-wrap items-center justify-between gap-3 bg-[#111219]">
+          <div class="flex items-center space-x-3">
+            <!-- Filter Dropdown -->
+            <button class="bg-[#181a26] border border-renderBorder text-xs text-renderText px-2.5 py-1.5 rounded flex items-center space-x-1 hover:border-renderBorderLight transition">
+              <span>All logs</span>
+              <span class="material-symbols-outlined text-sm text-renderMuted">expand_more</span>
+            </button>
+
+            <!-- Search Input -->
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-2 top-1.5 text-sm text-renderMuted">search</span>
+              <input id="logSearch" type="text" oninput="filterLogs()" placeholder="Search logs" class="bg-[#181a26] border border-renderBorder text-xs text-renderText pl-7 pr-3 py-1.5 rounded focus:outline-none focus:border-renderPurple w-48 placeholder-renderMuted">
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-3">
+            <!-- Date Filter -->
+            <button class="bg-[#181a26] border border-renderBorder text-xs text-renderText px-2.5 py-1.5 rounded flex items-center space-x-1.5 hover:border-renderBorderLight transition">
+              <span class="material-symbols-outlined text-sm text-renderMuted">schedule</span>
+              <span>Aug 11, 3:55 PM - 3:57 PM</span>
+            </button>
+
+            <!-- Timezone -->
+            <span class="text-xs text-renderMuted font-mono">GMT+3</span>
+
+            <!-- Actions -->
+            <button onclick="clearConsole()" class="text-renderMuted hover:text-white p-1 rounded transition" title="Clear log output">
+              <span class="material-symbols-outlined text-base">block</span>
+            </button>
+            <button class="text-renderMuted hover:text-white p-1 rounded transition" title="Maximize">
+              <span class="material-symbols-outlined text-base">fullscreen</span>
+            </button>
+            <button class="text-renderMuted hover:text-white p-1 rounded transition" title="More options">
+              <span class="material-symbols-outlined text-base">more_horiz</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- LOG TERMINAL CONTENT -->
+        <div id="logTerminal" class="p-4 font-mono text-xs text-renderText space-y-1.5 bg-[#090a0e] min-h-[220px] max-h-[420px] overflow-y-auto log-scroll selection:bg-purple-900">
+          <div class="log-line flex items-start space-x-6 text-gray-400">
+            <span class="text-renderMuted select-none shrink-0">Aug 11</span>
+            <span class="text-gray-500 select-none shrink-0">03:56:40 PM</span>
+            <span class="text-amber-200/90">found 0 vulnerabilities</span>
+          </div>
+
+          <div class="log-line flex items-start space-x-6 text-gray-400">
+            <span class="text-renderMuted select-none shrink-0">Aug 11</span>
+            <span class="text-gray-500 select-none shrink-0">03:56:41 PM</span>
+            <span class="text-teal-400 font-semibold">==&gt; Uploading build...</span>
+          </div>
+
+          <div class="log-line flex items-start space-x-6 text-gray-400">
+            <span class="text-renderMuted select-none shrink-0">Aug 11</span>
+            <span class="text-gray-500 select-none shrink-0">03:56:44 PM</span>
+            <span class="text-teal-400 font-semibold">==&gt; Uploaded in 2.4s. Compression took 0.6s</span>
+          </div>
+
+          <div class="log-line flex items-start space-x-6 text-gray-400">
+            <span class="text-renderMuted select-none shrink-0">Aug 11</span>
+            <span class="text-gray-500 select-none shrink-0">03:56:44 PM</span>
+            <span class="text-emerald-400 font-bold">==&gt; Build successful 🚀</span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 hidden bg-renderPanel border border-renderPurple text-white text-xs px-4 py-2.5 rounded-lg shadow-2xl flex items-center space-x-2 z-50">
+    <span class="material-symbols-outlined text-emerald-400 text-sm">check_circle</span>
+    <span id="toastMessage">Copied to clipboard!</span>
+  </div>
+
+  <!-- INTERACTIVE JAVASCRIPT -->
+  <script>
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('toast-enter');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('toast-enter');
+      }, 2500);
+    }
+
+    function copyServiceId() {
+      navigator.clipboard.writeText('srv-d9t8tiijobas73cbnjh0');
+      showToast('Service ID copied: srv-d9t8tiijobas73cbnjh0');
+    }
+
+    function copyLiveUrl() {
+      navigator.clipboard.writeText('https://danki-coffee-2bmn.onrender.com');
+      showToast('Live URL copied to clipboard!');
+    }
+
+    function clearConsole() {
+      const term = document.getElementById('logTerminal');
+      term.innerHTML = '<div class="text-gray-600 italic">Console cleared. Trigger manual deploy to stream new logs.</div>';
+    }
+
+    function filterLogs() {
+      const query = document.getElementById('logSearch').value.toLowerCase();
+      const lines = document.querySelectorAll('.log-line');
+      lines.forEach(line => {
+        const text = line.textContent.toLowerCase();
+        if (text.includes(query)) {
+          line.style.display = 'flex';
+        } else {
+          line.style.display = 'none';
+        }
+      });
+    }
+
+    function triggerManualDeploy() {
+      const term = document.getElementById('logTerminal');
+      const timeStr = new Date().toLocaleTimeString('en-US', { hour12: true });
+
+      const logsToStream = [
+        { delay: 400, text: '==&gt; Starting manual deploy for commit <span class="text-purple-400">094b3b2</span>...', color: 'text-sky-400' },
+        { delay: 1200, text: '==&gt; Cloning repository jameeljay7-lgtm/danki-coffee...', color: 'text-gray-300' },
+        { delay: 2000, text: '==&gt; Running build command: npm install &amp;&amp; node server.js', color: 'text-gray-300' },
+        { delay: 2900, text: 'found 0 vulnerabilities in 42 packages', color: 'text-amber-200' },
+        { delay: 3600, text: '==&gt; Uploading build artifacts...', color: 'text-teal-400' },
+        { delay: 4400, text: '==&gt; Deploying web service instance on port 10000...', color: 'text-teal-400' },
+        { delay: 5200, text: '[DANKI COFFEE] Web App running on port 10000', color: 'text-emerald-300 font-semibold' },
+        { delay: 5500, text: '==&gt; Build successful 🚀', color: 'text-emerald-400 font-bold' }
+      ];
+
+      term.innerHTML += `<div class="text-purple-400 border-t border-renderBorder pt-2 my-1 font-semibold">--- Manual Deploy Initiated ---</div>`;
+
+      logsToStream.forEach(item => {
+        setTimeout(() => {
+          const div = document.createElement('div');
+          div.className = 'log-line flex items-start space-x-6 text-gray-400';
+          div.innerHTML = `
+            <span class="text-renderMuted select-none shrink-0">Today</span>
+            <span class="text-gray-500 select-none shrink-0">${timeStr}</span>
+            <span class="${item.color}">${item.text}</span>
+          `;
+          term.appendChild(div);
+          term.scrollTop = term.scrollHeight;
+        }, item.delay);
+      });
+      showToast('Manual Deploy triggered!');
+    }
+  </script>
+</body>
+</html>
