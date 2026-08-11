@@ -219,10 +219,20 @@
       grid.innerHTML = filtered.map(p => {
         // Fallback images for different formats
         let defaultImg = '/images/danki_photo_full.jpg';
+        
         if (p.weight === '250g') {
            if (p.category === 'Dark Roast') defaultImg = p.format === 'Ground' ? '/images/bag_dark_ground_250g.jpg' : '/images/bag_dark_beans_250g.jpg';
            else defaultImg = p.format === 'Ground' ? '/images/bag_med_dark_ground_250g.jpg' : '/images/bag_med_dark_beans_250g.jpg';
+        } else if (p.weight === '1kg' || p.weight === '500g') {
+           // For 1kg and 500g, map to our new generated filenames
+           let roastStr = 'medium';
+           if (p.category === 'Dark Roast') roastStr = 'dark';
+           else if (p.category === 'Medium to Dark Roast' || p.category === 'Medium to Dark') roastStr = 'medium-dark';
+           
+           let formatStr = p.format.toLowerCase();
+           defaultImg = '/images/bag_' + roastStr + '_' + formatStr + '_' + p.weight + '.jpg';
         }
+        
         const imgPath = p.img || defaultImg;
 
         return `
