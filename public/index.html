@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -16,10 +17,11 @@
         extend: {
           colors: {
             coffeeGold: '#d4a359',
-            coffeeGoldLight: '#f3c98b',
-            espressoDark: '#090705',
-            glassBg: 'rgba(255, 255, 255, 0.05)',
-            glassBorder: 'rgba(255, 255, 255, 0.12)'
+            coffeeGoldLight: '#f8d79b',
+            espressoDark: '#080604',
+            espressoPanel: '#120e0a',
+            glassBg: 'rgba(255, 255, 255, 0.04)',
+            glassBorder: 'rgba(255, 255, 255, 0.1)'
           },
           fontFamily: {
             sans: ['Plus Jakarta Sans', 'sans-serif'],
@@ -33,77 +35,90 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background-color: #090705;
+      background-color: #080604;
       color: #f5f0eb;
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* ===== LIQUID ESPRESSO BACKGROUND WITH BUBBLES ===== */
-    .liquid-bg {
+    /* ===== CANVAS ANIMATED BACKGROUND ===== */
+    #bgCanvas {
       position: fixed;
       inset: 0;
       z-index: -2;
-      background: 
-        radial-gradient(circle at 20% 15%, rgba(212, 163, 89, 0.25) 0%, transparent 50%),
-        radial-gradient(circle at 80% 65%, rgba(160, 85, 15, 0.3) 0%, transparent 65%),
-        radial-gradient(circle at 50% 90%, rgba(90, 40, 5, 0.35) 0%, transparent 60%),
-        url('/images/mockup.jpg') no-repeat center center / cover;
-      background-blend-mode: overlay;
-      opacity: 0.9;
-      filter: saturate(1.25) contrast(1.1);
+      pointer-events: none;
+      width: 100vw;
+      height: 100vh;
     }
-    
+
     .liquid-overlay {
       position: fixed;
       inset: 0;
       z-index: -1;
-      background: linear-gradient(180deg, rgba(9, 7, 5, 0.7) 0%, rgba(9, 7, 5, 0.85) 40%, rgba(9, 7, 5, 0.96) 100%);
+      background: radial-gradient(circle at 50% 20%, rgba(180, 100, 30, 0.15) 0%, transparent 70%),
+                  radial-gradient(circle at 80% 80%, rgba(120, 50, 10, 0.2) 0%, transparent 60%),
+                  linear-gradient(180deg, rgba(8, 6, 4, 0.6) 0%, rgba(8, 6, 4, 0.85) 50%, rgba(8, 6, 4, 0.96) 100%);
+      pointer-events: none;
     }
 
-    /* Floating Liquid Orbs */
-    .orb {
-      position: fixed; border-radius: 50%; filter: blur(70px);
-      mix-blend-mode: screen; pointer-events: none; z-index: -1;
-      animation: float 18s infinite alternate ease-in-out;
-    }
-    .orb-1 { width: 500px; height: 500px; background: rgba(212, 163, 89, 0.15); top: -100px; left: -100px; }
-    .orb-2 { width: 400px; height: 400px; background: rgba(180, 90, 20, 0.18); bottom: -50px; right: -50px; animation-delay: -8s; }
-
-    @keyframes float {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(30px, 50px) scale(1.1); }
-    }
-
-    /* ===== LIQUID GLASS CARDS ===== */
+    /* ===== AESTHETIC LIQUID GLASS CARDS ===== */
     .glass-card {
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15);
       border-radius: 24px;
       transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
     .glass-card:hover {
       transform: translateY(-6px) scale(1.015);
-      border-color: rgba(212, 163, 89, 0.45);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 163, 89, 0.2);
+      border-color: rgba(212, 163, 89, 0.5);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 163, 89, 0.25);
     }
 
     .glass-nav {
-      background: rgba(18, 14, 10, 0.8);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
+      background: rgba(16, 12, 8, 0.82);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+    }
+
+    /* ===== RESPONSIVE CATEGORY PILLS ===== */
+    .cat-pill {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #d1c7bc;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .cat-pill:hover {
+      background: rgba(212, 163, 89, 0.15);
+      border-color: rgba(212, 163, 89, 0.4);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .cat-pill.active {
+      background: linear-gradient(135deg, #d4a359 0%, #b88338 100%);
+      color: #080604;
+      font-weight: 800;
+      border-color: #f3c98b;
+      box-shadow: 0 8px 25px rgba(212, 163, 89, 0.4);
+      transform: scale(1.03);
     }
 
     .btn-gold {
       background: linear-gradient(135deg, #d4a359 0%, #b88338 100%);
-      color: #0a0806;
+      color: #080604;
       font-weight: 700;
       box-shadow: 0 10px 25px rgba(212, 163, 89, 0.35);
       transition: all 0.3s ease;
@@ -113,23 +128,19 @@
       box-shadow: 0 15px 35px rgba(212, 163, 89, 0.5);
     }
 
-    /* Custom Scrollbars */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #090705; }
-    ::-webkit-scrollbar-thumb { background: #2a2016; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #3d2f20; }
+    /* Hide Scrollbar for Pill Bar */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
 <body class="selection:bg-coffeeGold selection:text-black">
 
-  <!-- BACKGROUND ART -->
-  <div class="liquid-bg"></div>
+  <!-- ANIMATED CANVAS BACKGROUND & OVERLAY -->
+  <canvas id="bgCanvas"></canvas>
   <div class="liquid-overlay"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
 
-  <!-- DESKTOP TOP HEADER NAVBAR (Visible on PC / iPad screens) -->
-  <header class="sticky top-0 z-40 w-full glass-nav border-b border-white/10 px-6 lg:px-12 py-4 flex items-center justify-between">
+  <!-- DESKTOP TOP HEADER NAVBAR -->
+  <header class="sticky top-0 z-40 w-full glass-nav border-b border-white/10 px-4 sm:px-8 lg:px-12 py-3.5 flex items-center justify-between">
     <div class="flex items-center space-x-8">
       <a href="/" class="text-2xl font-bold font-display tracking-tight text-white flex items-center space-x-2">
         <span>Danki</span>
@@ -150,30 +161,28 @@
     </div>
 
     <!-- Right Controls: Search, Profile, Cart -->
-    <div class="flex items-center space-x-4">
-      <!-- Search Input for PC -->
+    <div class="flex items-center space-x-3 sm:space-x-4">
       <div class="relative hidden sm:flex items-center">
         <span class="material-symbols-outlined absolute left-3 text-lg text-amber-200/50">search</span>
-        <input type="text" placeholder="Search coffee, brews..." class="bg-white/5 border border-white/10 text-xs text-white pl-9 pr-4 py-2 rounded-full focus:outline-none focus:border-coffeeGold w-48 lg:w-64 placeholder-amber-200/40">
+        <input type="text" oninput="filterBySearch(this.value)" placeholder="Search coffee, brews..." class="bg-white/5 border border-white/10 text-xs text-white pl-9 pr-4 py-2 rounded-full focus:outline-none focus:border-coffeeGold w-44 lg:w-60 placeholder-amber-200/40">
       </div>
 
-      <button class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-white hover:text-coffeeGold transition">
-        <span class="material-symbols-outlined text-xl">person</span>
+      <button class="w-9 h-9 sm:w-10 sm:h-10 rounded-full glass-card flex items-center justify-center text-white hover:text-coffeeGold transition">
+        <span class="material-symbols-outlined text-lg sm:text-xl">person</span>
       </button>
 
-      <button onclick="openCart()" class="relative w-10 h-10 rounded-full glass-card flex items-center justify-center text-white hover:text-coffeeGold transition">
-        <span class="material-symbols-outlined text-xl">shopping_bag</span>
+      <button onclick="openCart()" class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full glass-card flex items-center justify-center text-white hover:text-coffeeGold transition">
+        <span class="material-symbols-outlined text-lg sm:text-xl">shopping_bag</span>
         <span id="cartBadge" class="absolute -top-1 -right-1 bg-coffeeGold text-black font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
       </button>
     </div>
   </header>
 
-  <!-- MAIN WRAPPER CONTAINER (Flexible for Mobile & PC) -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-28 space-y-10">
+  <!-- MAIN WRAPPER CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-28 space-y-8">
 
-    <!-- HERO FEATURE BANNER (MATCHES MOCKUP PHOTO) -->
-    <section id="hero" class="glass-card p-6 sm:p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between min-h-[220px] lg:min-h-[280px]">
-      <!-- Background Ambient Glow -->
+    <!-- HERO FEATURE BANNER -->
+    <section id="hero" class="glass-card p-6 sm:p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between min-h-[220px] lg:min-h-[270px]">
       <div class="absolute -right-10 -top-10 w-72 h-72 bg-coffeeGold/20 rounded-full filter blur-3xl pointer-events-none"></div>
 
       <div class="space-y-4 z-10 max-w-lg text-center md:text-left mb-6 md:mb-0">
@@ -181,9 +190,9 @@
         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight font-display">
           The Danki<br><span class="text-coffeeGold">Blend</span>
         </h2>
-        <p class="text-sm text-amber-100/70 line-clamp-2">Handcrafted Grade AA Arabica roasted in small batches high up in the Tanzanian highlands.</p>
-        <div class="pt-2">
-          <button onclick="scrollToShop()" class="btn-gold text-sm px-6 py-3 rounded-full inline-flex items-center space-x-2">
+        <p class="text-xs sm:text-sm text-amber-100/70 line-clamp-2">Handcrafted Grade AA Arabica roasted in small batches high up in the Tanzanian highlands.</p>
+        <div class="pt-1">
+          <button onclick="scrollToShop()" class="btn-gold text-xs sm:text-sm px-6 py-3 rounded-full inline-flex items-center space-x-2">
             <span>Explore Now</span>
             <span class="material-symbols-outlined text-base">arrow_forward</span>
           </button>
@@ -192,43 +201,44 @@
 
       <!-- Hero Product Image -->
       <div class="z-10 relative flex items-center justify-center">
-        <img src="/images/bag_dark_beans_1kg.jpg" alt="The Danki Blend" class="w-36 sm:w-48 lg:w-56 h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500">
+        <img src="/images/bag_dark_beans_1kg.jpg" alt="The Danki Blend" class="w-32 sm:w-48 lg:w-56 h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500">
       </div>
     </section>
 
-    <!-- CATEGORY FILTER BAR -->
-    <section class="flex items-center justify-between border-b border-white/10 pb-4">
-      <div class="flex items-center space-x-2 sm:space-x-3 overflow-x-auto pb-1 scrollbar-none">
-        <button onclick="filterCategory('All')" class="cat-pill active px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-coffeeGold text-black transition shrink-0">All Roast</button>
-        <button onclick="filterCategory('Dark Roast')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold glass-card text-white hover:text-coffeeGold transition shrink-0">Dark Roast</button>
-        <button onclick="filterCategory('Medium Roast')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold glass-card text-white hover:text-coffeeGold transition shrink-0">Medium Roast</button>
-        <button onclick="filterCategory('Equipment')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold glass-card text-white hover:text-coffeeGold transition shrink-0">Equipment</button>
+    <!-- HIGHLY RESPONSIVE CATEGORY PILLS BAR -->
+    <section class="space-y-3">
+      <div class="flex items-center justify-between px-1">
+        <span class="text-xs font-bold text-coffeeGold uppercase tracking-wider">Categories</span>
+        <span class="text-xs text-amber-200/50 hidden sm:inline">Scroll to filter brews</span>
       </div>
 
-      <div class="hidden sm:flex items-center space-x-1 text-xs text-amber-200/60 font-mono">
-        <span>Highland 1,600m</span>
+      <div class="flex items-center space-x-2 sm:space-x-3 overflow-x-auto pb-2 no-scrollbar scroll-smooth">
+        <button onclick="filterCategory(this, 'All')" class="cat-pill active px-5 py-2.5 rounded-full text-xs sm:text-sm shrink-0">All Roast</button>
+        <button onclick="filterCategory(this, 'Dark Roast')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm shrink-0">Dark Roast</button>
+        <button onclick="filterCategory(this, 'Medium Roast')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm shrink-0">Medium Roast</button>
+        <button onclick="filterCategory(this, 'Equipment')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm shrink-0">Equipment</button>
       </div>
     </section>
 
-    <!-- DISCOVER OUR BREWS (RESPONSIVE GRID: 2 COL ON MOBILE, 3-4 COL ON PC) -->
+    <!-- DISCOVER OUR BREWS (DYNAMIC PRODUCT GRID) -->
     <section class="space-y-6" id="shop">
       <div class="flex items-center justify-between">
         <div>
           <h3 class="text-xl sm:text-2xl font-bold text-white font-display">Discover Our Brews</h3>
-          <p class="text-xs text-amber-200/60">Freshly roasted beans & handcrafted specialty brews</p>
+          <p class="text-xs text-amber-200/60">Freshly roasted beans & specialty coffee equipment</p>
         </div>
         <span class="text-xs text-coffeeGold font-medium bg-coffeeGold/10 px-3 py-1.5 rounded-full border border-coffeeGold/20">Grade AA Arabica</span>
       </div>
 
-      <!-- Responsive Product Cards Grid -->
+      <!-- Responsive Product Grid: 2 Col Mobile, 3 Col Tablet, 4 Col PC -->
       <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-        <!-- Dynamic JS product cards -->
+        <!-- Rendered by JS -->
       </div>
     </section>
 
   </main>
 
-  <!-- FLOATING GLASS BOTTOM NAV BAR (MOBILE ONLY) -->
+  <!-- FLOATING GLASS BOTTOM NAV BAR (MOBILE) -->
   <nav class="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 glass-nav px-6 py-3 rounded-full flex items-center space-x-7 z-50 shadow-2xl">
     <a href="#hero" class="flex flex-col items-center space-y-0.5 text-coffeeGold">
       <span class="material-symbols-outlined text-2xl">home</span>
@@ -280,12 +290,76 @@
     </div>
   </div>
 
-  <!-- INTERACTIVE JS -->
+  <!-- AESTHETIC CANVAS BACKGROUND SCRIPT & STOREFRONT LOGIC -->
   <script>
+    /* ===== 2D ANIMATED COFFEE CANVAS ===== */
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = height + Math.random() * 100;
+        this.size = Math.random() * 4 + 1.5;
+        this.speedY = Math.random() * 0.8 + 0.3;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.opacity = Math.random() * 0.5 + 0.15;
+        this.color = Math.random() > 0.4 ? '#d4a359' : '#b86618';
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        if (this.y < -20) this.reset();
+      }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 45; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateBg() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Radial background aura
+      const grad = ctx.createRadialGradient(width * 0.5, height * 0.3, 50, width * 0.5, height * 0.3, width * 0.7);
+      grad.addColorStop(0, 'rgba(180, 100, 30, 0.08)');
+      grad.addColorStop(1, 'rgba(8, 6, 4, 0)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateBg);
+    }
+    animateBg();
+
+    /* ===== STOREFRONT PRODUCTS & CARTS LOGIC ===== */
     let cart = [];
     let allProducts = [];
 
-    // Custom product items featuring mock images matching mockup.jpg (latte glass cups + coffee bags)
     const featuredBrews = [
       { id:'prod-1', name:'Organic Espresso Roast', category:'Dark Roast', weight:'1kg', price:30000, displayPrice:'$18.99', rating:'4.9', img:'/images/bag_dark_beans_1kg.jpg' },
       { id:'prod-2', name:'Ethiopian Yirgacheffe', category:'Medium Roast', weight:'500g', price:35000, displayPrice:'$21.50', rating:'4.8', img:'/images/bag_medium_beans_500g.jpg' },
@@ -308,6 +382,11 @@
     function renderGrid(products) {
       const grid = document.getElementById('productGrid');
       grid.innerHTML = '';
+
+      if (products.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-center py-10 text-amber-200/50 italic text-sm">No coffee brews found matching category.</div>';
+        return;
+      }
 
       products.forEach(p => {
         const rating = p.rating || (4.7 + (Math.random() * 0.2)).toFixed(1);
@@ -340,15 +419,15 @@
         `;
         grid.appendChild(card);
       });
+
+      gsap.from('#productGrid .glass-card', { opacity: 0, y: 15, duration: 0.35, stagger: 0.05, ease: 'power2.out' });
     }
 
-    function filterCategory(cat) {
+    function filterCategory(btn, cat) {
       document.querySelectorAll('.cat-pill').forEach(el => {
-        el.classList.remove('bg-coffeeGold', 'text-black');
-        el.classList.add('glass-card', 'text-white');
+        el.classList.remove('active');
       });
-      event.target.classList.remove('glass-card', 'text-white');
-      event.target.classList.add('bg-coffeeGold', 'text-black');
+      btn.classList.add('active');
 
       if (cat === 'All') {
         renderGrid(allProducts);
@@ -356,6 +435,12 @@
         const filtered = allProducts.filter(p => p.category === cat);
         renderGrid(filtered);
       }
+    }
+
+    function filterBySearch(query) {
+      const q = query.toLowerCase();
+      const filtered = allProducts.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+      renderGrid(filtered);
     }
 
     function addToCart(id) {
