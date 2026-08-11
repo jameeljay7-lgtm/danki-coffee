@@ -195,6 +195,43 @@
     .cat-pill:hover { background: rgba(255,255,255,0.09); color: #f5f0eb; }
     .cat-pill.active { background: #E6AC00; color: #000; }
 
+    /* ===== CHECKOUT MODAL ===== */
+    .checkout-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(12px); z-index: 300;
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s;
+    }
+    .checkout-overlay.open { opacity: 1; pointer-events: all; }
+    .checkout-sheet {
+      background: #0e0c09;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 32px 32px 0 0;
+      width: 100%; max-width: 520px;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      max-height: 92vh; overflow-y: auto;
+    }
+    .checkout-sheet.open { transform: translateY(0); }
+    .form-input {
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 14px;
+      color: #f5f0eb; font-family: Manrope, sans-serif; font-size: 0.9rem;
+      padding: 14px 16px; outline: none; transition: border-color 0.25s;
+    }
+    .form-input:focus { border-color: #E6AC00; }
+    .form-input::placeholder { color: #6b6660; }
+    .payment-option {
+      display: flex; align-items: center; gap-12px;
+      background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 14px 16px; cursor: pointer;
+      transition: all 0.25s; gap: 12px;
+    }
+    .payment-option:hover { border-color: rgba(230,172,0,0.4); background: rgba(230,172,0,0.05); }
+    .payment-option.selected { border-color: #E6AC00; background: rgba(230,172,0,0.08); }
+    .payment-option input { accent-color: #E6AC00; }
+
     /* Reveal animation classes */
     .reveal { opacity: 0; transform: translateY(40px); }
   </style>
@@ -504,6 +541,107 @@
   </button>
 </div>
 
+<!-- ===== CHECKOUT MODAL ===== -->
+<div class="checkout-overlay" id="checkout-overlay">
+  <div class="checkout-sheet" id="checkout-sheet">
+    <!-- Handle -->
+    <div class="flex justify-center pt-4 pb-2">
+      <div class="w-10 h-1 bg-white/20 rounded-full"></div>
+    </div>
+    <div class="px-6 pb-8">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="font-display text-xl font-bold">Complete Your Order</h2>
+          <p class="text-xs text-[#9a9690] mt-1">We'll confirm via WhatsApp</p>
+        </div>
+        <button onclick="closeCheckout()" class="p-2 text-[#9a9690] hover:text-white transition">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="glass-card rounded-2xl p-4 mb-6">
+        <p class="text-xs text-[#9a9690] mb-3 font-mono uppercase tracking-wider">Order Summary</p>
+        <div id="checkout-summary" class="space-y-2"></div>
+        <div class="border-t border-white/08 mt-3 pt-3 flex justify-between">
+          <span class="font-bold">Total</span>
+          <span id="checkout-total" class="font-mono text-primary font-bold"></span>
+        </div>
+      </div>
+
+      <!-- Delivery Details -->
+      <div class="space-y-4 mb-6">
+        <p class="font-bold text-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[18px]">person</span>
+          Your Details
+        </p>
+        <input id="co-name" class="form-input" type="text" placeholder="Full Name *" required>
+        <input id="co-phone" class="form-input" type="tel" placeholder="Phone Number * (e.g. 0712 345 678)" required>
+      </div>
+
+      <!-- Delivery Location -->
+      <div class="space-y-4 mb-6">
+        <p class="font-bold text-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+          Delivery Location
+        </p>
+        <input id="co-area" class="form-input" type="text" placeholder="Area / Neighbourhood (e.g. Mbezi Beach)" required>
+        <textarea id="co-address" class="form-input" rows="2" placeholder="Street / Landmark / Building name" style="resize:none"></textarea>
+        <input id="co-city" class="form-input" type="text" placeholder="City (e.g. Dar es Salaam)" value="Dar es Salaam">
+      </div>
+
+      <!-- Payment Method -->
+      <div class="space-y-3 mb-8">
+        <p class="font-bold text-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[18px]">payments</span>
+          Payment Method
+        </p>
+        <label class="payment-option" onclick="selectPayment(this)">
+          <input type="radio" name="payment" value="M-Pesa / Airtel Money" checked>
+          <div class="flex items-center gap-3 flex-1">
+            <span class="text-2xl">📱</span>
+            <div>
+              <p class="font-bold text-sm">M-Pesa / Airtel Money</p>
+              <p class="text-xs text-[#9a9690]">Pay via mobile money on delivery</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-primary text-[18px] check-icon">check_circle</span>
+        </label>
+        <label class="payment-option" onclick="selectPayment(this)">
+          <input type="radio" name="payment" value="Cash on Delivery">
+          <div class="flex items-center gap-3 flex-1">
+            <span class="text-2xl">💵</span>
+            <div>
+              <p class="font-bold text-sm">Cash on Delivery</p>
+              <p class="text-xs text-[#9a9690]">Pay cash when your order arrives</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[#6b6660] text-[18px] check-icon">radio_button_unchecked</span>
+        </label>
+        <label class="payment-option" onclick="selectPayment(this)">
+          <input type="radio" name="payment" value="Bank Transfer">
+          <div class="flex items-center gap-3 flex-1">
+            <span class="text-2xl">🏦</span>
+            <div>
+              <p class="font-bold text-sm">Bank Transfer</p>
+              <p class="text-xs text-[#9a9690]">We'll send account details via WhatsApp</p>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[#6b6660] text-[18px] check-icon">radio_button_unchecked</span>
+        </label>
+      </div>
+
+      <!-- Submit -->
+      <button onclick="submitCheckout()" class="btn-primary w-full justify-center text-base py-4">
+        <span class="material-symbols-outlined">send</span>
+        Send Order via WhatsApp
+      </button>
+      <p class="text-center text-xs text-[#9a9690] mt-3">You'll be redirected to WhatsApp to confirm</p>
+    </div>
+  </div>
+</div>
+
 <!-- ===== CART OVERLAY + DRAWER ===== -->
 <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
 <aside class="cart-drawer" id="cart-drawer">
@@ -604,10 +742,93 @@
   }
   function checkoutWhatsApp() {
     if (cart.length === 0) return;
-    const lines = cart.map(x => `• ${x.name} (${x.format}, ${x.weight}) × ${x.qty} = ${(x.price * x.qty).toLocaleString()} TZS`).join('%0A');
+    openCheckout();
+  }
+
+  // ===== CHECKOUT MODAL =====
+  function openCheckout() {
+    if (cart.length === 0) return;
+    // Populate summary
     const total = cart.reduce((s, x) => s + x.price * x.qty, 0);
-    const msg = `Hello Danki Coffee! I'd like to order:%0A%0A${lines}%0A%0ATotal: ${total.toLocaleString()} TZS%0A%0APlease confirm availability and delivery details. Thank you!`;
-    window.open('https://wa.me/255744600042?text=' + msg, '_blank');
+    document.getElementById('checkout-summary').innerHTML = cart.map(x =>
+      `<div class="flex justify-between text-sm">
+        <span class="text-[#9a9690]">${x.name} (${x.weight}) ×${x.qty}</span>
+        <span class="font-mono font-bold">${(x.price * x.qty).toLocaleString()} TZS</span>
+      </div>`
+    ).join('');
+    document.getElementById('checkout-total').textContent = total.toLocaleString() + ' TZS';
+    // Select first payment option
+    document.querySelectorAll('.payment-option').forEach((el, i) => {
+      el.classList.toggle('selected', i === 0);
+      const icon = el.querySelector('.check-icon');
+      if (icon) icon.textContent = i === 0 ? 'check_circle' : 'radio_button_unchecked';
+    });
+    document.getElementById('checkout-overlay').classList.add('open');
+    document.getElementById('checkout-sheet').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCheckout() {
+    document.getElementById('checkout-overlay').classList.remove('open');
+    document.getElementById('checkout-sheet').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function selectPayment(label) {
+    document.querySelectorAll('.payment-option').forEach(el => {
+      el.classList.remove('selected');
+      const icon = el.querySelector('.check-icon');
+      if (icon) icon.textContent = 'radio_button_unchecked';
+    });
+    label.classList.add('selected');
+    const icon = label.querySelector('.check-icon');
+    if (icon) icon.textContent = 'check_circle';
+    const radio = label.querySelector('input[type=radio]');
+    if (radio) radio.checked = true;
+  }
+
+  function submitCheckout() {
+    const name = document.getElementById('co-name').value.trim();
+    const phone = document.getElementById('co-phone').value.trim();
+    const area = document.getElementById('co-area').value.trim();
+    const address = document.getElementById('co-address').value.trim();
+    const city = document.getElementById('co-city').value.trim();
+    const paymentEl = document.querySelector('input[name="payment"]:checked');
+    const payment = paymentEl ? paymentEl.value : 'Not specified';
+
+    if (!name) { alert('Please enter your name.'); document.getElementById('co-name').focus(); return; }
+    if (!phone) { alert('Please enter your phone number.'); document.getElementById('co-phone').focus(); return; }
+    if (!area) { alert('Please enter your delivery area.'); document.getElementById('co-area').focus(); return; }
+
+    const total = cart.reduce((s, x) => s + x.price * x.qty, 0);
+    const lines = cart.map(x => `  • ${x.name} (${x.format}, ${x.weight}) ×${x.qty} = ${(x.price * x.qty).toLocaleString()} TZS`).join('\n');
+    const deliveryParts = [area, address, city].filter(Boolean).join(', ');
+
+    const msg = [
+      '🛍️ *New Order from Danki Coffee Website*',
+      '',
+      '👤 *Customer Details*',
+      `Name: ${name}`,
+      `Phone: ${phone}`,
+      '',
+      '📦 *Order Items*',
+      lines,
+      '',
+      `💰 *Total: ${total.toLocaleString()} TZS*`,
+      '',
+      '📍 *Delivery Location*',
+      deliveryParts,
+      '',
+      '💳 *Payment Method*',
+      payment,
+      '',
+      'Please confirm my order. Thank you! 🙏'
+    ].join('\n');
+
+    const encoded = encodeURIComponent(msg);
+    window.open('https://wa.me/255744600042?text=' + encoded, '_blank');
+    closeCheckout();
+    closeCart();
   }
 
   // ===== PRODUCTS =====
