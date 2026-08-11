@@ -1,493 +1,146 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Danki Coffee | It's Not Just Coffee, It's Love</title>
-    <meta name="description" content="100% single-origin Tanzanian Arabica coffee beans, roasted in small batches in Dar es Salaam."/>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
-    <!-- Google Fonts & Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Manrope:wght@400;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-    <!-- Google Stitch Design System Tokens -->
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#ffc68b",
-                        "on-primary": "#492900",
-                        "primary-container": "#ff9f1c",
-                        "on-primary-container": "#683c00",
-                        "amber-glow": "#FFBF69",
-                        "espresso-deep": "#0C0705",
-                        "roasted-bean": "#1A0F0A",
-                        "surface-dim": "#1a120a",
-                        "surface-container": "#271e16",
-                        "glass-surface": "rgba(30, 20, 15, 0.45)",
-                        "glass-border": "rgba(255, 255, 255, 0.12)",
-                        "on-surface": "#f0e0d2",
-                        "on-surface-variant": "#dac2ae"
-                    },
-                    fontFamily: {
-                        "display": ["Sora", "sans-serif"],
-                        "body": ["Manrope", "sans-serif"],
-                        "mono": ["JetBrains Mono", "monospace"]
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        body {
-            background-color: #0C0705;
-            background-image: 
-                radial-gradient(circle at 15% 25%, rgba(255, 191, 105, 0.14), transparent 45%),
-                radial-gradient(circle at 85% 75%, rgba(228, 191, 176, 0.08), transparent 45%);
-            background-attachment: fixed;
-            color: #f0e0d2;
-            font-family: 'Manrope', sans-serif;
-        }
-        
-        .glass-panel {
-            background: rgba(30, 20, 15, 0.5);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-        }
-
-        .glass-nav {
-            background: rgba(20, 10, 5, 0.85);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .btn-glow {
-            box-shadow: 0 0 20px rgba(255, 198, 139, 0.35);
-            transition: all 0.3s ease;
-        }
-        
-        .btn-glow:hover {
-            box-shadow: 0 0 35px rgba(255, 198, 139, 0.6);
-            transform: translateY(-2px);
-        }
-
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danki Coffee | It's Not Just Coffee, It's Love</title>
+  <meta name="description" content="100% single-origin Tanzanian Arabica coffee, roasted in small batches in Dar es Salaam.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Manrope:wght@400;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: {
+        colors: { primary:'#ffc68b', 'on-primary':'#492900', 'amber-glow':'#FFBF69', 'espresso-deep':'#0C0705', 'on-surface':'#f0e0d2', 'on-surface-variant':'#dac2ae' },
+        fontFamily: { display:['Sora','sans-serif'], body:['Manrope','sans-serif'], mono:['JetBrains Mono','monospace'] }
+      }}
+    };
+  </script>
+  <style>
+    body{background:#0C0705;color:#f0e0d2;font-family:Manrope,sans-serif;background-image:radial-gradient(circle at 15% 25%,rgba(255,191,105,.14),transparent 45%),radial-gradient(circle at 85% 75%,rgba(228,191,176,.08),transparent 45%);background-attachment:fixed}
+    .glass{background:rgba(30,20,15,.52);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid rgba(255,255,255,.12);box-shadow:0 8px 32px rgba(0,0,0,.35)}
+    .nav{background:rgba(20,10,5,.88);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-bottom:1px solid rgba(255,255,255,.12)}
+    .glow{box-shadow:0 0 22px rgba(255,198,139,.3)}
+    .glow:hover{box-shadow:0 0 34px rgba(255,198,139,.5);transform:translateY(-1px)}
+    .hide-scrollbar::-webkit-scrollbar{display:none}.hide-scrollbar{scrollbar-width:none}
+  </style>
 </head>
-
-<body class="min-h-screen flex flex-col relative pb-32">
-
-    <!-- Top AppBar Navigation -->
-    <header class="glass-nav text-primary fixed top-0 w-full z-50 flex items-center justify-between px-6 h-20 max-w-7xl left-1/2 -translate-x-1/2 shadow-lg">
-        <div class="flex items-center gap-3">
-            <a href="/" class="flex flex-col">
-                <span class="font-display font-bold text-2xl tracking-wider text-primary">DANKI</span>
-                <span class="text-[11px] text-amber-200/80 italic tracking-normal">it's not just coffee, it's love</span>
-            </a>
-        </div>
-        
-        <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
-            <a href="#home" class="text-on-surface hover:text-primary transition-colors">Home</a>
-            <a href="#shop" class="text-on-surface hover:text-primary transition-colors">The Coffee</a>
-            <a href="#brewing" class="text-on-surface hover:text-primary transition-colors">Brewing Guide</a>
-            <a href="#story" class="text-on-surface hover:text-primary transition-colors">Our Story</a>
-        </nav>
-
-        <div class="flex items-center gap-4">
-            <button onclick="toggleCart()" class="relative p-2 text-primary hover:text-white transition-colors active:scale-95">
-                <span class="material-symbols-outlined text-2xl">shopping_bag</span>
-                <span id="cart-count" class="absolute -top-1 -right-1 bg-amber-500 text-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold shadow-md" style="display: none;">0</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Main Content Container -->
-    <main class="flex-grow pt-28 px-4 md:px-8 max-w-7xl mx-auto w-full">
-        
-        <!-- Hero Section -->
-        <section id="home" class="mb-12 py-12 flex flex-col md:flex-row items-center justify-between gap-8 glass-panel rounded-3xl p-8 md:p-12 relative overflow-hidden">
-            <div class="max-w-xl flex flex-col gap-6 z-10">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-widest">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> 100% Tanzanian Single Origin
-                </div>
-                <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight text-on-surface">
-                    Pure Arabica,<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-amber-glow to-amber-300 italic">Masterfully</span> Roasted
-                </h1>
-                <p class="text-on-surface-variant text-base md:text-lg leading-relaxed">
-                    From the highlands of Tanzania to your cup — 100% single-origin Arabica beans, roasted in small batches in Dar es Salaam.
-                </p>
-                <div class="flex flex-wrap items-center gap-4 pt-2">
-                    <a href="#shop" class="px-8 py-4 bg-primary text-on-primary font-bold rounded-xl btn-glow flex items-center gap-3">
-                        Shop Collection <i class="fa-solid fa-arrow-right text-sm"></i>
-                    </a>
-                    <a href="https://wa.me/255744600042" target="_blank" class="px-6 py-4 glass-panel text-on-surface font-semibold rounded-xl hover:bg-white/10 transition-all flex items-center gap-2 border border-emerald-500/30 text-emerald-400">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Us
-                    </a>
-                </div>
-            </div>
-            </div>
-        </section>
-
-        <!-- Search Bar & Location -->
-        <div class="mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center text-on-surface-variant text-sm gap-2">
-                <span class="material-symbols-outlined text-primary text-base">location_on</span>
-                <span>Location: <strong>Dar es Salaam, Tanzania</strong> (+255 744 600042)</span>
-            </div>
-            <div class="glass-panel rounded-xl flex items-center px-4 py-3 gap-3 w-full md:w-80 focus-within:border-primary/50 transition-all">
-                <span class="material-symbols-outlined text-on-surface-variant text-xl">search</span>
-                <input id="search-input" onkeyup="filterProducts()" class="bg-transparent border-none text-on-surface outline-none w-full placeholder:text-on-surface-variant/40 text-sm" placeholder="Search medium, dark, ground..." type="text"/>
-            </div>
-        </div>
-
-        <!-- Category Filter Pills -->
-        <div class="mb-10 overflow-x-auto hide-scrollbar pb-2">
-            <div class="flex gap-3 w-max">
-                <button onclick="filterCategory('All')" class="cat-btn active px-6 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider bg-primary text-on-primary font-bold shadow-md transition-all">All</button>
-                <button onclick="filterCategory('Beans')" class="cat-btn px-6 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider glass-panel text-on-surface-variant hover:text-on-surface transition-all">Whole Beans</button>
-                <button onclick="filterCategory('Ground')" class="cat-btn px-6 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider glass-panel text-on-surface-variant hover:text-on-surface transition-all">Ground Coffee</button>
-                <button onclick="filterCategory('1kg')" class="cat-btn px-6 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider glass-panel text-on-surface-variant hover:text-on-surface transition-all">1kg Packs</button>
-                <button onclick="filterCategory('500g')" class="cat-btn px-6 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider glass-panel text-on-surface-variant hover:text-on-surface transition-all">500g Packs</button>
-                <button onclick="filterCategory('250g')" class="cat-btn px-6 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider glass-panel text-on-surface-variant hover:text-on-surface transition-all">250g Packs</button>
-            </div>
-        </div>
-
-        <!-- Product Grid Section -->
-        <section id="shop" class="mb-16">
-            <h2 class="font-display text-2xl md:text-3xl font-bold text-on-surface mb-6 flex items-center gap-3">
-                <i class="fa-solid fa-mug-hot text-primary text-xl"></i> Featured Coffee
-            </h2>
-
-            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Products populated dynamically -->
-            </div>
-        </section>
-
-        <!-- Artisanal Brewing Guide Section -->
-        <section id="brewing" class="mb-16">
-            <div class="mb-8">
-                <span class="text-xs font-mono text-primary uppercase tracking-widest">Coffee Science</span>
-                <h2 class="font-display text-3xl font-bold text-on-surface mt-1">Artisanal Brewing Guide</h2>
-                <p class="text-on-surface-variant text-sm mt-1">Maximize the flavors of Danki Coffee beans with our recommended recipes.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="glass-panel rounded-2xl p-6 flex flex-col gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl font-bold">
-                        <i class="fa-solid fa-mug-hot"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-lg text-on-surface">French Press</h3>
-                    <ul class="text-xs font-mono text-on-surface-variant flex flex-col gap-1">
-                        <li>Grind: <strong class="text-primary">Coarse</strong></li>
-                        <li>Ratio: <strong class="text-primary">60g / Litre</strong></li>
-                        <li>Brew: <strong class="text-primary">4 mins</strong></li>
-                    </ul>
-                    <p class="text-xs text-on-surface-variant/80 mt-1">Pre-heat press. Add coffee, saturate with hot water (94°C) and stir. Press gently after 4 mins.</p>
-                </div>
-
-                <div class="glass-panel rounded-2xl p-6 flex flex-col gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl font-bold">
-                        <i class="fa-solid fa-filter"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-lg text-on-surface">Pour Over (V60)</h3>
-                    <ul class="text-xs font-mono text-on-surface-variant flex flex-col gap-1">
-                        <li>Grind: <strong class="text-primary">Medium-Fine</strong></li>
-                        <li>Ratio: <strong class="text-primary">15g / 250g</strong></li>
-                        <li>Brew: <strong class="text-primary">3 mins</strong></li>
-                    </ul>
-                    <p class="text-xs text-on-surface-variant/80 mt-1">Rinse filter paper. Bloom for 30 seconds, then complete the pour with a steady concentric stream.</p>
-                </div>
-
-                <div class="glass-panel rounded-2xl p-6 flex flex-col gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl font-bold">
-                        <i class="fa-solid fa-mug-saucer"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-lg text-on-surface">Espresso</h3>
-                    <ul class="text-xs font-mono text-on-surface-variant flex flex-col gap-1">
-                        <li>Grind: <strong class="text-primary">Fine</strong></li>
-                        <li>Ratio: <strong class="text-primary">18g / 36g</strong></li>
-                        <li>Brew: <strong class="text-primary">28-32 secs</strong></li>
-                    </ul>
-                    <p class="text-xs text-on-surface-variant/80 mt-1">Tamp evenly. Aim for 36g of liquid extraction within 30 seconds for optimal crema and sweetness.</p>
-                </div>
-
-                <div class="glass-panel rounded-2xl p-6 flex flex-col gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl font-bold">
-                        <i class="fa-solid fa-fire-burner"></i>
-                    </div>
-                    <h3 class="font-display font-bold text-lg text-on-surface">Moka Pot</h3>
-                    <ul class="text-xs font-mono text-on-surface-variant flex flex-col gap-1">
-                        <li>Grind: <strong class="text-primary">Medium</strong></li>
-                        <li>Ratio: <strong class="text-primary">Fill basket</strong></li>
-                        <li>Brew: <strong class="text-primary">5 mins</strong></li>
-                    </ul>
-                    <p class="text-xs text-on-surface-variant/80 mt-1">Fill bottom chamber with hot water to valve. Add coffee without packing. Brew over low heat.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Our Story Section -->
-        <section id="story" class="mb-16 glass-panel rounded-3xl p-8 md:p-12 border border-white/10">
-            <div class="max-w-3xl mx-auto text-center flex flex-col gap-4">
-                <span class="text-xs font-mono text-primary uppercase tracking-widest">Craft & Passion</span>
-                <h2 class="font-display text-3xl font-bold text-on-surface">The Danki Story</h2>
-                <p class="text-on-surface-variant leading-relaxed text-sm md:text-base">
-                    Danki Coffee was born out of a profound love for Tanzanian coffee heritage. Sourced directly from local farming communities in the Southern Highlands and Northern slopes of Kilimanjaro, Catherine Kikkides and the Danki team roast every batch by hand in Dar es Salaam to preserve the rich, sweet caramel tones and vibrant citrus notes of 100% East African Arabica.
-                </p>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="glass-nav border-t border-white/10 py-12 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-on-surface-variant">
-            <div class="flex flex-col gap-1 text-center md:text-left">
-                <span class="font-display font-bold text-lg text-primary tracking-wider">DANKI</span>
-                <p>DANKI INVESTMENTS — Box 60332, Dar es Salaam, Tanzania</p>
-            </div>
-            <div class="flex items-center gap-6 text-lg">
-                <a href="https://instagram.com/dankicoffee" target="_blank" class="hover:text-primary transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://wa.me/255744600042" target="_blank" class="hover:text-primary transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
-            </div>
-            <p>© 2026 Danki Coffee. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Shopping Cart Sidebar -->
-    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden"></div>
-    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full max-w-md bg-[#140d06] border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
-        <div class="p-6 border-b border-white/10 flex items-center justify-between">
-            <h2 class="font-display font-bold text-xl text-primary flex items-center gap-2">
-                <span class="material-symbols-outlined">shopping_bag</span> Your Cart
-            </h2>
-            <button onclick="toggleCart()" class="text-on-surface-variant hover:text-white p-2">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-        <div id="cart-items-container" class="flex-grow p-6 overflow-y-auto flex flex-col gap-4"></div>
-        <div class="p-6 border-t border-white/10 bg-black/40 flex flex-col gap-4">
-            <div class="flex justify-between text-lg font-bold">
-                <span>Total:</span>
-                <span id="cart-total-price" class="text-primary font-mono">0 TZS</span>
-            </div>
-            <button id="checkout-btn" onclick="openCheckoutModal()" disabled class="w-full py-4 bg-primary text-on-primary font-bold rounded-xl disabled:opacity-50 btn-glow">
-                Proceed to M-Pesa Checkout
-            </button>
-        </div>
+<body class="min-h-screen pb-28">
+  <header class="nav fixed top-0 inset-x-0 z-50 h-20">
+    <div class="max-w-7xl mx-auto h-full px-5 md:px-8 flex items-center justify-between">
+      <a href="#home" class="flex flex-col">
+        <span class="font-display font-bold text-2xl tracking-wider text-primary">DANKI</span>
+        <span class="text-[10px] text-amber-200/70 italic tracking-wide">it's not just coffee, it's love</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold">
+        <a href="#home" class="hover:text-primary transition">Home</a>
+        <a href="#shop" class="hover:text-primary transition">Shop</a>
+        <a href="#brewing" class="hover:text-primary transition">Brew</a>
+        <a href="#story" class="hover:text-primary transition">Our Story</a>
+      </nav>
+      <button onclick="toggleCart()" class="relative p-2 text-primary hover:text-white transition">
+        <span class="material-symbols-outlined text-2xl">shopping_bag</span>
+        <span id="cart-count" class="absolute -top-1 -right-1 bg-amber-500 text-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold" style="display:none">0</span>
+      </button>
     </div>
+  </header>
 
-    <!-- M-Pesa Checkout Modal -->
-    <div id="checkout-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-panel rounded-3xl max-w-lg w-full p-6 md:p-8 flex flex-col gap-6 relative border border-primary/30">
-            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-white">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-            <div class="flex items-center gap-3 border-b border-white/10 pb-4">
-                <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xl">M</div>
-                <div>
-                    <h3 class="font-display font-bold text-lg text-on-surface">M-Pesa Payment</h3>
-                    <p class="text-xs text-on-surface-variant">LIPA Till Number: <strong class="text-primary font-mono text-sm">58223806</strong></p>
-                </div>
-            </div>
-            <div class="flex flex-col gap-3 text-sm">
-                <div class="p-4 rounded-xl bg-black/40 border border-white/5 flex flex-col gap-2 font-mono text-xs text-amber-200">
-                    <p>1. Dial <strong>*150*00#</strong> on your phone</p>
-                    <p>2. Select <strong>Pay by M-Pesa (LIPA)</strong></p>
-                    <p>3. Enter LIPA Till: <strong>58223806</strong></p>
-                    <p>4. Enter Amount: <strong id="checkout-modal-amount" class="text-emerald-400 text-sm">0 TZS</strong></p>
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-on-surface-variant mb-1">M-Pesa Phone Number</label>
-                    <input id="checkout-phone" type="tel" placeholder="e.g. 255744600042" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 text-on-surface outline-none focus:border-primary text-sm font-mono"/>
-                </div>
-            </div>
-            <button onclick="submitOrder()" class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl transition-all flex items-center justify-center gap-2">
-                <i class="fa-brands fa-whatsapp text-lg"></i> Confirm Order on WhatsApp
-            </button>
+  <main class="max-w-7xl mx-auto px-4 md:px-8 pt-28">
+    <section id="home" class="glass rounded-3xl p-8 md:p-12 mb-10 overflow-hidden">
+      <div class="max-w-3xl">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono uppercase tracking-widest"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>100% Tanzanian Single Origin</span>
+        <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight mt-6">Pure Arabica,<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-amber-glow to-amber-300 italic">Masterfully</span> Roasted</h1>
+        <p class="text-on-surface-variant text-base md:text-lg leading-relaxed mt-5 max-w-2xl">From the highlands of Tanzania to your cup — 100% single-origin Arabica beans, roasted in small batches in Dar es Salaam.</p>
+        <div class="flex flex-wrap gap-4 mt-7">
+          <a href="#shop" class="px-7 py-4 bg-primary text-on-primary font-bold rounded-xl glow transition">Shop Collection <i class="fa-solid fa-arrow-right ml-2"></i></a>
+          <a href="https://wa.me/255744600042" target="_blank" rel="noopener" class="px-6 py-4 glass rounded-xl font-semibold text-emerald-400 border border-emerald-500/30"><i class="fa-brands fa-whatsapp mr-2"></i>WhatsApp Us</a>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <!-- Floating Glass Navigation Bar (iOS Director Bar) -->
-    <nav class="glass-nav fixed bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.8)] flex items-center gap-8 z-40 border border-white/15">
-        <a href="#shop" class="flex items-center gap-2 text-primary font-semibold text-xs tracking-wide">
-            <span class="material-symbols-outlined text-lg">storefront</span> Shop Coffee
-        </a>
-        <div class="w-px h-4 bg-white/20"></div>
-        <a href="https://wa.me/255744600042" target="_blank" class="flex items-center gap-2 text-emerald-400 font-semibold text-xs tracking-wide">
-            <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp Support
-        </a>
-    </nav>
+    <section class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="text-sm text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-primary">location_on</span>Dar es Salaam, Tanzania <span class="hidden sm:inline">· +255 744 600042</span></div>
+      <div class="glass rounded-xl flex items-center px-4 py-3 gap-3 w-full md:w-80"><span class="material-symbols-outlined text-on-surface-variant">search</span><input id="search-input" oninput="applyFilters()" class="bg-transparent border-0 outline-none w-full text-sm text-on-surface placeholder:text-on-surface-variant/50" placeholder="Search medium, dark, ground..." type="search"></div>
+    </section>
 
-    <!-- App Frontend Logic -->
-    <script>
-        const PRODUCTS = [
-            { id: 'm1', name: 'Medium Roast Beans', variant: 'Beans 500g', price: 15500, cat: 'Medium Roast', format: 'Beans', weight: '500g', desc: 'Smooth, sweet, and beautifully balanced with bright citrus acidity and notes of creamy caramel.' },
-            { id: 'm2', name: 'Medium Roast Beans', variant: 'Beans 1kg', price: 30000, cat: 'Medium Roast', format: 'Beans', weight: '1kg', desc: 'Smooth, sweet, and beautifully balanced whole beans roasted fresh in Dar es Salaam.' },
-            { id: 'm3', name: 'Medium Roast Ground', variant: 'Ground 1kg', price: 32000, cat: 'Medium Roast', format: 'Ground', weight: '1kg', desc: 'Pre-ground to your exact preference. Ideal for French Press, V60, or Espresso.' },
-            { id: 'md1', name: 'Medium to Dark Beans', variant: 'Beans 250g', price: 10000, cat: 'Medium to Dark', format: 'Beans', weight: '250g', desc: 'A rich, full-bodied cup bridging sweet caramel tones and bold dark chocolate notes.' },
-            { id: 'md2', name: 'Medium to Dark Beans', variant: 'Beans 500g', price: 15500, cat: 'Medium to Dark', format: 'Beans', weight: '500g', desc: 'A rich, full-bodied cup bridging sweet caramel tones and bold dark chocolate notes.' },
-            { id: 'md3', name: 'Medium to Dark Beans', variant: 'Beans 1kg', price: 30000, cat: 'Medium to Dark', format: 'Beans', weight: '1kg', desc: 'A rich, full-bodied cup bridging sweet caramel tones and bold dark chocolate notes.' },
-            { id: 'md4', name: 'Medium to Dark Ground', variant: 'Ground Grade AA 1kg', price: 30000, cat: 'Medium to Dark', format: 'Ground', weight: '1kg', desc: 'Ground Grade AA Arabica beans. Rich, bold, and full-bodied.' },
-            { id: 'md5', name: 'Medium to Dark Ground', variant: 'Ground 250g', price: 11000, cat: 'Medium to Dark', format: 'Ground', weight: '250g', desc: 'Pre-ground Grade AA Arabica beans (250g).' },
-            { id: 'd1', name: 'Dark Roast Beans', variant: 'Beans 500g', price: 15500, cat: 'Dark Roast', format: 'Beans', weight: '500g', desc: 'Deep, intense, and smoky with a heavy mouthfeel and lingering dark cocoa finish.' },
-            { id: 'd2', name: 'Dark Roast Beans', variant: 'Beans 1kg', price: 30000, cat: 'Dark Roast', format: 'Beans', weight: '1kg', desc: 'Deep, intense, and smoky with a heavy mouthfeel and lingering dark cocoa finish.' }
-        ];
+    <div class="mb-9 overflow-x-auto hide-scrollbar"><div class="flex gap-3 w-max">
+      <button class="cat-btn active px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider bg-primary text-on-primary font-bold" onclick="setCategory('All',this)">All</button>
+      <button class="cat-btn glass px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider text-on-surface-variant" onclick="setCategory('Beans',this)">Whole Beans</button>
+      <button class="cat-btn glass px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider text-on-surface-variant" onclick="setCategory('Ground',this)">Ground Coffee</button>
+      <button class="cat-btn glass px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider text-on-surface-variant" onclick="setCategory('1kg',this)">1kg Packs</button>
+      <button class="cat-btn glass px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider text-on-surface-variant" onclick="setCategory('500g',this)">500g Packs</button>
+      <button class="cat-btn glass px-5 py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider text-on-surface-variant" onclick="setCategory('250g',this)">250g Packs</button>
+    </div></div>
 
-        let cart = [];
+    <section id="shop" class="mb-16">
+      <div class="flex items-end justify-between mb-6"><div><span class="text-xs font-mono text-primary uppercase tracking-widest">The collection</span><h2 class="font-display text-2xl md:text-3xl font-bold mt-1">Featured Coffee</h2></div><span id="product-count" class="text-xs text-on-surface-variant"></span></div>
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+    </section>
 
-        function renderProducts(itemsToRender = PRODUCTS) {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = itemsToRender.map(p => `
-                <div class="glass-panel rounded-2xl p-5 flex flex-col justify-between gap-4 group hover:border-primary/50 transition-all duration-300">
-                    <div class="flex flex-col gap-1 mt-2">
-                        <span class="inline-block self-start mb-2 text-[10px] font-mono font-bold bg-primary/20 border border-primary/30 text-primary px-2.5 py-1 rounded-full uppercase">${p.format}</span>
-                        <h3 class="font-display font-bold text-lg text-on-surface">${p.name}</h3>
-                        <p class="text-xs text-on-surface-variant font-mono text-primary/80">${p.variant}</p>
-                        <p class="text-xs text-on-surface-variant/80 line-clamp-2 mt-1">${p.desc}</p>
-                    </div>
-                    <div class="flex items-center justify-between pt-3 border-t border-white/10">
-                        <span class="font-display font-bold text-xl text-primary">${p.price.toLocaleString()} <span class="text-xs font-normal text-on-surface-variant">TZS</span></span>
-                        <button onclick="addToCart('${p.id}')" class="px-5 py-2.5 bg-primary/10 hover:bg-primary text-primary hover:text-black font-semibold rounded-xl text-xs flex items-center gap-1.5 transition-all border border-primary/30">
-                            <span class="material-symbols-outlined text-base">add</span> Add
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
+    <section id="brewing" class="mb-16">
+      <span class="text-xs font-mono text-primary uppercase tracking-widest">Coffee Science</span>
+      <h2 class="font-display text-3xl font-bold mt-1">Artisanal Brewing Guide</h2>
+      <p class="text-on-surface-variant text-sm mt-1 mb-8">Simple recipes to get the most from your Danki Coffee.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass rounded-2xl p-6"><div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl"><i class="fa-solid fa-mug-hot"></i></div><h3 class="font-display font-bold text-lg mt-4">French Press</h3><p class="text-xs font-mono text-on-surface-variant mt-2">Coarse · 60g/L · 4 mins</p><p class="text-xs text-on-surface-variant/80 mt-3">Pre-heat, saturate with 94°C water, stir and press gently after four minutes.</p></div>
+        <div class="glass rounded-2xl p-6"><div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl"><i class="fa-solid fa-filter"></i></div><h3 class="font-display font-bold text-lg mt-4">Pour Over (V60)</h3><p class="text-xs font-mono text-on-surface-variant mt-2">Medium-Fine · 15g/250g · 3 mins</p><p class="text-xs text-on-surface-variant/80 mt-3">Rinse the filter, bloom for 30 seconds, then pour steadily in concentric circles.</p></div>
+        <div class="glass rounded-2xl p-6"><div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl"><i class="fa-solid fa-mug-saucer"></i></div><h3 class="font-display font-bold text-lg mt-4">Espresso</h3><p class="text-xs font-mono text-on-surface-variant mt-2">Fine · 18g/36g · 28–32 secs</p><p class="text-xs text-on-surface-variant/80 mt-3">Tamp evenly and aim for a balanced extraction around thirty seconds.</p></div>
+        <div class="glass rounded-2xl p-6"><div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl"><i class="fa-solid fa-fire-burner"></i></div><h3 class="font-display font-bold text-lg mt-4">Moka Pot</h3><p class="text-xs font-mono text-on-surface-variant mt-2">Medium · Fill basket · 5 mins</p><p class="text-xs text-on-surface-variant/80 mt-3">Use hot water in the lower chamber, don't pack the coffee, and brew over low heat.</p></div>
+      </div>
+    </section>
 
-        function addToCart(id) {
-            const product = PRODUCTS.find(p => p.id === id);
-            if (!product) return;
-            const existing = cart.find(i => i.id === id);
-            if (existing) { existing.qty += 1; }
-            else { cart.push({ ...product, qty: 1 }); }
-            updateCart();
-            toggleCart(true);
-        }
+    <section id="story" class="glass rounded-3xl p-8 md:p-12 mb-16 text-center">
+      <span class="text-xs font-mono text-primary uppercase tracking-widest">Craft & Passion</span>
+      <h2 class="font-display text-3xl font-bold mt-1">The Danki Story</h2>
+      <p class="text-on-surface-variant leading-relaxed text-sm md:text-base max-w-3xl mx-auto mt-4">Danki Coffee was born out of a profound love for Tanzanian coffee heritage. Sourced from local farming communities in the Southern Highlands and Northern slopes of Kilimanjaro, the Danki team roasts every batch in Dar es Salaam to preserve the rich, sweet caramel tones and vibrant citrus notes of East African Arabica.</p>
+    </section>
+  </main>
 
-        function updateCart() {
-            const countEl = document.getElementById('cart-count');
-            const totalEl = document.getElementById('cart-total-price');
-            const container = document.getElementById('cart-items-container');
-            const checkoutBtn = document.getElementById('checkout-btn');
+  <footer class="nav border-t border-white/10 py-12 px-6"><div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-on-surface-variant"><div class="text-center md:text-left"><span class="font-display font-bold text-lg text-primary tracking-wider">DANKI</span><p class="mt-1">DANKI INVESTMENTS — Box 60332, Dar es Salaam, Tanzania</p></div><div class="flex gap-6 text-lg"><a href="https://instagram.com/dankicoffee" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a><a href="https://wa.me/255744600042" target="_blank" rel="noopener" class="text-emerald-400"><i class="fa-brands fa-whatsapp"></i></a></div><p>© 2026 Danki Coffee. All rights reserved.</p></div></footer>
 
-            const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
-            const totalPrice = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+  <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden"></div>
+  <aside id="cart-sidebar" class="fixed top-0 right-0 h-full w-full max-w-md bg-[#140d06] border-l border-white/10 z-50 translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-6 border-b border-white/10 flex items-center justify-between"><h2 class="font-display font-bold text-xl text-primary"><span class="material-symbols-outlined align-middle mr-1">shopping_bag</span>Your Cart</h2><button onclick="toggleCart()" class="p-2"><span class="material-symbols-outlined">close</span></button></div>
+    <div id="cart-items" class="flex-grow p-6 overflow-y-auto flex flex-col gap-3"></div>
+    <div class="p-6 border-t border-white/10 bg-black/30"><div class="flex justify-between text-lg font-bold mb-4"><span>Total</span><span id="cart-total" class="text-primary font-mono">0 TZS</span></div><button id="checkout-btn" onclick="openCheckout()" disabled class="w-full py-4 bg-primary text-on-primary font-bold rounded-xl disabled:opacity-50 glow">Proceed to Checkout</button></div>
+  </aside>
 
-            countEl.innerText = totalQty;
-            countEl.style.display = totalQty > 0 ? 'flex' : 'none';
-            totalEl.innerText = totalPrice.toLocaleString() + ' TZS';
-            checkoutBtn.disabled = cart.length === 0;
+  <div id="checkout" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[60] hidden items-center justify-center p-4">
+    <div class="glass rounded-3xl max-w-lg w-full p-6 md:p-8 relative"><button onclick="closeCheckout()" class="absolute top-4 right-4 p-2"><span class="material-symbols-outlined">close</span></button><h3 class="font-display font-bold text-xl text-primary">M-Pesa Order</h3><p class="text-xs text-on-surface-variant mt-1">LIPA Till Number: <strong class="text-primary font-mono">58223806</strong></p><div class="mt-6 p-4 rounded-xl bg-black/40 text-xs font-mono text-amber-200 space-y-2"><p>1. Dial *150*00#</p><p>2. Select Pay by M-Pesa (LIPA)</p><p>3. Enter Till 58223806</p><p>4. Enter Amount: <strong id="checkout-amount" class="text-emerald-400">0 TZS</strong></p></div><label class="block text-xs font-semibold text-on-surface-variant mt-5 mb-1">M-Pesa Phone Number</label><input id="checkout-phone" type="tel" placeholder="e.g. 255744600042" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-white/10 outline-none focus:border-primary font-mono text-sm"><button onclick="submitOrder()" class="w-full mt-5 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-bold rounded-xl"><i class="fa-brands fa-whatsapp mr-2"></i>Confirm Order on WhatsApp</button></div>
+  </div>
 
-            if (cart.length === 0) {
-                container.innerHTML = '<p class="text-center text-on-surface-variant/60 text-sm py-12">Your cart is empty.</p>';
-            } else {
-                container.innerHTML = cart.map(item => `
-                    <div class="flex items-center justify-between p-3.5 glass-panel rounded-xl border border-white/5">
-                        <div class="flex items-center gap-3">
-                            <img src="${item.img}" class="w-12 h-12 object-contain"/>
-                            <div>
-                                <h4 class="font-bold text-sm text-on-surface">${item.name}</h4>
-                                <p class="text-xs text-on-surface-variant">${item.variant} x${item.qty}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <span class="font-mono text-sm font-bold text-primary">${(item.price * item.qty).toLocaleString()} TZS</span>
-                            <button onclick="removeFromCart('${item.id}')" class="text-rose-400 hover:text-rose-300 p-1">
-                                <span class="material-symbols-outlined text-sm">delete</span>
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
+  <nav class="nav fixed bottom-5 left-1/2 -translate-x-1/2 px-5 py-3 rounded-full flex items-center gap-6 z-40 border border-white/15 shadow-2xl"><a href="#shop" class="text-primary font-semibold text-xs"><span class="material-symbols-outlined text-base align-middle">storefront</span> Shop Coffee</a><span class="w-px h-4 bg-white/20"></span><a href="https://wa.me/255744600042" target="_blank" rel="noopener" class="text-emerald-400 font-semibold text-xs"><i class="fa-brands fa-whatsapp mr-1"></i>Support</a></nav>
 
-        function removeFromCart(id) {
-            cart = cart.filter(i => i.id !== id);
-            updateCart();
-        }
-
-        function toggleCart(forceOpen = false) {
-            const overlay = document.getElementById('cart-overlay');
-            const sidebar = document.getElementById('cart-sidebar');
-            if (forceOpen || sidebar.classList.contains('translate-x-full')) {
-                overlay.classList.remove('hidden');
-                sidebar.classList.remove('translate-x-full');
-            } else {
-                overlay.classList.add('hidden');
-                sidebar.classList.add('translate-x-full');
-            }
-        }
-
-        function openCheckoutModal() {
-            toggleCart(false);
-            const totalPrice = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
-            document.getElementById('checkout-modal-amount').innerText = totalPrice.toLocaleString() + ' TZS';
-            document.getElementById('checkout-overlay').classList.remove('hidden');
-        }
-
-        function closeCheckoutModal() {
-            document.getElementById('checkout-overlay').classList.add('hidden');
-        }
-
-        function submitOrder() {
-            const phone = document.getElementById('checkout-phone').value.trim() || '2557XXXXXXXX';
-            const totalPrice = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
-            
-            const waText = `Hello Danki Coffee! I want to confirm my order:
-` +
-                cart.map(i => `- ${i.name} (${i.variant}) x${i.qty} = ${(i.price * i.qty).toLocaleString()} TZS`).join('
-') +
-                `
-Total: ${totalPrice.toLocaleString()} TZS
-M-Pesa Phone: ${phone}
-LIPA Till: 58223806`;
-            
-            window.open(`https://wa.me/255744600042?text=${encodeURIComponent(waText)}`, '_blank');
-            closeCheckoutModal();
-        }
-
-        function filterCategory(cat) {
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-primary', 'text-on-primary', 'font-bold');
-                btn.classList.add('glass-panel', 'text-on-surface-variant');
-            });
-            event.target.classList.add('bg-primary', 'text-on-primary', 'font-bold');
-            event.target.classList.remove('glass-panel', 'text-on-surface-variant');
-
-            if (cat === 'All') renderProducts(PRODUCTS);
-            else if (cat === 'Beans') renderProducts(PRODUCTS.filter(p => p.format === 'Beans'));
-            else if (cat === 'Ground') renderProducts(PRODUCTS.filter(p => p.format === 'Ground'));
-            else if (cat === '1kg') renderProducts(PRODUCTS.filter(p => p.weight.includes('1kg')));
-            else if (cat === '500g') renderProducts(PRODUCTS.filter(p => p.weight.includes('500g')));
-            else if (cat === '250g') renderProducts(PRODUCTS.filter(p => p.weight.includes('250g')));
-        }
-
-        function filterProducts() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            renderProducts(PRODUCTS.filter(p => 
-                p.name.toLowerCase().includes(query) || 
-                p.variant.toLowerCase().includes(query) ||
-                p.desc.toLowerCase().includes(query)
-            ));
-        }
-
-        renderProducts();
-    </script>
+  <script>
+    const PRODUCTS = [
+      {id:'m1',name:'Medium Roast Beans',variant:'Beans · 500g',price:15500,cat:'Medium Roast',format:'Beans',weight:'500g',desc:'Smooth, sweet, and beautifully balanced with bright citrus acidity and creamy caramel notes.'},
+      {id:'m2',name:'Medium Roast Beans',variant:'Beans · 1kg',price:30000,cat:'Medium Roast',format:'Beans',weight:'1kg',desc:'Smooth, sweet, and beautifully balanced whole beans roasted fresh in Dar es Salaam.'},
+      {id:'m3',name:'Medium Roast Ground',variant:'Ground · 1kg',price:32000,cat:'Medium Roast',format:'Ground',weight:'1kg',desc:'Smooth, sweet, and balanced. Ground fresh for your preferred brewing method.'},
+      {id:'md1',name:'Medium to Dark Beans',variant:'Beans · 250g',price:10000,cat:'Medium to Dark',format:'Beans',weight:'250g',desc:'A rich, full-bodied cup bridging sweet caramel tones and bold dark chocolate notes.'},
+      {id:'md2',name:'Medium to Dark Beans',variant:'Beans · 500g',price:15500,cat:'Medium to Dark',format:'Beans',weight:'500g',desc:'A rich, full-bodied cup with sweet caramel and bold dark chocolate notes.'},
+      {id:'md3',name:'Medium to Dark Beans',variant:'Beans · 1kg',price:30000,cat:'Medium to Dark',format:'Beans',weight:'1kg',desc:'A rich, full-bodied cup with sweet caramel and bold dark chocolate notes.'},
+      {id:'md4',name:'Medium to Dark Ground',variant:'Ground Grade AA · 1kg',price:30000,cat:'Medium to Dark',format:'Ground',weight:'1kg',desc:'Ground Grade AA Arabica beans. Rich, bold, and full-bodied.'},
+      {id:'md5',name:'Medium to Dark Ground',variant:'Ground · 250g',price:11000,cat:'Medium to Dark',format:'Ground',weight:'250g',desc:'Pre-ground Grade AA Arabica beans for a rich, balanced cup.'},
+      {id:'d1',name:'Dark Roast Beans',variant:'Beans · 500g',price:15500,cat:'Dark Roast',format:'Beans',weight:'500g',desc:'Deep, intense, and smoky with a heavy mouthfeel and lingering dark cocoa finish.'},
+      {id:'d2',name:'Dark Roast Beans',variant:'Beans · 1kg',price:30000,cat:'Dark Roast',format:'Beans',weight:'1kg',desc:'Deep, intense, and smoky with a heavy mouthfeel and lingering dark cocoa finish.'}
+    ];
+    let cart=[]; let category='All';
+    const money=n=>n.toLocaleString()+' TZS';
+    function setCategory(c,btn){category=c;document.querySelectorAll('.cat-btn').forEach(b=>{b.classList.remove('bg-primary','text-on-primary','font-bold');b.classList.add('glass','text-on-surface-variant')});btn.classList.remove('glass','text-on-surface-variant');btn.classList.add('bg-primary','text-on-primary','font-bold');applyFilters()}
+    function applyFilters(){const q=(document.getElementById('search-input').value||'').toLowerCase().trim();let items=PRODUCTS.filter(p=>(category==='All'||p.format===category||p.weight.includes(category))&&(!q||(p.name+' '+p.variant+' '+p.cat+' '+p.desc).toLowerCase().includes(q)));renderProducts(items)}
+    function renderProducts(items){document.getElementById('product-count').textContent=items.length+' products';document.getElementById('product-grid').innerHTML=items.map(p=>`<article class="glass rounded-2xl p-5 flex flex-col justify-between gap-5 min-h-[250px] group hover:border-primary/50 transition"><div><span class="inline-block mb-3 text-[10px] font-mono font-bold bg-primary/15 border border-primary/25 text-primary px-2.5 py-1 rounded-full uppercase">${p.format}</span><h3 class="font-display font-bold text-lg">${p.name}</h3><p class="text-xs font-mono text-primary/80 mt-1">${p.variant}</p><p class="text-xs text-on-surface-variant/80 leading-relaxed mt-3">${p.desc}</p></div><div class="flex items-center justify-between pt-4 border-t border-white/10"><span class="font-display font-bold text-lg text-primary">${money(p.price)}</span><button onclick="addToCart('${p.id}')" class="px-4 py-2.5 bg-primary text-on-primary hover:brightness-110 font-bold rounded-xl text-xs transition"><span class="material-symbols-outlined text-sm align-middle">add</span> Add to bag</button></div></article>`).join('')||'<div class="col-span-full glass rounded-2xl p-10 text-center text-on-surface-variant">No coffee matches your search.</div>'}
+    function addToCart(id){const p=PRODUCTS.find(x=>x.id===id);if(!p)return;const e=cart.find(x=>x.id===id);e?e.qty++:cart.push({...p,qty:1});updateCart();toggleCart(true)}
+    function updateCart(){const qty=cart.reduce((s,x)=>s+x.qty,0),total=cart.reduce((s,x)=>s+x.price*x.qty,0);const badge=document.getElementById('cart-count');badge.textContent=qty;badge.style.display=qty?'flex':'none';document.getElementById('cart-total').textContent=money(total);document.getElementById('checkout-btn').disabled=!cart.length;document.getElementById('cart-items').innerHTML=cart.length?cart.map(x=>`<div class="glass rounded-xl p-4"><div class="flex justify-between gap-3"><div><p class="font-semibold text-sm">${x.name}</p><p class="text-xs text-on-surface-variant mt-1">${x.variant}</p><p class="text-sm text-primary font-mono mt-2">${money(x.price)} × ${x.qty}</p></div><button onclick="removeFromCart('${x.id}')" class="text-on-surface-variant hover:text-red-300"><span class="material-symbols-outlined">delete</span></button></div></div>`).join(''):'<p class="text-center text-on-surface-variant/60 text-sm py-12">Your cart is empty.</p>'}
+    function removeFromCart(id){cart=cart.filter(x=>x.id!==id);updateCart()}
+    function toggleCart(forceOpen){const side=document.getElementById('cart-sidebar'),overlay=document.getElementById('cart-overlay');const open=forceOpen===true||side.classList.contains('translate-x-full');side.classList.toggle('translate-x-full',!open);overlay.classList.toggle('hidden',!open)}
+    function openCheckout(){if(!cart.length)return;document.getElementById('checkout-amount').textContent=money(cart.reduce((s,x)=>s+x.price*x.qty,0));document.getElementById('checkout').classList.remove('hidden');document.getElementById('checkout').classList.add('flex')}
+    function closeCheckout(){document.getElementById('checkout').classList.add('hidden');document.getElementById('checkout').classList.remove('flex')}
+    function submitOrder(){const phone=document.getElementById('checkout-phone').value.trim();const total=cart.reduce((s,x)=>s+x.price*x.qty,0);if(!phone){alert('Please enter your M-Pesa phone number.');return}const lines=cart.map(x=>`${x.name} (${x.variant}) x${x.qty} — ${money(x.price*x.qty)}`).join('%0A');const msg=`Danki Coffee Order%0A%0A${lines}%0A%0ATotal: ${money(total)}%0AM-Pesa phone: ${encodeURIComponent(phone)}`;window.open('https://wa.me/255744600042?text='+msg,'_blank');}
+    renderProducts(PRODUCTS);updateCart();
+  </script>
 </body>
 </html>
