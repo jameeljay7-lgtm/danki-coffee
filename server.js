@@ -38,7 +38,6 @@ app.get('/api/products', (req, res) => {
             format: 'Beans',
             weight: '500g',
             price: 15500,
-            image: '/images/bag_500g_medium_beans.png?v=5',
             desc: 'Smooth, sweet, and beautifully balanced with bright citrus acidity and notes of creamy caramel.',
             acidity: 4, body: 3, sweetness: 4, aroma: 5, altitude: '1,550m', process: 'Fully Washed'
         },
@@ -49,7 +48,6 @@ app.get('/api/products', (req, res) => {
             format: 'Beans',
             weight: '1kg',
             price: 30000,
-            image: '/images/bag_1kg_medium_beans.png?v=5',
             desc: 'Smooth, sweet, and beautifully balanced whole beans roasted fresh in Dar es Salaam.',
             acidity: 4, body: 3, sweetness: 4, aroma: 5, altitude: '1,550m', process: 'Fully Washed'
         },
@@ -60,7 +58,6 @@ app.get('/api/products', (req, res) => {
             format: 'Ground',
             weight: '1kg',
             price: 32000,
-            image: '/images/bag_1kg_medium_ground.png?v=5',
             desc: 'Smooth, sweet, and beautifully balanced. Ground fresh to your exact preference.',
             acidity: 4, body: 3, sweetness: 4, aroma: 5, altitude: '1,550m', process: 'Fully Washed'
         },
@@ -71,7 +68,6 @@ app.get('/api/products', (req, res) => {
             format: 'Beans',
             weight: '250g',
             price: 10000,
-            image: '/images/bag_250g_meddark_beans.png?v=5',
             desc: 'A rich, full-bodied cup bridging sweet caramel tones and bold dark chocolate notes.',
             acidity: 3, body: 4, sweetness: 4, aroma: 4, altitude: '1,600m', process: 'Pulped Natural'
         },
@@ -82,7 +78,6 @@ app.get('/api/products', (req, res) => {
             format: 'Ground',
             weight: '250g',
             price: 11000,
-            image: '/images/bag_250g_meddark_ground.png?v=5',
             desc: 'Pre-ground Grade AA Arabica beans (250g).',
             acidity: 3, body: 4, sweetness: 4, aroma: 4, altitude: '1,600m', process: 'Pulped Natural'
         },
@@ -93,7 +88,6 @@ app.get('/api/products', (req, res) => {
             format: 'Beans',
             weight: '500g',
             price: 15500,
-            image: '/images/bag_500g_meddark_beans.png?v=5',
             desc: 'A rich, full-bodied cup bridging sweet caramel tones and bold dark chocolate notes.',
             acidity: 3, body: 4, sweetness: 4, aroma: 4, altitude: '1,600m', process: 'Pulped Natural'
         },
@@ -104,7 +98,6 @@ app.get('/api/products', (req, res) => {
             format: 'Beans',
             weight: '1kg',
             price: 30000,
-            image: '/images/bag_1kg_meddark_beans.png?v=5',
             desc: 'A rich, full-bodied cup bridging sweet caramel tones and bold dark chocolate notes.',
             acidity: 3, body: 4, sweetness: 4, aroma: 4, altitude: '1,600m', process: 'Pulped Natural'
         },
@@ -115,7 +108,6 @@ app.get('/api/products', (req, res) => {
             format: 'Ground',
             weight: '1kg Grade AA',
             price: 30000,
-            image: '/images/bag_1kg_meddark_ground.png?v=5',
             desc: 'Ground Grade AA Arabica beans. Rich, bold, and full-bodied.',
             acidity: 3, body: 4, sweetness: 4, aroma: 4, altitude: '1,600m', process: 'Pulped Natural'
         },
@@ -126,7 +118,6 @@ app.get('/api/products', (req, res) => {
             format: 'Beans',
             weight: '500g',
             price: 15500,
-            image: '/images/bag_500g_dark_beans.png?v=5',
             desc: 'Deep, intense, and smoky with a heavy mouthfeel and lingering dark cocoa finish.',
             acidity: 2, body: 5, sweetness: 3, aroma: 5, altitude: '1,500m', process: 'Full Natural'
         },
@@ -137,7 +128,6 @@ app.get('/api/products', (req, res) => {
             format: 'Beans',
             weight: '1kg',
             price: 30000,
-            image: '/images/bag_1kg_dark_beans.png?v=5',
             desc: 'Deep, intense, and smoky with a heavy mouthfeel and lingering dark cocoa finish.',
             acidity: 2, body: 5, sweetness: 3, aroma: 5, altitude: '1,500m', process: 'Full Natural'
         }
