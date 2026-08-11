@@ -164,12 +164,24 @@
   </main>
 
   <!-- Bottom Nav (Mobile) -->
-  <nav class="md:hidden fixed bottom-4 inset-x-4 glass-strong rounded-full z-40 px-6 py-3 flex justify-between items-center shadow-2xl">
-    <button class="flex flex-col items-center text-primary"><span class="material-symbols-outlined">home</span></button>
-    <button class="flex flex-col items-center text-on-surface-variant"><span class="material-symbols-outlined">favorite</span></button>
-    <button onclick="openCart()" class="flex flex-col items-center text-on-surface-variant relative">
-      <span class="material-symbols-outlined">shopping_bag</span>
-      <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-black text-[9px] w-4 h-4 rounded-full hidden items-center justify-center font-bold">0</span>
+  <nav aria-label="Bottom Navigation" class="md:hidden fixed bottom-6 inset-x-6 bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2.5rem] z-40 px-6 py-3 flex justify-between items-center shadow-[0_16px_40px_rgba(0,0,0,0.6)]">
+    <button aria-label="Home" class="flex flex-col items-center text-[#A09D98] hover:text-white transition-colors duration-300">
+      <span class="material-symbols-outlined text-[24px] mb-0.5">home</span>
+      <span class="text-[9px] font-medium tracking-wide">Home</span>
+    </button>
+    <button aria-label="Shop" onclick="openCart()" class="relative flex flex-col items-center text-[#E6AC00] drop-shadow-[0_0_12px_rgba(230,172,0,0.6)] transition-all duration-300 transform scale-105">
+      <span class="material-symbols-outlined text-[24px] mb-0.5" style="font-variation-settings: 'FILL' 1;">shopping_bag</span>
+      <span class="text-[9px] font-bold tracking-wide">Shop</span>
+      <!-- Cart Counter Badge -->
+      <span id="cart-count" class="absolute -top-1 -right-2 bg-[#E6AC00] text-black text-[9px] w-[16px] h-[16px] rounded-full hidden items-center justify-center font-bold shadow-lg">0</span>
+    </button>
+    <button aria-label="Beans" class="flex flex-col items-center text-[#A09D98] hover:text-white transition-colors duration-300">
+      <span class="material-symbols-outlined text-[24px] mb-0.5">local_cafe</span>
+      <span class="text-[9px] font-medium tracking-wide">Beans</span>
+    </button>
+    <button aria-label="Profile" class="flex flex-col items-center text-[#A09D98] hover:text-white transition-colors duration-300">
+      <span class="material-symbols-outlined text-[24px] mb-0.5">person</span>
+      <span class="text-[9px] font-medium tracking-wide">Profile</span>
     </button>
   </nav>
 
