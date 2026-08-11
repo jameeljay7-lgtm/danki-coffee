@@ -3,13 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <title>Danki Coffee — Premium Arabica Storefront</title>
+  <title>Danki Coffee — Liquid Glass Storefront</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -18,9 +17,9 @@
           colors: {
             coffeeGold: '#d4a359',
             coffeeGoldLight: '#f3c98b',
-            espressoDark: '#0a0806',
+            espressoDark: '#090705',
             glassBg: 'rgba(255, 255, 255, 0.05)',
-            glassBorder: 'rgba(255, 255, 255, 0.1)'
+            glassBorder: 'rgba(255, 255, 255, 0.12)'
           },
           fontFamily: {
             sans: ['Plus Jakarta Sans', 'sans-serif'],
@@ -39,34 +38,47 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
-      padding-bottom: 100px;
     }
 
-    /* ===== LIQUID ESPRESSO BACKGROUND ===== */
+    /* ===== LIQUID ESPRESSO BACKGROUND WITH BUBBLES ===== */
     .liquid-bg {
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: -2;
       background: 
-        radial-gradient(circle at 50% 20%, rgba(180, 100, 30, 0.25) 0%, transparent 60%),
-        radial-gradient(circle at 80% 70%, rgba(130, 60, 10, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 10% 90%, rgba(90, 40, 5, 0.3) 0%, transparent 60%),
+        radial-gradient(circle at 20% 15%, rgba(212, 163, 89, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 80% 65%, rgba(160, 85, 15, 0.3) 0%, transparent 65%),
+        radial-gradient(circle at 50% 90%, rgba(90, 40, 5, 0.35) 0%, transparent 60%),
         url('/images/mockup.jpg') no-repeat center center / cover;
       background-blend-mode: overlay;
-      opacity: 0.85;
-      filter: saturate(1.2) contrast(1.1);
+      opacity: 0.9;
+      filter: saturate(1.25) contrast(1.1);
     }
     
     .liquid-overlay {
       position: fixed;
       inset: 0;
       z-index: -1;
-      background: linear-gradient(180deg, rgba(9, 7, 5, 0.75) 0%, rgba(9, 7, 5, 0.88) 50%, rgba(9, 7, 5, 0.96) 100%);
+      background: linear-gradient(180deg, rgba(9, 7, 5, 0.7) 0%, rgba(9, 7, 5, 0.85) 40%, rgba(9, 7, 5, 0.96) 100%);
+    }
+
+    /* Floating Liquid Orbs */
+    .orb {
+      position: fixed; border-radius: 50%; filter: blur(70px);
+      mix-blend-mode: screen; pointer-events: none; z-index: -1;
+      animation: float 18s infinite alternate ease-in-out;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(212, 163, 89, 0.15); top: -100px; left: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: rgba(180, 90, 20, 0.18); bottom: -50px; right: -50px; animation-delay: -8s; }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, 50px) scale(1.1); }
     }
 
     /* ===== LIQUID GLASS CARDS ===== */
     .glass-card {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -76,36 +88,36 @@
     }
     
     .glass-card:hover {
-      transform: translateY(-6px) scale(1.01);
-      border-color: rgba(212, 163, 89, 0.4);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 163, 89, 0.15);
+      transform: translateY(-6px) scale(1.015);
+      border-color: rgba(212, 163, 89, 0.45);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 163, 89, 0.2);
     }
 
     .glass-nav {
-      background: rgba(18, 14, 10, 0.75);
+      background: rgba(18, 14, 10, 0.8);
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
       border: 1px solid rgba(255, 255, 255, 0.12);
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-      border-radius: 100px;
     }
 
     .btn-gold {
       background: linear-gradient(135deg, #d4a359 0%, #b88338 100%);
       color: #0a0806;
       font-weight: 700;
-      box-shadow: 0 10px 25px rgba(212, 163, 89, 0.3);
+      box-shadow: 0 10px 25px rgba(212, 163, 89, 0.35);
       transition: all 0.3s ease;
     }
     .btn-gold:hover {
-      transform: scale(1.04);
+      transform: scale(1.05);
       box-shadow: 0 15px 35px rgba(212, 163, 89, 0.5);
     }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
     ::-webkit-scrollbar-track { background: #090705; }
-    ::-webkit-scrollbar-thumb { background: #2a2016; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: #2a2016; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3d2f20; }
   </style>
 </head>
 <body class="selection:bg-coffeeGold selection:text-black">
@@ -113,105 +125,131 @@
   <!-- BACKGROUND ART -->
   <div class="liquid-bg"></div>
   <div class="liquid-overlay"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
 
-  <!-- CONTAINER -->
-  <div class="max-w-md mx-auto px-4 pt-6 pb-24 space-y-6">
+  <!-- DESKTOP TOP HEADER NAVBAR (Visible on PC / iPad screens) -->
+  <header class="sticky top-0 z-40 w-full glass-nav border-b border-white/10 px-6 lg:px-12 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-8">
+      <a href="/" class="text-2xl font-bold font-display tracking-tight text-white flex items-center space-x-2">
+        <span>Danki</span>
+        <span class="text-coffeeGold">Coffee</span>
+      </a>
 
-    <!-- TOP HEADER BAR -->
-    <header class="flex items-center justify-between py-2">
-      <div>
-        <h1 class="text-2xl font-bold font-display tracking-tight text-white flex items-center gap-1.5">
-          <span>Danki</span>
-          <span class="text-coffeeGold">Coffee</span>
-        </h1>
-        <p class="text-xs text-amber-200/60 font-medium">Highland Tanzanian Arabica</p>
+      <!-- PC Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-amber-100/70">
+        <a href="#hero" class="hover:text-coffeeGold transition text-white font-semibold">Home</a>
+        <a href="#shop" class="hover:text-coffeeGold transition">Shop</a>
+        <a href="#beans" class="hover:text-coffeeGold transition">Beans</a>
+        <a href="#blog" class="hover:text-coffeeGold transition">Blog</a>
+        <a href="/dashboard" class="hover:text-coffeeGold transition flex items-center space-x-1 text-purple-300">
+          <span class="material-symbols-outlined text-base">dashboard</span>
+          <span>Render Dashboard</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Right Controls: Search, Profile, Cart -->
+    <div class="flex items-center space-x-4">
+      <!-- Search Input for PC -->
+      <div class="relative hidden sm:flex items-center">
+        <span class="material-symbols-outlined absolute left-3 text-lg text-amber-200/50">search</span>
+        <input type="text" placeholder="Search coffee, brews..." class="bg-white/5 border border-white/10 text-xs text-white pl-9 pr-4 py-2 rounded-full focus:outline-none focus:border-coffeeGold w-48 lg:w-64 placeholder-amber-200/40">
       </div>
 
-      <div class="flex items-center space-x-3">
-        <!-- Search Button -->
-        <button class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-white hover:text-coffeeGold transition">
-          <span class="material-symbols-outlined text-xl">search</span>
-        </button>
+      <button class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-white hover:text-coffeeGold transition">
+        <span class="material-symbols-outlined text-xl">person</span>
+      </button>
 
-        <!-- User Profile Avatar -->
-        <button class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-coffeeGold overflow-hidden border border-coffeeGold/30">
-          <span class="material-symbols-outlined text-xl">person</span>
-        </button>
+      <button onclick="openCart()" class="relative w-10 h-10 rounded-full glass-card flex items-center justify-center text-white hover:text-coffeeGold transition">
+        <span class="material-symbols-outlined text-xl">shopping_bag</span>
+        <span id="cartBadge" class="absolute -top-1 -right-1 bg-coffeeGold text-black font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+      </button>
+    </div>
+  </header>
 
-        <!-- Cart Trigger -->
-        <button onclick="openCart()" class="relative w-10 h-10 rounded-full glass-card flex items-center justify-center text-white hover:text-coffeeGold transition">
-          <span class="material-symbols-outlined text-xl">shopping_bag</span>
-          <span id="cartBadge" class="absolute -top-1 -right-1 bg-coffeeGold text-black font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
-        </button>
-      </div>
-    </header>
+  <!-- MAIN WRAPPER CONTAINER (Flexible for Mobile & PC) -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-28 space-y-10">
 
-    <!-- FEATURED HERO BANNER (THE DANKI BLEND) -->
-    <section class="glass-card p-5 relative overflow-hidden flex items-center justify-between min-h-[170px]">
+    <!-- HERO FEATURE BANNER (MATCHES MOCKUP PHOTO) -->
+    <section id="hero" class="glass-card p-6 sm:p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between min-h-[220px] lg:min-h-[280px]">
       <!-- Background Ambient Glow -->
-      <div class="absolute -right-10 -top-10 w-44 h-44 bg-coffeeGold/20 rounded-full filter blur-3xl pointer-events-none"></div>
+      <div class="absolute -right-10 -top-10 w-72 h-72 bg-coffeeGold/20 rounded-full filter blur-3xl pointer-events-none"></div>
 
-      <div class="space-y-3 z-10 max-w-[55%]">
-        <span class="text-[11px] font-bold text-coffeeGold tracking-widest uppercase">Feature</span>
-        <h2 class="text-xl font-extrabold text-white leading-tight font-display">
-          The Danki<br>Blend
+      <div class="space-y-4 z-10 max-w-lg text-center md:text-left mb-6 md:mb-0">
+        <span class="text-xs font-bold text-coffeeGold tracking-widest uppercase bg-coffeeGold/10 px-3 py-1 rounded-full border border-coffeeGold/30">Feature</span>
+        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight font-display">
+          The Danki<br><span class="text-coffeeGold">Blend</span>
         </h2>
-        <button onclick="scrollToShop()" class="btn-gold text-xs px-4 py-2 rounded-full inline-flex items-center space-x-1">
-          <span>Explore Now</span>
-        </button>
+        <p class="text-sm text-amber-100/70 line-clamp-2">Handcrafted Grade AA Arabica roasted in small batches high up in the Tanzanian highlands.</p>
+        <div class="pt-2">
+          <button onclick="scrollToShop()" class="btn-gold text-sm px-6 py-3 rounded-full inline-flex items-center space-x-2">
+            <span>Explore Now</span>
+            <span class="material-symbols-outlined text-base">arrow_forward</span>
+          </button>
+        </div>
       </div>
 
       <!-- Hero Product Image -->
-      <div class="z-10 relative">
-        <img src="/images/bag_dark_beans_1kg.jpg" alt="The Danki Blend" class="w-28 h-36 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500">
+      <div class="z-10 relative flex items-center justify-center">
+        <img src="/images/bag_dark_beans_1kg.jpg" alt="The Danki Blend" class="w-36 sm:w-48 lg:w-56 h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500">
       </div>
     </section>
 
-    <!-- CATEGORY FILTER PILLS -->
-    <section class="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-none">
-      <button onclick="filterCategory('All')" class="cat-pill active px-4 py-2 rounded-full text-xs font-semibold bg-coffeeGold text-black transition shrink-0">All Roast</button>
-      <button onclick="filterCategory('Dark Roast')" class="cat-pill px-4 py-2 rounded-full text-xs font-semibold glass-card text-white hover:text-coffeeGold transition shrink-0">Dark Roast</button>
-      <button onclick="filterCategory('Medium Roast')" class="cat-pill px-4 py-2 rounded-full text-xs font-semibold glass-card text-white hover:text-coffeeGold transition shrink-0">Medium Roast</button>
-      <button onclick="filterCategory('Equipment')" class="cat-pill px-4 py-2 rounded-full text-xs font-semibold glass-card text-white hover:text-coffeeGold transition shrink-0">Equipment</button>
+    <!-- CATEGORY FILTER BAR -->
+    <section class="flex items-center justify-between border-b border-white/10 pb-4">
+      <div class="flex items-center space-x-2 sm:space-x-3 overflow-x-auto pb-1 scrollbar-none">
+        <button onclick="filterCategory('All')" class="cat-pill active px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold bg-coffeeGold text-black transition shrink-0">All Roast</button>
+        <button onclick="filterCategory('Dark Roast')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold glass-card text-white hover:text-coffeeGold transition shrink-0">Dark Roast</button>
+        <button onclick="filterCategory('Medium Roast')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold glass-card text-white hover:text-coffeeGold transition shrink-0">Medium Roast</button>
+        <button onclick="filterCategory('Equipment')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold glass-card text-white hover:text-coffeeGold transition shrink-0">Equipment</button>
+      </div>
+
+      <div class="hidden sm:flex items-center space-x-1 text-xs text-amber-200/60 font-mono">
+        <span>Highland 1,600m</span>
+      </div>
     </section>
 
-    <!-- DISCOVER OUR BREWS (PRODUCT GRID) -->
-    <section class="space-y-4" id="shop">
+    <!-- DISCOVER OUR BREWS (RESPONSIVE GRID: 2 COL ON MOBILE, 3-4 COL ON PC) -->
+    <section class="space-y-6" id="shop">
       <div class="flex items-center justify-between">
-        <h3 class="text-lg font-bold text-white font-display">Discover Our Brews</h3>
-        <span class="text-xs text-coffeeGold font-medium">Grade AA Arabica</span>
+        <div>
+          <h3 class="text-xl sm:text-2xl font-bold text-white font-display">Discover Our Brews</h3>
+          <p class="text-xs text-amber-200/60">Freshly roasted beans & handcrafted specialty brews</p>
+        </div>
+        <span class="text-xs text-coffeeGold font-medium bg-coffeeGold/10 px-3 py-1.5 rounded-full border border-coffeeGold/20">Grade AA Arabica</span>
       </div>
 
-      <!-- Products Grid -->
-      <div id="productGrid" class="grid grid-cols-2 gap-4">
-        <!-- Rendered dynamically by JS -->
+      <!-- Responsive Product Cards Grid -->
+      <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+        <!-- Dynamic JS product cards -->
       </div>
     </section>
 
-  </div>
+  </main>
 
-  <!-- FLOATING GLASS BOTTOM NAVIGATION BAR -->
-  <nav class="fixed bottom-4 left-1/2 -translate-x-1/2 glass-nav px-6 py-3 flex items-center space-x-8 z-50 shadow-2xl">
-    <button class="flex flex-col items-center space-y-0.5 text-coffeeGold">
+  <!-- FLOATING GLASS BOTTOM NAV BAR (MOBILE ONLY) -->
+  <nav class="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 glass-nav px-6 py-3 rounded-full flex items-center space-x-7 z-50 shadow-2xl">
+    <a href="#hero" class="flex flex-col items-center space-y-0.5 text-coffeeGold">
       <span class="material-symbols-outlined text-2xl">home</span>
       <span class="text-[10px] font-bold tracking-wide">Home</span>
-    </button>
-    <button onclick="scrollToShop()" class="flex flex-col items-center space-y-0.5 text-gray-400 hover:text-white transition">
+    </a>
+    <a href="#shop" class="flex flex-col items-center space-y-0.5 text-gray-400 hover:text-white transition">
       <span class="material-symbols-outlined text-2xl">storefront</span>
       <span class="text-[10px] font-semibold tracking-wide">Shop</span>
-    </button>
-    <button class="flex flex-col items-center space-y-0.5 text-gray-400 hover:text-white transition">
+    </a>
+    <a href="#beans" class="flex flex-col items-center space-y-0.5 text-gray-400 hover:text-white transition">
       <span class="material-symbols-outlined text-2xl">coffee_maker</span>
       <span class="text-[10px] font-semibold tracking-wide">Beans</span>
-    </button>
-    <button class="flex flex-col items-center space-y-0.5 text-gray-400 hover:text-white transition">
+    </a>
+    <a href="#blog" class="flex flex-col items-center space-y-0.5 text-gray-400 hover:text-white transition">
       <span class="material-symbols-outlined text-2xl">article</span>
       <span class="text-[10px] font-semibold tracking-wide">Blog</span>
-    </button>
-    <button class="flex flex-col items-center space-y-0.5 text-gray-400 hover:text-white transition">
-      <span class="material-symbols-outlined text-2xl">person</span>
-      <span class="text-[10px] font-semibold tracking-wide">Profile</span>
-    </button>
+    </a>
+    <a href="/dashboard" class="flex flex-col items-center space-y-0.5 text-purple-400 hover:text-purple-300 transition">
+      <span class="material-symbols-outlined text-2xl">dashboard</span>
+      <span class="text-[10px] font-semibold tracking-wide">Dash</span>
+    </a>
   </nav>
 
   <!-- CART DRAWER MODAL -->
@@ -220,7 +258,7 @@
       <div>
         <div class="flex items-center justify-between pb-4 border-b border-white/10">
           <h3 class="text-xl font-bold font-display text-white">Your Cart</h3>
-          <button onclick="closeCart()" class="text-gray-400 hover:text-white">
+          <button onclick="closeCart()" class="text-gray-400 hover:text-white p-1">
             <span class="material-symbols-outlined">close</span>
           </button>
         </div>
@@ -233,27 +271,37 @@
       <div class="space-y-4 pt-4 border-t border-white/10">
         <div class="flex justify-between text-sm font-semibold">
           <span class="text-gray-400">Total Amount</span>
-          <span id="cartTotal" class="text-coffeeGold font-bold">TZS 0</span>
+          <span id="cartTotal" class="text-coffeeGold font-bold text-lg">TZS 0</span>
         </div>
-        <button onclick="alert('Order placed successfully! Thank you for choosing Danki Coffee.')" class="w-full btn-gold py-3.5 rounded-full text-center text-sm font-bold">
+        <button onclick="checkout()" class="w-full btn-gold py-3.5 rounded-full text-center text-sm font-bold">
           Checkout Securely
         </button>
       </div>
     </div>
   </div>
 
-  <!-- DYNAMIC JS LOGIC -->
+  <!-- INTERACTIVE JS -->
   <script>
     let cart = [];
     let allProducts = [];
 
+    // Custom product items featuring mock images matching mockup.jpg (latte glass cups + coffee bags)
+    const featuredBrews = [
+      { id:'prod-1', name:'Organic Espresso Roast', category:'Dark Roast', weight:'1kg', price:30000, displayPrice:'$18.99', rating:'4.9', img:'/images/bag_dark_beans_1kg.jpg' },
+      { id:'prod-2', name:'Ethiopian Yirgacheffe', category:'Medium Roast', weight:'500g', price:35000, displayPrice:'$21.50', rating:'4.8', img:'/images/bag_medium_beans_500g.jpg' },
+      { id:'prod-3', name:'Vanilla Oat Latte', category:'Medium Roast', weight:'250ml', price:12000, displayPrice:'$6.50', rating:'4.7', img:'/images/bag_dark_ground_250g.jpg' },
+      { id:'prod-4', name:'Single Origin Rwanda', category:'Dark Roast', weight:'500g', price:36000, displayPrice:'$22.00', rating:'4.9', img:'/images/bag_med_dark_beans_250g.jpg' }
+    ];
+
     async function loadProducts() {
       try {
         const res = await fetch('/api/products');
-        allProducts = await res.json();
+        const apiProds = await res.json();
+        allProducts = [...featuredBrews, ...apiProds];
         renderGrid(allProducts);
       } catch(err) {
-        console.error('Failed loading products:', err);
+        allProducts = featuredBrews;
+        renderGrid(allProducts);
       }
     }
 
@@ -262,30 +310,31 @@
       grid.innerHTML = '';
 
       products.forEach(p => {
-        const rating = (4.7 + (Math.random() * 0.2)).toFixed(1);
+        const rating = p.rating || (4.7 + (Math.random() * 0.2)).toFixed(1);
         const card = document.createElement('div');
-        card.className = 'glass-card p-4 flex flex-col justify-between space-y-3 relative group';
+        card.className = 'glass-card p-4 sm:p-5 flex flex-col justify-between space-y-4 relative group';
 
         const imgSrc = p.img || '/images/bag_dark_beans_1kg.jpg';
-        const formattedPrice = `TZS ${(p.price).toLocaleString()}`;
+        const priceLabel = p.displayPrice || `TZS ${(p.price).toLocaleString()}`;
 
         card.innerHTML = `
-          <div class="relative flex justify-center py-2">
-            <span class="absolute top-0 right-0 text-[10px] font-bold text-coffeeGold flex items-center bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-sm border border-coffeeGold/20">
-              ★ ${rating}
+          <div class="relative flex justify-center py-2 sm:py-4">
+            <span class="absolute top-0 right-0 text-[10px] sm:text-xs font-bold text-coffeeGold flex items-center space-x-0.5 bg-black/60 px-2 py-0.5 rounded-full backdrop-blur-sm border border-coffeeGold/30">
+              <span class="text-amber-400">★</span>
+              <span>${rating}</span>
             </span>
-            <img src="${imgSrc}" alt="${p.name}" class="h-28 object-contain drop-shadow-xl group-hover:scale-105 transition duration-300">
+            <img src="${imgSrc}" alt="${p.name}" class="h-32 sm:h-40 object-contain drop-shadow-2xl group-hover:scale-105 transition duration-500">
           </div>
 
-          <div>
-            <h4 class="text-xs font-bold text-white line-clamp-1 font-display uppercase tracking-wide">${p.name}</h4>
-            <p class="text-[10px] text-amber-200/60 font-medium">${p.weight}</p>
+          <div class="space-y-1">
+            <h4 class="text-xs sm:text-sm font-bold text-white line-clamp-1 font-display uppercase tracking-wide">${p.name}</h4>
+            <p class="text-[10px] sm:text-xs text-amber-200/60 font-medium">${p.weight || 'Grade AA'}</p>
           </div>
 
-          <div class="flex items-center justify-between pt-1">
-            <span class="text-xs font-extrabold text-coffeeGold font-mono">${formattedPrice}</span>
-            <button onclick="addToCart('${p.id}')" class="w-7 h-7 rounded-lg btn-gold flex items-center justify-center shadow-lg active:scale-95 transition">
-              <span class="material-symbols-outlined text-sm font-bold">add</span>
+          <div class="flex items-center justify-between pt-2 border-t border-white/10">
+            <span class="text-xs sm:text-sm font-extrabold text-coffeeGold font-mono">${priceLabel}</span>
+            <button onclick="addToCart('${p.id}')" class="w-8 h-8 rounded-full btn-gold flex items-center justify-center shadow-lg active:scale-95 transition">
+              <span class="material-symbols-outlined text-base font-bold">add</span>
             </button>
           </div>
         `;
@@ -344,13 +393,13 @@
 
       container.innerHTML = '';
       cart.forEach(item => {
-        totalPrice += item.price * item.qty;
+        totalPrice += (item.price || 25000) * item.qty;
         const div = document.createElement('div');
         div.className = 'flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/10';
         div.innerHTML = `
           <div>
             <div class="text-xs font-bold text-white">${item.name}</div>
-            <div class="text-[10px] text-coffeeGold">TZS ${item.price.toLocaleString()} x ${item.qty}</div>
+            <div class="text-[10px] text-coffeeGold">${item.displayPrice || 'TZS ' + item.price.toLocaleString()} x ${item.qty}</div>
           </div>
           <div class="flex items-center space-x-2">
             <button onclick="changeQty('${item.id}', -1)" class="w-6 h-6 rounded bg-white/10 text-white font-bold text-xs flex items-center justify-center">-</button>
@@ -384,6 +433,13 @@
 
     function scrollToShop() {
       document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function checkout() {
+      alert('Order placed successfully! Thank you for ordering from Danki Coffee.');
+      cart = [];
+      updateCartUI();
+      closeCart();
     }
 
     loadProducts();
