@@ -15,17 +15,16 @@ process.on('unhandledRejection', (reason, promise) => {
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-app.use(cors());
-app.use(express.json());
-
 app.use((req, res, next) => {
     res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.set('Pragma', 'no-cache');
     res.set('Expires', '0');
-    next();app.get('/', (req, res) => {
+    next();
+});
+
+app.get('/', (req, res) => {
     const indexPath = path.join(__dirname, 'public', 'index.html');
     res.sendFile(indexPath);
-});});
 });
 
 app.use(express.static(path.join(__dirname, 'public'), { etag: false, maxAge: 0 }));
