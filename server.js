@@ -4,6 +4,14 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 
+// Process Resilience Handlers
+process.on('uncaughtException', (err) => {
+  console.error('⚠️ [Process Resilience] Uncaught Exception (prevented crash):', err?.stack || err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('⚠️ [Process Resilience] Unhandled Rejection (prevented crash):', reason?.stack || reason);
+});
+
 const app = express();
 const PORT = process.env.PORT || 10000;
 
@@ -169,4 +177,24 @@ app.get('/api/products', (req, res) => {
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
-app.listen(PORT, () => console.log(`[DANKI COFFEE] Web App running on port ${PORT}`));
+// Uptime / Keep-Alive Bot (Prevents Render Free Tier Sleep)
+const RENDER_URL = process.env.RENDER_EXTERNAL_URL || 'https://danki-coffee-2bmn.onrender.com';
+const PING_INTERVAL_MS = 14 * 60 * 1000; // Ping every 14 minutes
+
+function startUptimeBot() {
+    console.log(`[Uptime Bot] Initialized. Target URL: ${RENDER_URL}/health (Ping Interval: 14 mins)`);
+    setInterval(async () => {
+        try {
+            const response = await fetch(`${RENDER_URL}/health`);
+            console.log(`[Uptime Bot] Ping successful: status ${response.status} at ${new Date().toISOString()}`);
+        } catch (err) {
+            console.warn(`[Uptime Bot] Ping notice: ${err.message}`);
+        }
+    }, PING_INTERVAL_MS);
+}
+
+app.listen(PORT, () => {
+    console.log(`[DANKI COFFEE] Web App running on port ${PORT}`);
+    startUptimeBot();
+});
+
