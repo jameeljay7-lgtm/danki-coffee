@@ -105,6 +105,19 @@
       will-change: transform;
     }
 
+    /* Ultra 4K HD Video Processing & Crisp Color Clarity */
+    .ultra-hd-video {
+      filter: contrast(1.08) saturate(1.14) brightness(1.04);
+      -webkit-filter: contrast(1.08) saturate(1.14) brightness(1.04);
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      transform: translate3d(0, 0, 0) scale(1.002);
+      -webkit-transform: translate3d(0, 0, 0) scale(1.002);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform, filter;
+    }
+
     .glass-card {
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 100%);
       backdrop-filter: blur(24px);
@@ -337,7 +350,7 @@
   <section id="journey" class="relative w-full h-[650vh] gpu-layer">
     <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden gpu-layer">
       
-      <!-- 4K Video Element with iOS/Android mobile decoding primer & GPU acceleration -->
+      <!-- 4K Video Element with iOS/Android mobile decoding primer & Ultra HD clarity -->
       <video id="coffee-video" 
              src="videodanki.mp4#t=0.001" 
              muted 
@@ -348,11 +361,17 @@
              preload="auto"
              disablePictureInPicture
              disableremoteplayback
-             class="absolute inset-0 w-full h-full object-cover gpu-layer bg-black">
+             class="absolute inset-0 w-full h-full object-cover gpu-layer ultra-hd-video bg-black">
       </video>
 
-      <!-- Vignette and Dark Cinematic Filter -->
-      <div class="absolute inset-0 bg-gradient-to-t from-[#080604] via-transparent to-black/60 pointer-events-none"></div>
+      <!-- Vignette and Dark Cinematic Filter (Crystal Clear Contrast) -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#080604] via-transparent to-black/35 pointer-events-none"></div>
+
+      <!-- 4K UHD Badge (Top Left) -->
+      <div class="absolute top-20 left-6 z-20 hidden sm:flex items-center gap-1.5 liquid-glass px-3 py-1 rounded-full text-[10px] font-mono text-coffeeGold tracking-widest uppercase border border-coffeeGold/30">
+        <span class="w-1.5 h-1.5 rounded-full bg-coffeeGold animate-ping"></span>
+        <span>4K ULTRA HD</span>
+      </div>
 
       <!-- Quick Skip to Shop floating chip -->
       <div class="absolute top-20 right-6 z-20">
