@@ -350,19 +350,8 @@
   <section id="journey" class="relative w-full h-[650vh] gpu-layer">
     <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden gpu-layer">
       
-      <!-- 4K Video Element with iOS/Android mobile decoding primer & Ultra HD clarity -->
-      <video id="coffee-video" 
-             src="videodanki.mp4#t=0.001" 
-             muted 
-             autoplay
-             loop
-             playsinline 
-             webkit-playsinline
-             preload="auto"
-             disablePictureInPicture
-             disableremoteplayback
-             class="absolute inset-0 w-full h-full object-cover gpu-layer ultra-hd-video bg-black">
-      </video>
+      <!-- 4K Ultra Canvas Sequence Loader (2.5K/4K Super-Sampled Native Clarity) -->
+      <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover gpu-layer bg-black"></canvas>
 
       <!-- Vignette and Dark Cinematic Filter (Crystal Clear Contrast) -->
       <div class="absolute inset-0 bg-gradient-to-t from-[#080604] via-transparent to-black/35 pointer-events-none"></div>
@@ -776,151 +765,174 @@
   <!-- ========================================================================= -->
   <script>
     // --- 1. Ambient 4K Coffee Particle Canvas ---
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
+    const bgCanvas = document.getElementById('bgCanvas');
+    const bgCtx = bgCanvas ? bgCanvas.getContext('2d') : null;
     let particles = [];
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    function resizeBgCanvas() {
+      if (!bgCanvas) return;
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
     }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+    window.addEventListener('resize', resizeBgCanvas);
+    resizeBgCanvas();
 
     class Particle {
       constructor() {
         this.reset();
       }
       reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        if (!bgCanvas) return;
+        this.x = Math.random() * bgCanvas.width;
+        this.y = Math.random() * bgCanvas.height;
         this.size = Math.random() * 2.2 + 0.6;
         this.speedY = -(Math.random() * 0.4 + 0.15);
         this.speedX = (Math.random() - 0.5) * 0.2;
         this.opacity = Math.random() * 0.45 + 0.1;
       }
       update() {
+        if (!bgCanvas) return;
         this.y += this.speedY;
         this.x += this.speedX;
-        if (this.y < -10) this.y = canvas.height + 10;
-        if (this.x < -10) this.x = canvas.width + 10;
-        if (this.x > canvas.width + 10) this.x = -10;
+        if (this.y < -10) this.y = bgCanvas.height + 10;
+        if (this.x < -10) this.x = bgCanvas.width + 10;
+        if (this.x > bgCanvas.width + 10) this.x = -10;
       }
       draw() {
-        ctx.fillStyle = `rgba(212, 163, 89, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
+        if (!bgCtx) return;
+        bgCtx.fillStyle = `rgba(212, 163, 89, ${this.opacity})`;
+        bgCtx.beginPath();
+        bgCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        bgCtx.fill();
       }
     }
 
-    for (let i = 0; i < 45; i++) {
-      particles.push(new Particle());
+    if (bgCtx) {
+      for (let i = 0; i < 45; i++) {
+        particles.push(new Particle());
+      }
+      function animateParticles() {
+        bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animateParticles);
+      }
+      animateParticles();
     }
 
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-
-    // --- 2. GSAP 4K Video Decoupled Lerp Scrub Engine (Mobile-First) ---
+    // --- 2. 4K Ultra Canvas Image Sequence Engine (Apple Pro Technique) ---
     gsap.registerPlugin(ScrollTrigger);
 
-    const video = document.getElementById("coffee-video");
-    let targetTime = 0;
-    let currentTime = 0;
-    const easeFactor = 0.08; // Butter-smooth interpolation factor
-    let isInitialized = false;
+    const heroCanvas = document.getElementById("hero-canvas");
+    const heroCtx = heroCanvas ? heroCanvas.getContext("2d") : null;
 
-    // Mobile media pipeline unlock
-    function unlockMobileVideo() {
-      if (!video) return;
-      video.muted = true;
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          video.pause();
-        }).catch(() => {});
+    function resizeHeroCanvas() {
+      if (!heroCanvas) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      heroCanvas.width = window.innerWidth * dpr;
+      heroCanvas.height = window.innerHeight * dpr;
+      renderHeroFrame();
+    }
+    window.addEventListener("resize", resizeHeroCanvas);
+
+    const frameCount = 150;
+    const currentFrameSrc = index => (
+      `/frames/frame_${(index + 1).toString().padStart(4, '0')}.jpg`
+    );
+
+    const images = [];
+    const imageSeq = { frame: 0 };
+
+    // Preload all 150 4K frames & trigger initial render on first loaded frame
+    for (let i = 0; i < frameCount; i++) {
+      const img = new Image();
+      img.onload = () => {
+        if (i === 0 || Math.round(imageSeq.frame) === i) {
+          resizeHeroCanvas();
+          renderHeroFrame();
+        }
+      };
+      img.src = currentFrameSrc(i);
+      images.push(img);
+    }
+
+    function renderHeroFrame() {
+      if (!heroCanvas || !heroCtx) return;
+      let targetIdx = Math.min(Math.max(Math.round(imageSeq.frame), 0), frameCount - 1);
+      let img = images[targetIdx];
+
+      // Fallback to closest buffered frame so screen is never blank
+      if (!img || !img.complete || img.naturalWidth === 0) {
+        for (let offset = 1; offset < frameCount; offset++) {
+          const prev = images[targetIdx - offset];
+          if (prev && prev.complete && prev.naturalWidth !== 0) { img = prev; break; }
+          const next = images[targetIdx + offset];
+          if (next && next.complete && next.naturalWidth !== 0) { img = next; break; }
+        }
+      }
+
+      if (img && img.complete && img.naturalWidth !== 0) {
+        if (heroCanvas.width === 0 || heroCanvas.height === 0) {
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          heroCanvas.width = window.innerWidth * dpr;
+          heroCanvas.height = window.innerHeight * dpr;
+        }
+
+        const hRatio = heroCanvas.width / img.width;
+        const vRatio = heroCanvas.height / img.height;
+        const ratio = Math.max(hRatio, vRatio);
+        const centerShiftX = (heroCanvas.width - img.width * ratio) / 2;
+        const centerShiftY = (heroCanvas.height - img.height * ratio) / 2;
+
+        heroCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
+        heroCtx.imageSmoothingEnabled = true;
+        heroCtx.imageSmoothingQuality = "high";
+        heroCtx.drawImage(
+          img, 
+          0, 0, img.width, img.height,
+          centerShiftX, centerShiftY, img.width * ratio, img.height * ratio
+        );
       }
     }
 
-    function setupSmoothScrub() {
-      if (isInitialized) return;
-      isInitialized = true;
-
-      // Unlock mobile decoder
-      unlockMobileVideo();
-
-      function getDuration() {
-        return (video.duration && !isNaN(video.duration) && video.duration > 0) ? video.duration : 10;
-      }
-
-      // ScrollTrigger tracks target timestamp (0 to duration)
-      ScrollTrigger.create({
+    // ScrollTrigger smoothly maps scroll position to active frame index
+    gsap.to(imageSeq, {
+      frame: frameCount - 1,
+      snap: "frame",
+      ease: "none",
+      scrollTrigger: {
         trigger: "#journey",
         start: "top top",
         end: "bottom bottom",
-        scrub: true,
-        onUpdate: (self) => {
-          targetTime = self.progress * getDuration();
-        }
-      });
-
-      // GSAP Ticker runs continuously on requestAnimationFrame (60-120fps)
-      gsap.ticker.add(() => {
-        currentTime += (targetTime - currentTime) * easeFactor;
-        if (Math.abs(targetTime - currentTime) > 0.001) {
-          try {
-            if (video.readyState >= 1 || video.duration) {
-              video.currentTime = Math.min(Math.max(currentTime, 0), getDuration());
-            }
-          } catch(e) {}
-        }
-      });
-
-      // Floating card fades mapped to progress
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: "#journey",
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 1,
-        }
-      });
-
-      tl.to("#card-0", { opacity: 0, y: -40, duration: 0.1 }, 0.04)
-        .to("#card-1", { opacity: 1, y: 0, duration: 0.08 }, 0.10)
-        .to("#card-1", { opacity: 0, y: -20, duration: 0.08 }, 0.28)
-        .to("#card-2", { opacity: 1, y: 0, duration: 0.08 }, 0.32)
-        .to("#card-2", { opacity: 0, y: -20, duration: 0.08 }, 0.50)
-        .to("#card-3", { opacity: 1, y: 0, duration: 0.08 }, 0.54)
-        .to("#card-3", { opacity: 0, y: -20, duration: 0.08 }, 0.72)
-        .to("#card-4", { opacity: 1, y: 0, duration: 0.08 }, 0.76)
-        .to("#card-4", { opacity: 0, y: -20, duration: 0.08 }, 0.98);
-
-      ScrollTrigger.refresh();
-    }
-
-    // Initialize immediately without waiting indefinitely on mobile
-    setupSmoothScrub();
-
-    video.addEventListener("loadedmetadata", () => {
-      ScrollTrigger.refresh();
-    });
-    video.addEventListener("canplay", () => {
-      unlockMobileVideo();
-      ScrollTrigger.refresh();
+        scrub: 0.5,
+        onUpdate: renderHeroFrame
+      }
     });
 
-    // Touch/Scroll listeners to guarantee video pipeline unlocks on mobile devices
-    window.addEventListener("touchstart", unlockMobileVideo, { once: true, passive: true });
-    window.addEventListener("scroll", unlockMobileVideo, { once: true, passive: true });
-    window.addEventListener("pointerdown", unlockMobileVideo, { once: true, passive: true });
+    // Floating card fades mapped to progress
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#journey",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1,
+      }
+    });
+
+    tl.to("#card-0", { opacity: 0, y: -40, duration: 0.1 }, 0.04)
+      .to("#card-1", { opacity: 1, y: 0, duration: 0.08 }, 0.10)
+      .to("#card-1", { opacity: 0, y: -20, duration: 0.08 }, 0.28)
+      .to("#card-2", { opacity: 1, y: 0, duration: 0.08 }, 0.32)
+      .to("#card-2", { opacity: 0, y: -20, duration: 0.08 }, 0.50)
+      .to("#card-3", { opacity: 1, y: 0, duration: 0.08 }, 0.54)
+      .to("#card-3", { opacity: 0, y: -20, duration: 0.08 }, 0.72)
+      .to("#card-4", { opacity: 1, y: 0, duration: 0.08 }, 0.76)
+      .to("#card-4", { opacity: 0, y: -20, duration: 0.08 }, 0.98);
+
+    resizeHeroCanvas();
+    ScrollTrigger.refresh();
 
     // --- 3. Product Catalog & Custom Bag Mapping ---
     let PRODUCTS = [];
