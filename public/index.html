@@ -10,6 +10,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- Google Fonts & Material Symbols -->
+  <link rel="icon" type="image/png" href="/images/danki_logo_gold.png">
+  <link rel="apple-touch-icon" href="/images/danki_logo_gold.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -292,11 +294,9 @@
   <!-- Top Navbar with Official Danki Logo in Top-Left -->
   <nav class="fixed top-0 left-0 w-full z-50 px-5 md:px-12 py-3 flex justify-between items-center liquid-glass border-b border-white/10">
     <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-      <!-- Official Logo Container -->
-      <div class="w-10 h-10 rounded-full border border-coffeeGold/40 p-0.5 shadow-[0_0_15px_rgba(212,163,89,0.35)] overflow-hidden bg-black flex items-center justify-center">
-        <img src="/images/Danki%20Coffee%20Brand.jpg" alt="Danki Coffee Logo" class="w-full h-full object-cover rounded-full">
-      </div>
-      <div>
+      <!-- Official Logo -->
+      <img src="/images/danki_logo_gold.png" alt="Danki Premium Coffee" class="h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(212,163,89,0.45)]">
+      <div class="hidden sm:block">
         <span class="text-base md:text-lg font-black tracking-widest text-white block leading-none font-display">DANKI</span>
         <span class="text-[9px] text-coffeeGold font-mono tracking-widest uppercase">PREMIUM COFFEE</span>
       </div>
