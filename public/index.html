@@ -96,6 +96,15 @@
       box-shadow: 0 20px 50px rgba(212, 163, 89, 0.15);
     }
 
+    /* GPU Acceleration for Ultra Smooth 4K Scrubbing */
+    .gpu-layer {
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform;
+    }
+
     .glass-card {
       background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 100%);
       backdrop-filter: blur(24px);
@@ -323,19 +332,21 @@
   </nav>
 
   <!-- ========================================================================= -->
-  <!-- 4K PINNED SCROLL STAGE: Interactive Video Storytelling (550vh scrub)    -->
+  <!-- 4K PINNED SCROLL STAGE: Interactive Video Storytelling (650vh scrub)    -->
   <!-- ========================================================================= -->
-  <section id="journey" class="relative w-full h-[550vh]">
-    <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+  <section id="journey" class="relative w-full h-[650vh] gpu-layer">
+    <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden gpu-layer">
       
-      <!-- 4K Video Element -->
+      <!-- 4K Video Element with GPU acceleration & mobile anti-stutter attributes -->
       <video id="coffee-video" 
              src="videodanki.mp4" 
              muted 
              playsinline 
              webkit-playsinline
              preload="auto"
-             class="absolute inset-0 w-full h-full object-cover">
+             disablePictureInPicture
+             disableremoteplayback
+             class="absolute inset-0 w-full h-full object-cover gpu-layer">
       </video>
 
       <!-- Vignette and Dark Cinematic Filter -->
@@ -796,51 +807,62 @@
     }
     animateParticles();
 
-    // --- 2. GSAP 4K Video Scrubbing Timeline ---
+    // --- 2. GSAP 4K Video Decoupled Lerp Scrub Engine ---
     gsap.registerPlugin(ScrollTrigger);
 
     const video = document.getElementById("coffee-video");
+    let targetTime = 0;
+    let currentTime = 0;
+    const easeFactor = 0.08; // Butter-smooth interpolation factor
 
-    function initScrollAnimation() {
+    function setupSmoothScrub() {
+      const duration = video.duration || 10;
+
+      // ScrollTrigger tracks target timestamp (0 to duration) without direct video lock
+      ScrollTrigger.create({
+        trigger: "#journey",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        onUpdate: (self) => {
+          targetTime = self.progress * duration;
+        }
+      });
+
+      // GSAP Ticker runs continuously on requestAnimationFrame (60-120fps)
+      gsap.ticker.add(() => {
+        currentTime += (targetTime - currentTime) * easeFactor;
+        if (Math.abs(targetTime - currentTime) > 0.001) {
+          video.currentTime = currentTime;
+        }
+      });
+
+      // Floating card fades mapped to progress
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: "#journey",
           start: "top top",
           end: "bottom bottom",
-          scrub: 1.2,
+          scrub: 1,
         }
       });
 
-      // Scrub the video smoothly through its duration
-      tl.to(video, { 
-        currentTime: video.duration || 10, 
-        ease: "none" 
-      }, 0);
-
-      // Card 0 (Intro Title): Fades out on initial scroll
-      tl.to("#card-0", { opacity: 0, y: -40, duration: 0.1 }, 0.04);
-
-      // Card 1 (Origin & Harvest): 10% - 28%
-      tl.to("#card-1", { opacity: 1, y: 0, duration: 0.08 }, 0.10)
-        .to("#card-1", { opacity: 0, y: -20, duration: 0.08 }, 0.28);
-
-      // Card 2 (Roasting Profile): 32% - 50%
-      tl.to("#card-2", { opacity: 1, y: 0, duration: 0.08 }, 0.32)
-        .to("#card-2", { opacity: 0, y: -20, duration: 0.08 }, 0.50);
-
-      // Card 3 (Precision Grind): 54% - 72%
-      tl.to("#card-3", { opacity: 1, y: 0, duration: 0.08 }, 0.54)
-        .to("#card-3", { opacity: 0, y: -20, duration: 0.08 }, 0.72);
-
-      // Card 4 (Packaging & Valve): 76% - 98%
-      tl.to("#card-4", { opacity: 1, y: 0, duration: 0.08 }, 0.76)
+      tl.to("#card-0", { opacity: 0, y: -40, duration: 0.1 }, 0.04)
+        .to("#card-1", { opacity: 1, y: 0, duration: 0.08 }, 0.10)
+        .to("#card-1", { opacity: 0, y: -20, duration: 0.08 }, 0.28)
+        .to("#card-2", { opacity: 1, y: 0, duration: 0.08 }, 0.32)
+        .to("#card-2", { opacity: 0, y: -20, duration: 0.08 }, 0.50)
+        .to("#card-3", { opacity: 1, y: 0, duration: 0.08 }, 0.54)
+        .to("#card-3", { opacity: 0, y: -20, duration: 0.08 }, 0.72)
+        .to("#card-4", { opacity: 1, y: 0, duration: 0.08 }, 0.76)
         .to("#card-4", { opacity: 0, y: -20, duration: 0.08 }, 0.98);
     }
 
-    if (video.readyState >= 1) {
-      initScrollAnimation();
+    if (video.readyState >= 2) {
+      setupSmoothScrub();
     } else {
-      video.addEventListener("loadedmetadata", initScrollAnimation);
+      video.addEventListener("loadeddata", setupSmoothScrub);
+      video.addEventListener("loadedmetadata", setupSmoothScrub);
     }
 
     // --- 3. Product Catalog & Custom Bag Mapping ---
