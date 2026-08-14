@@ -17,9 +17,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 
-  <!-- GSAP & ScrollTrigger CDN -->
+  <!-- GSAP CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <script>
     tailwind.config = {
@@ -61,7 +60,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Ambient Canvas Background */
+    /* Ambient Particle Canvas */
     #bgCanvas {
       position: fixed;
       inset: 0;
@@ -75,19 +74,10 @@
       position: fixed;
       inset: 0;
       z-index: -1;
-      background: radial-gradient(circle at 50% 15%, rgba(212, 163, 89, 0.12) 0%, transparent 65%),
-                  radial-gradient(circle at 85% 85%, rgba(180, 83, 9, 0.15) 0%, transparent 60%),
-                  linear-gradient(180deg, rgba(8, 6, 4, 0.4) 0%, rgba(8, 6, 4, 0.85) 50%, rgba(8, 6, 4, 0.98) 100%);
+      background: radial-gradient(circle at 50% 15%, rgba(212, 163, 89, 0.08) 0%, transparent 65%),
+                  radial-gradient(circle at 85% 85%, rgba(180, 83, 9, 0.1) 0%, transparent 60%),
+                  linear-gradient(180deg, rgba(8, 6, 4, 0.3) 0%, rgba(8, 6, 4, 0.85) 50%, rgba(8, 6, 4, 0.98) 100%);
       pointer-events: none;
-    }
-
-    /* GPU Acceleration for Ultra Smooth Canvas Scrubbing */
-    .gpu-layer {
-      transform: translate3d(0, 0, 0);
-      -webkit-transform: translate3d(0, 0, 0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      will-change: transform;
     }
 
     /* Liquid Glass styling */
@@ -305,7 +295,7 @@
     </div>
 
     <div class="hidden md:flex items-center space-x-8 font-medium text-xs tracking-wider uppercase text-gray-300">
-      <a href="#journey" class="hover:text-coffeeGold transition-colors">Our Journey</a>
+      <a href="#hero" class="hover:text-coffeeGold transition-colors">Home</a>
       <a href="#catalog" class="hover:text-coffeeGold transition-colors">Store Catalog</a>
       <a href="#about" class="hover:text-coffeeGold transition-colors">About Us</a>
       <a href="#contact" class="hover:text-coffeeGold transition-colors">Contact</a>
@@ -325,92 +315,92 @@
   </nav>
 
   <!-- ========================================================================= -->
-  <!-- PINNED SCROLL STORYTELLING ENGINE (Smooth 800vh Scrub)                     -->
+  <!-- FULL CINEMATIC BACKGROUND VIDEO HERO SECTION (Plays as you scroll)        -->
   <!-- ========================================================================= -->
-  <section id="journey" class="relative w-full h-[800vh] gpu-layer">
-    <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden gpu-layer">
+  <section id="hero" class="relative min-h-[92vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+    
+    <!-- Full Background Video Playing Continuously & Smoothly -->
+    <video id="hero-bg-video"
+           src="/videodanki.mp4" 
+           autoplay 
+           loop 
+           muted 
+           playsinline 
+           webkit-playsinline
+           preload="auto"
+           class="absolute inset-0 w-full h-full object-cover">
+    </video>
+
+    <!-- Cinematic Vignette and Dark Readability Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#080604] via-black/45 to-black/65 pointer-events-none"></div>
+
+    <!-- Centered Hero Content -->
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center pt-24 pb-16 flex flex-col items-center">
       
-      <!-- High Definition Native Canvas Sequence Loader -->
-      <canvas id="hero-canvas" class="absolute inset-0 w-full h-full object-cover gpu-layer bg-black"></canvas>
+      <!-- Highland Badge -->
+      <div class="inline-flex items-center gap-2 bg-coffeeGold/20 backdrop-blur-md border border-coffeeGold/40 rounded-full px-4 py-1.5 mb-6 shadow-lg">
+        <span class="w-2 h-2 rounded-full bg-coffeeGold animate-ping"></span>
+        <span class="text-coffeeGold text-[11px] font-mono tracking-widest uppercase font-bold">100% Tanzanian Arabica • 1,500m Highland</span>
+      </div>
 
-      <!-- Vignette and Dark Cinematic Filter -->
-      <div class="absolute inset-0 bg-gradient-to-t from-[#080604] via-transparent to-black/35 pointer-events-none"></div>
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-light tracking-tight text-white font-display leading-[1.1]">
+        It’s not just Coffee,<br>
+        <span class="gold-gradient-text font-black">it’s Love.</span>
+      </h1>
 
-      <!-- Quick Skip to Shop floating chip -->
-      <div class="absolute top-20 right-6 z-20">
-        <a href="#catalog" class="liquid-glass hover:bg-coffeeGold hover:text-black text-coffeeGold px-3.5 py-1.5 rounded-full text-[11px] font-mono tracking-wider flex items-center gap-1.5 transition-all shadow-lg">
-          <span>Explore Products</span>
-          <span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+      <p class="text-gray-200 text-sm sm:text-base md:text-lg font-light leading-relaxed max-w-2xl mt-5 drop-shadow-md">
+        From the volcanic soils of Tanzania’s Southern Highlands. Hand-selected Grade AA beans drum-roasted to order in Dark, Medium, and Medium-to-Dark roast profiles.
+      </p>
+
+      <!-- Primary Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-4 mt-8">
+        <a href="#catalog" class="inline-flex items-center gap-2 bg-gradient-to-r from-coffeeGold to-amber-400 hover:from-amber-400 hover:to-coffeeGoldLight text-black px-8 py-4 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-[0_0_35px_rgba(212,163,89,0.5)] transform hover:scale-105">
+          <span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+          <span>Explore Store Catalog</span>
+        </a>
+        <a href="#about" class="liquid-glass hover:bg-white/10 text-white px-7 py-4 rounded-full text-xs sm:text-sm font-semibold flex items-center gap-2 transition-all">
+          <span>Our Heritage</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
         </a>
       </div>
 
-      <!-- Stage 0: Intro Title Card -->
-      <div id="card-0" class="absolute z-10 text-center px-6 max-w-xl pointer-events-none">
-        <div class="inline-flex items-center gap-2 bg-coffeeGold/15 border border-coffeeGold/40 rounded-full px-4 py-1 mb-3">
-          <span class="w-2 h-2 rounded-full bg-coffeeGold animate-ping"></span>
-          <span class="text-coffeeGold text-[10px] font-mono tracking-widest uppercase font-bold">100% Tanzanian Arabica</span>
+      <!-- Quick Trust Stats -->
+      <div class="grid grid-cols-3 gap-6 sm:gap-12 mt-12 pt-8 border-t border-white/15 max-w-lg w-full text-center">
+        <div>
+          <p class="font-display text-2xl sm:text-3xl font-bold text-coffeeGold">1,500m</p>
+          <p class="text-[11px] text-gray-300 mt-0.5">Highland Altitude</p>
         </div>
-        <h1 class="text-4xl md:text-6xl font-light tracking-tight text-white font-display">
-          It’s not just Coffee,<br><span class="gold-gradient-text font-black">it’s Love.</span>
-        </h1>
-        <p class="text-xs md:text-sm text-gray-300 font-light mt-3">
-          From the Southern Highlands of Tanzania at 1,500m altitude.
-        </p>
-        <div class="mt-6 flex items-center justify-center gap-2 text-[10px] font-mono tracking-widest text-coffeeGold uppercase">
-          <span>Scroll to explore the harvest</span>
-          <span class="material-symbols-outlined text-xs animate-bounce">arrow_downward</span>
+        <div>
+          <p class="font-display text-2xl sm:text-3xl font-bold text-coffeeGold">Grade AA</p>
+          <p class="text-[11px] text-gray-300 mt-0.5">Handpicked Beans</p>
         </div>
-      </div>
-
-      <!-- Stage 1: Origin & Harvest -->
-      <div id="card-1" class="absolute z-10 text-left px-6 max-w-md left-6 md:left-24 bottom-24 opacity-0 pointer-events-none">
-        <div class="liquid-glass p-6 rounded-2xl">
-          <span class="text-[10px] font-mono text-coffeeGold tracking-widest uppercase block mb-1">01 // Origin & Harvest</span>
-          <h2 class="text-2xl md:text-3xl font-bold text-white font-display">Southern Highlands</h2>
-          <p class="text-xs text-gray-300 mt-2 leading-relaxed">
-            Grown in mineral-rich volcanic soil at 1,500 meters. Hand-picked at peak ripeness for unparalleled bean density and natural sweetness.
-          </p>
-        </div>
-      </div>
-
-      <!-- Stage 2: The Roast -->
-      <div id="card-2" class="absolute z-10 text-right px-6 max-w-md right-6 md:right-24 top-32 opacity-0 pointer-events-none">
-        <div class="liquid-glass p-6 rounded-2xl">
-          <span class="text-[10px] font-mono text-coffeeGold tracking-widest uppercase block mb-1">02 // The Roast</span>
-          <h2 class="text-2xl md:text-3xl font-bold text-white font-display">Master Craftsmanship</h2>
-          <p class="text-xs text-gray-300 mt-2 leading-relaxed">
-            Small-batch roasted to coax out nuanced notes of dark cocoa, toasted hazelnut, and caramel aromatics.
-          </p>
-        </div>
-      </div>
-
-      <!-- Stage 3: Precision & Purity -->
-      <div id="card-3" class="absolute z-10 text-left px-6 max-w-md left-6 md:left-24 top-36 opacity-0 pointer-events-none">
-        <div class="liquid-glass p-6 rounded-2xl">
-          <span class="text-[10px] font-mono text-coffeeGold tracking-widest uppercase block mb-1">03 // Precision & Purity</span>
-          <h2 class="text-2xl md:text-3xl font-bold text-white font-display">Grade AA Arabica</h2>
-          <p class="text-xs text-gray-300 mt-2 leading-relaxed">
-            Sorted to the highest export grade standards. Zero fillers. Just pure Tanzanian coffee passion.
-          </p>
-        </div>
-      </div>
-
-      <!-- Stage 4: Ready for You -->
-      <div id="card-4" class="absolute z-10 text-center px-6 max-w-lg bottom-28 opacity-0">
-        <div class="liquid-glass p-8 rounded-3xl">
-          <span class="text-[10px] font-mono text-coffeeGold tracking-widest uppercase block mb-1">04 // Fresh Sealed</span>
-          <h2 class="text-3xl md:text-4xl font-bold text-white font-display">Your Daily Cup</h2>
-          <p class="text-xs text-gray-300 mt-2 mb-6">
-            Available in Dark, Medium, and Medium-to-Dark roasts. Whole beans or custom fresh ground.
-          </p>
-          <a href="#catalog" class="inline-flex items-center gap-2 bg-coffeeGold hover:bg-coffeeGoldLight text-black px-6 py-3 rounded-full text-xs font-black uppercase tracking-wider transition-all shadow-[0_0_25px_rgba(212,163,89,0.5)]">
-            <span class="material-symbols-outlined text-[16px]">storefront</span>
-            <span>View Full Catalog</span>
-          </a>
+        <div>
+          <p class="font-display text-2xl sm:text-3xl font-bold text-coffeeGold">Small Batch</p>
+          <p class="text-[11px] text-gray-300 mt-0.5">Freshly Roasted</p>
         </div>
       </div>
 
     </div>
+
+    <!-- Video Play/Mute Floating Quick Controls (Bottom Right) -->
+    <div class="absolute bottom-6 right-6 z-20 hidden sm:flex items-center gap-2 liquid-glass px-3 py-1.5 rounded-full text-xs text-gray-300">
+      <button onclick="toggleVideoSound()" id="sound-btn" class="hover:text-coffeeGold flex items-center gap-1 transition-colors">
+        <span class="material-symbols-outlined text-[16px]" id="sound-icon">volume_off</span>
+        <span class="text-[10px] font-mono" id="sound-label">Unmute</span>
+      </button>
+      <span class="text-white/20">|</span>
+      <button onclick="toggleVideoPlay()" id="play-btn" class="hover:text-coffeeGold flex items-center gap-1 transition-colors">
+        <span class="material-symbols-outlined text-[16px]" id="play-icon">pause</span>
+      </button>
+    </div>
+
+    <!-- Scroll Down Prompt (Bottom Center) -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center pointer-events-none opacity-80">
+      <span class="text-[10px] font-mono tracking-widest text-coffeeGold uppercase">Scroll Down to Shop</span>
+      <span class="material-symbols-outlined text-coffeeGold text-sm animate-bounce mt-1">keyboard_arrow_down</span>
+    </div>
+
   </section>
 
   <!-- ========================================================================= -->
@@ -559,9 +549,9 @@
   <!-- MOBILE BOTTOM NAVIGATION (Ergonomic Pill)                                 -->
   <!-- ========================================================================= -->
   <div class="mobile-bottom-nav md:hidden" id="mobile-nav">
-    <button class="bottom-nav-btn active" id="nav-btn-home" onclick="scrollToId('journey', this)">
-      <span class="material-symbols-outlined text-[20px]">explore</span>
-      <span>Journey</span>
+    <button class="bottom-nav-btn active" id="nav-btn-home" onclick="scrollToId('hero', this)">
+      <span class="material-symbols-outlined text-[20px]">home</span>
+      <span>Home</span>
     </button>
     <button class="bottom-nav-btn" id="nav-btn-catalog" onclick="scrollToId('catalog', this)">
       <span class="material-symbols-outlined text-[20px]">storefront</span>
@@ -778,125 +768,39 @@
       animateParticles();
     }
 
-    // --- 2. Interactive High-Res Canvas Sequence Engine ---
-    gsap.registerPlugin(ScrollTrigger);
+    // --- 2. Hero Background Video Sound & Play Controls ---
+    const heroVideo = document.getElementById("hero-bg-video");
+    const soundIcon = document.getElementById("sound-icon");
+    const soundLabel = document.getElementById("sound-label");
+    const playIcon = document.getElementById("play-icon");
 
-    const heroCanvas = document.getElementById("hero-canvas");
-    const heroCtx = heroCanvas ? heroCanvas.getContext("2d") : null;
-
-    function resizeHeroCanvas() {
-      if (!heroCanvas) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      heroCanvas.width = window.innerWidth * dpr;
-      heroCanvas.height = window.innerHeight * dpr;
-      renderHeroFrame();
-    }
-    window.addEventListener("resize", resizeHeroCanvas);
-
-    const frameCount = 150;
-    const currentFrameSrc = index => (
-      `/frames/frame_${(index + 1).toString().padStart(4, '0')}.jpg`
-    );
-
-    const images = [];
-    const imageSeq = { frame: 0 };
-
-    // Preload all 150 frames & trigger initial render on first loaded frame
-    for (let i = 0; i < frameCount; i++) {
-      const img = new Image();
-      img.onload = () => {
-        if (i === 0 || Math.round(imageSeq.frame) === i) {
-          resizeHeroCanvas();
-          renderHeroFrame();
-        }
-      };
-      img.src = currentFrameSrc(i);
-      images.push(img);
-    }
-
-    function renderHeroFrame() {
-      if (!heroCanvas || !heroCtx) return;
-      const current = Math.max(0, Math.min(imageSeq.frame, frameCount - 1));
-      const baseIndex = Math.floor(current);
-      const nextIndex = Math.min(baseIndex + 1, frameCount - 1);
-      const frac = current - baseIndex;
-
-      let img1 = images[baseIndex];
-      let img2 = images[nextIndex];
-
-      if (img1 && img1.complete && img1.naturalWidth !== 0) {
-        if (heroCanvas.width === 0 || heroCanvas.height === 0) {
-          const dpr = Math.min(window.devicePixelRatio || 1, 2);
-          heroCanvas.width = window.innerWidth * dpr;
-          heroCanvas.height = window.innerHeight * dpr;
-        }
-
-        const hRatio = heroCanvas.width / img1.width;
-        const vRatio = heroCanvas.height / img1.height;
-        const ratio = Math.max(hRatio, vRatio);
-        const centerShiftX = (heroCanvas.width - img1.width * ratio) / 2;
-        const centerShiftY = (heroCanvas.height - img1.height * ratio) / 2;
-
-        heroCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
-        heroCtx.imageSmoothingEnabled = true;
-        heroCtx.imageSmoothingQuality = "high";
-
-        // Draw primary base frame
-        heroCtx.globalAlpha = 1.0;
-        heroCtx.drawImage(
-          img1, 
-          0, 0, img1.width, img1.height,
-          centerShiftX, centerShiftY, img1.width * ratio, img1.height * ratio
-        );
-
-        // Sub-frame cross-blend for silky 120fps motion
-        if (frac > 0.01 && img2 && img2.complete && img2.naturalWidth !== 0) {
-          heroCtx.globalAlpha = frac;
-          heroCtx.drawImage(
-            img2, 
-            0, 0, img2.width, img2.height,
-            centerShiftX, centerShiftY, img2.width * ratio, img2.height * ratio
-          );
-          heroCtx.globalAlpha = 1.0;
-        }
+    function toggleVideoSound() {
+      if (!heroVideo) return;
+      heroVideo.muted = !heroVideo.muted;
+      if (heroVideo.muted) {
+        soundIcon.innerText = "volume_off";
+        soundLabel.innerText = "Unmute";
+      } else {
+        soundIcon.innerText = "volume_up";
+        soundLabel.innerText = "Mute";
       }
     }
 
-    // ScrollTrigger smoothly maps scroll position to active frame index with fluid 1.2s momentum
-    gsap.to(imageSeq, {
-      frame: frameCount - 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: "#journey",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1.2,
-        onUpdate: renderHeroFrame
+    function toggleVideoPlay() {
+      if (!heroVideo) return;
+      if (heroVideo.paused) {
+        heroVideo.play();
+        playIcon.innerText = "pause";
+      } else {
+        heroVideo.pause();
+        playIcon.innerText = "play_arrow";
       }
-    });
+    }
 
-    // Floating card fades mapped to progress
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#journey",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1,
-      }
-    });
-
-    tl.to("#card-0", { opacity: 0, y: -40, duration: 0.1 }, 0.04)
-      .to("#card-1", { opacity: 1, y: 0, duration: 0.08 }, 0.10)
-      .to("#card-1", { opacity: 0, y: -20, duration: 0.08 }, 0.28)
-      .to("#card-2", { opacity: 1, y: 0, duration: 0.08 }, 0.32)
-      .to("#card-2", { opacity: 0, y: -20, duration: 0.08 }, 0.50)
-      .to("#card-3", { opacity: 1, y: 0, duration: 0.08 }, 0.54)
-      .to("#card-3", { opacity: 0, y: -20, duration: 0.08 }, 0.72)
-      .to("#card-4", { opacity: 1, y: 0, duration: 0.08 }, 0.76)
-      .to("#card-4", { opacity: 0, y: -20, duration: 0.08 }, 0.98);
-
-    resizeHeroCanvas();
-    ScrollTrigger.refresh();
+    // Ensure continuous autoplay on mobile
+    window.addEventListener("touchstart", () => {
+      if (heroVideo && heroVideo.paused) heroVideo.play().catch(() => {});
+    }, { once: true, passive: true });
 
     // --- 3. Product Catalog & Custom Bag Image Mapping ---
     let PRODUCTS = [];
