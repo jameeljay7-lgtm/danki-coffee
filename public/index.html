@@ -337,16 +337,18 @@
   <section id="journey" class="relative w-full h-[650vh] gpu-layer">
     <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden gpu-layer">
       
-      <!-- 4K Video Element with GPU acceleration & mobile anti-stutter attributes -->
+      <!-- 4K Video Element with iOS/Android mobile decoding primer & GPU acceleration -->
       <video id="coffee-video" 
-             src="videodanki.mp4" 
+             src="videodanki.mp4#t=0.001" 
              muted 
+             autoplay
+             loop
              playsinline 
              webkit-playsinline
              preload="auto"
              disablePictureInPicture
              disableremoteplayback
-             class="absolute inset-0 w-full h-full object-cover gpu-layer">
+             class="absolute inset-0 w-full h-full object-cover gpu-layer bg-black">
       </video>
 
       <!-- Vignette and Dark Cinematic Filter -->
@@ -807,25 +809,46 @@
     }
     animateParticles();
 
-    // --- 2. GSAP 4K Video Decoupled Lerp Scrub Engine ---
+    // --- 2. GSAP 4K Video Decoupled Lerp Scrub Engine (Mobile-First) ---
     gsap.registerPlugin(ScrollTrigger);
 
     const video = document.getElementById("coffee-video");
     let targetTime = 0;
     let currentTime = 0;
     const easeFactor = 0.08; // Butter-smooth interpolation factor
+    let isInitialized = false;
+
+    // Mobile media pipeline unlock
+    function unlockMobileVideo() {
+      if (!video) return;
+      video.muted = true;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          video.pause();
+        }).catch(() => {});
+      }
+    }
 
     function setupSmoothScrub() {
-      const duration = video.duration || 10;
+      if (isInitialized) return;
+      isInitialized = true;
 
-      // ScrollTrigger tracks target timestamp (0 to duration) without direct video lock
+      // Unlock mobile decoder
+      unlockMobileVideo();
+
+      function getDuration() {
+        return (video.duration && !isNaN(video.duration) && video.duration > 0) ? video.duration : 10;
+      }
+
+      // ScrollTrigger tracks target timestamp (0 to duration)
       ScrollTrigger.create({
         trigger: "#journey",
         start: "top top",
         end: "bottom bottom",
         scrub: true,
         onUpdate: (self) => {
-          targetTime = self.progress * duration;
+          targetTime = self.progress * getDuration();
         }
       });
 
@@ -833,7 +856,11 @@
       gsap.ticker.add(() => {
         currentTime += (targetTime - currentTime) * easeFactor;
         if (Math.abs(targetTime - currentTime) > 0.001) {
-          video.currentTime = currentTime;
+          try {
+            if (video.readyState >= 1 || video.duration) {
+              video.currentTime = Math.min(Math.max(currentTime, 0), getDuration());
+            }
+          } catch(e) {}
         }
       });
 
@@ -856,14 +883,25 @@
         .to("#card-3", { opacity: 0, y: -20, duration: 0.08 }, 0.72)
         .to("#card-4", { opacity: 1, y: 0, duration: 0.08 }, 0.76)
         .to("#card-4", { opacity: 0, y: -20, duration: 0.08 }, 0.98);
+
+      ScrollTrigger.refresh();
     }
 
-    if (video.readyState >= 2) {
-      setupSmoothScrub();
-    } else {
-      video.addEventListener("loadeddata", setupSmoothScrub);
-      video.addEventListener("loadedmetadata", setupSmoothScrub);
-    }
+    // Initialize immediately without waiting indefinitely on mobile
+    setupSmoothScrub();
+
+    video.addEventListener("loadedmetadata", () => {
+      ScrollTrigger.refresh();
+    });
+    video.addEventListener("canplay", () => {
+      unlockMobileVideo();
+      ScrollTrigger.refresh();
+    });
+
+    // Touch/Scroll listeners to guarantee video pipeline unlocks on mobile devices
+    window.addEventListener("touchstart", unlockMobileVideo, { once: true, passive: true });
+    window.addEventListener("scroll", unlockMobileVideo, { once: true, passive: true });
+    window.addEventListener("pointerdown", unlockMobileVideo, { once: true, passive: true });
 
     // --- 3. Product Catalog & Custom Bag Mapping ---
     let PRODUCTS = [];
