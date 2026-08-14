@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="scroll-smooth dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <title>Danki Coffee — Liquid Glass Storefront</title>
+  <title>Danki Coffee — 100% Tanzanian Arabica | Ultra 4K Experience</title>
+  <meta name="description" content="Experience Danki Premium Coffee — Handcrafted Grade AA Arabica from Tanzania's Southern Highlands. Interactive 4K Video Harvest Journey, Custom Fresh Roasted Bags & Brewing Gear.">
+  
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts & Material Symbols -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -18,10 +27,15 @@
           colors: {
             coffeeGold: '#d4a359',
             coffeeGoldLight: '#f8d79b',
+            amber: {
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+            },
             espressoDark: '#080604',
             espressoPanel: '#120e0a',
-            glassBg: 'rgba(255, 255, 255, 0.04)',
-            glassBorder: 'rgba(255, 255, 255, 0.1)'
           },
           fontFamily: {
             sans: ['Plus Jakarta Sans', 'sans-serif'],
@@ -32,17 +46,20 @@
       }
     }
   </script>
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
       background-color: #080604;
       color: #f5f0eb;
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* ===== CANVAS ANIMATED BACKGROUND ===== */
+    /* Ambient 4K Canvas Background */
     #bgCanvas {
       position: fixed;
       inset: 0;
@@ -56,38 +73,64 @@
       position: fixed;
       inset: 0;
       z-index: -1;
-      background: radial-gradient(circle at 50% 20%, rgba(180, 100, 30, 0.15) 0%, transparent 70%),
-                  radial-gradient(circle at 80% 80%, rgba(120, 50, 10, 0.2) 0%, transparent 60%),
-                  linear-gradient(180deg, rgba(8, 6, 4, 0.6) 0%, rgba(8, 6, 4, 0.85) 50%, rgba(8, 6, 4, 0.96) 100%);
+      background: radial-gradient(circle at 50% 15%, rgba(212, 163, 89, 0.12) 0%, transparent 65%),
+                  radial-gradient(circle at 85% 85%, rgba(180, 83, 9, 0.15) 0%, transparent 60%),
+                  linear-gradient(180deg, rgba(8, 6, 4, 0.4) 0%, rgba(8, 6, 4, 0.85) 50%, rgba(8, 6, 4, 0.98) 100%);
       pointer-events: none;
     }
 
-    /* ===== AESTHETIC LIQUID GLASS CARDS ===== */
-    .glass-card {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.02) 100%);
+    /* Ultra Liquid Glass styling */
+    .liquid-glass {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
       backdrop-filter: blur(28px);
       -webkit-backdrop-filter: blur(28px);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    .liquid-glass-accent {
+      background: linear-gradient(135deg, rgba(212, 163, 89, 0.1) 0%, rgba(18, 14, 10, 0.85) 100%);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(212, 163, 89, 0.4);
+      box-shadow: 0 20px 50px rgba(212, 163, 89, 0.15);
+    }
+
+    .glass-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 100%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
       border-radius: 24px;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.38s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
     .glass-card:hover {
-      transform: translateY(-6px) scale(1.015);
-      border-color: rgba(212, 163, 89, 0.5);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 163, 89, 0.25);
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(212, 163, 89, 0.55);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 163, 89, 0.2);
+    }
+    .glass-card:hover .product-img {
+      transform: scale(1.07);
     }
 
-    .glass-nav {
-      background: rgba(16, 12, 8, 0.82);
-      backdrop-filter: blur(32px);
-      -webkit-backdrop-filter: blur(32px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+    .product-img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
     }
 
-    /* ===== RESPONSIVE CATEGORY PILLS ===== */
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #f8d79b 0%, #d4a359 50%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Category Filter Pills */
     .cat-pill {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(16px);
@@ -98,209 +141,616 @@
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
       user-select: none;
+      white-space: nowrap;
+      padding: 9px 20px;
+      border-radius: 9999px;
+      font-size: 0.82rem;
     }
-
     .cat-pill:hover {
-      background: rgba(212, 163, 89, 0.15);
-      border-color: rgba(212, 163, 89, 0.4);
+      background: rgba(255, 255, 255, 0.12);
       color: #ffffff;
-      transform: translateY(-2px);
+      border-color: rgba(212, 163, 89, 0.4);
     }
-
     .cat-pill.active {
-      background: linear-gradient(135deg, #d4a359 0%, #b88338 100%);
-      color: #080604;
-      font-weight: 800;
-      border-color: #f3c98b;
-      box-shadow: 0 8px 25px rgba(212, 163, 89, 0.4);
-      transform: scale(1.03);
-    }
-
-    .btn-gold {
-      background: linear-gradient(135deg, #d4a359 0%, #b88338 100%);
+      background: #d4a359;
       color: #080604;
       font-weight: 700;
-      box-shadow: 0 10px 25px rgba(212, 163, 89, 0.35);
-      transition: all 0.3s ease;
-    }
-    .btn-gold:hover {
-      transform: scale(1.05);
-      box-shadow: 0 15px 35px rgba(212, 163, 89, 0.5);
+      border-color: #d4a359;
+      box-shadow: 0 0 25px rgba(212, 163, 89, 0.45);
     }
 
-    /* Hide Scrollbar for Pill Bar */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* Mobile Bottom Navigation Pill */
+    .mobile-bottom-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(14, 11, 8, 0.88);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 9999px;
+      padding: 8px 24px;
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
+      z-index: 45;
+    }
+    .bottom-nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #8c827a;
+      transition: color 0.25s, transform 0.2s;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .bottom-nav-btn.active {
+      color: #d4a359;
+    }
+    .bottom-nav-btn:hover {
+      color: #f5f0eb;
+      transform: scale(1.05);
+    }
+
+    /* Drawer & Modal Overlays */
+    .drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(12px); z-index: 60; opacity: 0;
+      pointer-events: none; transition: opacity 0.35s ease;
+    }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+    .cart-drawer-panel {
+      position: fixed; right: 0; top: 0; bottom: 0;
+      width: min(440px, 100vw);
+      background: #0d0a07;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 61;
+      transform: translateX(100%);
+      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex; flex-direction: column;
+    }
+    .cart-drawer-panel.open { transform: translateX(0); }
+
+    .checkout-modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(16px); z-index: 70;
+      display: flex; align-items: flex-end; md:align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+    }
+    .checkout-modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .checkout-modal-sheet {
+      background: #110d09;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 28px 28px 0 0;
+      width: 100%; max-width: 520px;
+      max-height: 90vh; overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @media (min-width: 768px) {
+      .checkout-modal-sheet {
+        border-radius: 28px;
+        transform: scale(0.95) translateY(20px);
+      }
+      .checkout-modal-sheet.open {
+        transform: scale(1) translateY(0);
+      }
+    }
+    .checkout-modal-sheet.open { transform: translateY(0); }
+
+    .form-control {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: #f5f0eb;
+      font-size: 0.88rem;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .form-control:focus {
+      border-color: #d4a359;
+      box-shadow: 0 0 12px rgba(212, 163, 89, 0.25);
+    }
+    .form-control::placeholder { color: #7a7067; }
+
+    .pay-card {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px; padding: 12px 16px;
+      cursor: pointer; transition: all 0.25s ease;
+    }
+    .pay-card:hover {
+      border-color: rgba(212, 163, 89, 0.4);
+      background: rgba(212, 163, 89, 0.05);
+    }
+    .pay-card.selected {
+      border-color: #d4a359;
+      background: rgba(212, 163, 89, 0.1);
+    }
+
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { scrollbar-width: none; }
+    .safe-bottom { padding-bottom: max(95px, calc(95px + env(safe-area-inset-bottom))); }
   </style>
 </head>
-<body class="selection:bg-coffeeGold selection:text-black">
+<body class="safe-bottom relative">
 
-  <!-- ANIMATED CANVAS BACKGROUND & OVERLAY -->
+  <!-- Ambient 4K Canvas Coffee Particle System -->
   <canvas id="bgCanvas"></canvas>
   <div class="liquid-overlay"></div>
 
-  <!-- DESKTOP TOP HEADER NAVBAR -->
-  <header class="sticky top-0 z-40 w-full glass-nav border-b border-white/10 px-4 sm:px-8 lg:px-12 py-3.5 flex items-center justify-between">
-    <div class="flex items-center space-x-8">
-      <a href="/" class="text-2xl font-bold font-display tracking-tight text-white flex items-center space-x-2">
-        <span>Danki</span>
-        <span class="text-coffeeGold">Coffee</span>
+  <!-- Top Navbar -->
+  <nav class="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-3.5 flex justify-between items-center liquid-glass border-b border-white/10">
+    <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+      <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-600 via-coffeeGold to-amber-300 flex items-center justify-center font-black text-black text-sm shadow-[0_0_20px_rgba(212,163,89,0.5)]">
+        D
+      </div>
+      <div>
+        <span class="text-base md:text-lg font-black tracking-widest text-white block leading-none font-display">DANKI</span>
+        <span class="text-[9px] text-coffeeGold font-mono tracking-widest uppercase">PREMIUM COFFEE</span>
+      </div>
+    </div>
+
+    <div class="hidden md:flex items-center space-x-8 font-medium text-xs tracking-wider uppercase text-gray-300">
+      <a href="#journey" class="hover:text-coffeeGold transition-colors">4K Journey</a>
+      <a href="#catalog" class="hover:text-coffeeGold transition-colors">Store Catalog</a>
+      <a href="#about" class="hover:text-coffeeGold transition-colors">About Us</a>
+      <a href="#contact" class="hover:text-coffeeGold transition-colors">Contact</a>
+    </div>
+
+    <div class="flex items-center space-x-3">
+      <a href="#catalog" class="hidden sm:inline-flex items-center gap-1.5 bg-coffeeGold hover:bg-coffeeGoldLight text-black px-4 py-2 rounded-full text-xs font-bold transition-all shadow-[0_0_20px_rgba(212,163,89,0.35)]">
+        <span class="material-symbols-outlined text-[16px]">storefront</span>
+        Shop Now
       </a>
-
-      <!-- PC Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-amber-100/70">
-        <a href="#hero" class="hover:text-coffeeGold transition text-white font-semibold">Home</a>
-        <a href="#shop" class="hover:text-coffeeGold transition">Shop</a>
-        <a href="#beans" class="hover:text-coffeeGold transition">Beans</a>
-        <a href="#blog" class="hover:text-coffeeGold transition">Blog</a>
-        <a href="/dashboard" class="hover:text-coffeeGold transition flex items-center space-x-1 text-purple-300">
-          <span class="material-symbols-outlined text-base">dashboard</span>
-          <span>Render Dashboard</span>
-        </a>
-      </nav>
-    </div>
-
-    <!-- Right Controls: Search, Profile, Cart -->
-    <div class="flex items-center space-x-3 sm:space-x-4">
-      <div class="relative hidden sm:flex items-center">
-        <span class="material-symbols-outlined absolute left-3 text-lg text-amber-200/50">search</span>
-        <input type="text" oninput="filterBySearch(this.value)" placeholder="Search coffee, brews..." class="bg-white/5 border border-white/10 text-xs text-white pl-9 pr-4 py-2 rounded-full focus:outline-none focus:border-coffeeGold w-44 lg:w-60 placeholder-amber-200/40">
-      </div>
-
-      <button class="w-9 h-9 sm:w-10 sm:h-10 rounded-full glass-card flex items-center justify-center text-white hover:text-coffeeGold transition">
-        <span class="material-symbols-outlined text-lg sm:text-xl">person</span>
-      </button>
-
-      <button onclick="openCart()" class="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full glass-card flex items-center justify-center text-white hover:text-coffeeGold transition">
-        <span class="material-symbols-outlined text-lg sm:text-xl">shopping_bag</span>
-        <span id="cartBadge" class="absolute -top-1 -right-1 bg-coffeeGold text-black font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+      <button onclick="toggleCart()" class="relative bg-white/10 hover:bg-white/20 text-white px-3.5 py-2 rounded-full text-xs font-semibold flex items-center space-x-1.5 transition-all">
+        <span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+        <span class="hidden sm:inline">Cart</span>
+        <span id="cart-badge-top" class="bg-coffeeGold text-black text-[10px] font-bold px-1.5 py-0.2 rounded-full hidden">0</span>
       </button>
     </div>
-  </header>
-
-  <!-- MAIN WRAPPER CONTAINER -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-28 space-y-8">
-
-    <!-- HERO FEATURE BANNER -->
-    <section id="hero" class="glass-card p-6 sm:p-10 relative overflow-hidden flex flex-col md:flex-row items-center justify-between min-h-[220px] lg:min-h-[270px]">
-      <div class="absolute -right-10 -top-10 w-72 h-72 bg-coffeeGold/20 rounded-full filter blur-3xl pointer-events-none"></div>
-
-      <div class="space-y-4 z-10 max-w-lg text-center md:text-left mb-6 md:mb-0">
-        <span class="text-xs font-bold text-coffeeGold tracking-widest uppercase bg-coffeeGold/10 px-3 py-1 rounded-full border border-coffeeGold/30">Feature</span>
-        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight font-display">
-          The Danki<br><span class="text-coffeeGold">Blend</span>
-        </h2>
-        <p class="text-xs sm:text-sm text-amber-100/70 line-clamp-2">Handcrafted Grade AA Arabica roasted in small batches high up in the Tanzanian highlands.</p>
-        <div class="pt-1">
-          <button onclick="scrollToShop()" class="btn-gold text-xs sm:text-sm px-6 py-3 rounded-full inline-flex items-center space-x-2">
-            <span>Explore Now</span>
-            <span class="material-symbols-outlined text-base">arrow_forward</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Hero Product Image -->
-      <div class="z-10 relative flex items-center justify-center">
-        <img src="/images/bag_dark_beans_1kg.jpg" alt="The Danki Blend" class="w-32 sm:w-48 lg:w-56 h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500">
-      </div>
-    </section>
-
-    <!-- HIGHLY RESPONSIVE CATEGORY PILLS BAR -->
-    <section class="space-y-3">
-      <div class="flex items-center justify-between px-1">
-        <span class="text-xs font-bold text-coffeeGold uppercase tracking-wider">Categories</span>
-        <span class="text-xs text-amber-200/50 hidden sm:inline">Scroll to filter brews</span>
-      </div>
-
-      <div class="flex items-center space-x-2 sm:space-x-3 overflow-x-auto pb-2 no-scrollbar scroll-smooth">
-        <button onclick="filterCategory(this, 'All')" class="cat-pill active px-5 py-2.5 rounded-full text-xs sm:text-sm shrink-0">All Roast</button>
-        <button onclick="filterCategory(this, 'Dark Roast')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm shrink-0">Dark Roast</button>
-        <button onclick="filterCategory(this, 'Medium Roast')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm shrink-0">Medium Roast</button>
-        <button onclick="filterCategory(this, 'Equipment')" class="cat-pill px-5 py-2.5 rounded-full text-xs sm:text-sm shrink-0">Equipment</button>
-      </div>
-    </section>
-
-    <!-- DISCOVER OUR BREWS (DYNAMIC PRODUCT GRID) -->
-    <section class="space-y-6" id="shop">
-      <div class="flex items-center justify-between">
-        <div>
-          <h3 class="text-xl sm:text-2xl font-bold text-white font-display">Discover Our Brews</h3>
-          <p class="text-xs text-amber-200/60">Freshly roasted beans & specialty coffee equipment</p>
-        </div>
-        <span class="text-xs text-coffeeGold font-medium bg-coffeeGold/10 px-3 py-1.5 rounded-full border border-coffeeGold/20">Grade AA Arabica</span>
-      </div>
-
-      <!-- Responsive Product Grid: 2 Col Mobile, 3 Col Tablet, 4 Col PC -->
-      <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-        <!-- Rendered by JS -->
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FLOATING GLASS BOTTOM NAV BAR (MOBILE) -->
-  <nav class="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 glass-nav px-6 py-3 rounded-full flex items-center space-x-7 z-50 shadow-2xl">
-    <a href="#hero" class="flex flex-col items-center space-y-0.5 text-coffeeGold">
-      <span class="material-symbols-outlined text-2xl">home</span>
-      <span class="text-[10px] font-bold tracking-wide">Home</span>
-    </a>
-    <a href="#shop" class="flex flex-col items-center space-y-0.5 text-gray-400 hover:text-white transition">
-      <span class="material-symbols-outlined text-2xl">storefront</span>
-      <span class="text-[10px] font-semibold tracking-wide">Shop</span>
-    </a>
-    <a href="#beans" class="flex flex-col items-center space-y-0.5 text-gray-400 hover:text-white transition">
-      <span class="material-symbols-outlined text-2xl">coffee_maker</span>
-      <span class="text-[10px] font-semibold tracking-wide">Beans</span>
-    </a>
-    <a href="#blog" class="flex flex-col items-center space-y-0.5 text-gray-400 hover:text-white transition">
-      <span class="material-symbols-outlined text-2xl">article</span>
-      <span class="text-[10px] font-semibold tracking-wide">Blog</span>
-    </a>
-    <a href="/dashboard" class="flex flex-col items-center space-y-0.5 text-purple-400 hover:text-purple-300 transition">
-      <span class="material-symbols-outlined text-2xl">dashboard</span>
-      <span class="text-[10px] font-semibold tracking-wide">Dash</span>
-    </a>
   </nav>
 
-  <!-- CART DRAWER MODAL -->
-  <div id="cartModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex justify-end">
-    <div class="w-full max-w-md bg-[#0e0a07] h-full p-6 flex flex-col justify-between border-l border-white/10 overflow-y-auto">
+  <!-- ========================================================================= -->
+  <!-- 4K PINNED SCROLL STAGE: Interactive Video Storytelling (550vh scrub)    -->
+  <!-- ========================================================================= -->
+  <section id="journey" class="relative w-full h-[550vh]">
+    <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      
+      <!-- 4K Video Element -->
+      <video id="coffee-video" 
+             src="videodanki.mp4" 
+             muted 
+             playsinline 
+             webkit-playsinline
+             preload="auto"
+             class="absolute inset-0 w-full h-full object-cover">
+      </video>
+
+      <!-- Vignette and Dark Cinematic Filter -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#080604] via-transparent to-black/60 pointer-events-none"></div>
+
+      <!-- Quick Skip to Shop floating chip -->
+      <div class="absolute top-20 right-6 z-20">
+        <a href="#catalog" class="liquid-glass hover:bg-coffeeGold hover:text-black text-coffeeGold px-3.5 py-1.5 rounded-full text-[11px] font-mono tracking-wider flex items-center gap-1.5 transition-all shadow-lg">
+          <span>Explore Products</span>
+          <span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+        </a>
+      </div>
+
+      <!-- Stage 0: Intro Title Card -->
+      <div id="card-0" class="absolute z-10 text-center px-6 max-w-xl pointer-events-none">
+        <div class="inline-flex items-center gap-2 bg-coffeeGold/15 border border-coffeeGold/40 rounded-full px-4 py-1 mb-3">
+          <span class="w-2 h-2 rounded-full bg-coffeeGold animate-ping"></span>
+          <span class="text-coffeeGold text-[10px] font-mono tracking-widest uppercase font-bold">The Artisan Journey</span>
+        </div>
+        <h1 class="text-4xl md:text-6xl font-light tracking-tight text-white font-display">
+          It’s not just Coffee,<br><span class="gold-gradient-text font-black">it’s Love.</span>
+        </h1>
+        <p class="text-gray-300 text-xs md:text-sm mt-3 max-w-md mx-auto leading-relaxed">
+          From the Southern Highlands of Tanzania at 1,500m altitude.
+        </p>
+        <p class="text-coffeeGold/90 text-[11px] font-mono mt-5 tracking-widest uppercase animate-pulse flex items-center justify-center gap-1">
+          <span>Scroll down to explore the harvest</span>
+          <span class="material-symbols-outlined text-[14px]">south</span>
+        </p>
+      </div>
+
+      <!-- Stage 1: Origin & Harvest -->
+      <div id="card-1" class="absolute z-10 bottom-24 left-6 md:left-16 opacity-0 liquid-glass p-6 md:p-7 rounded-3xl max-w-sm">
+        <div class="flex items-center gap-2 text-coffeeGold font-mono text-[10px] uppercase tracking-widest mb-1.5">
+          <span class="material-symbols-outlined text-[16px]">landscape</span>
+          <span>01 // Origin & Harvest</span>
+        </div>
+        <h3 class="text-xl md:text-2xl font-bold text-white font-display">Southern Highlands</h3>
+        <p class="text-xs text-gray-300 mt-2.5 leading-relaxed">
+          Cultivated above 1,500 meters in nutrient-rich volcanic soil, nurtured by mountain mists to develop deep natural sweetness and complex aromatics.
+        </p>
+        <div class="flex gap-4 mt-4 pt-3 border-t border-white/10 text-[11px] font-mono text-gray-400">
+          <span>Elevation: 1,500m+</span>
+          <span>•</span>
+          <span>Grade AA 100% Arabica</span>
+        </div>
+      </div>
+
+      <!-- Stage 2: Master Roasting -->
+      <div id="card-2" class="absolute z-10 bottom-24 right-6 md:right-16 opacity-0 liquid-glass p-6 md:p-7 rounded-3xl max-w-sm">
+        <div class="flex items-center gap-2 text-coffeeGold font-mono text-[10px] uppercase tracking-widest mb-1.5">
+          <span class="material-symbols-outlined text-[16px]">local_fire_department</span>
+          <span>02 // The Roast Profile</span>
+        </div>
+        <h3 class="text-xl md:text-2xl font-bold text-white font-display">Small-Batch Precision</h3>
+        <p class="text-xs text-gray-300 mt-2.5 leading-relaxed">
+          Drum-roasted to perfection in Dark, Medium, and Medium-to-Dark profiles, balancing rich dark cocoa with creamy caramel and bright citrus notes.
+        </p>
+        <div class="flex gap-2 mt-4 pt-3 border-t border-white/10">
+          <span class="bg-white/10 text-coffeeGoldLight text-[10px] px-2.5 py-1 rounded-full font-mono">Dark Roast</span>
+          <span class="bg-white/10 text-coffeeGoldLight text-[10px] px-2.5 py-1 rounded-full font-mono">Medium</span>
+          <span class="bg-white/10 text-coffeeGoldLight text-[10px] px-2.5 py-1 rounded-full font-mono">Med-Dark</span>
+        </div>
+      </div>
+
+      <!-- Stage 3: Micron Precision Grind -->
+      <div id="card-3" class="absolute z-10 bottom-24 left-6 md:left-16 opacity-0 liquid-glass p-6 md:p-7 rounded-3xl max-w-sm">
+        <div class="flex items-center gap-2 text-coffeeGold font-mono text-[10px] uppercase tracking-widest mb-1.5">
+          <span class="material-symbols-outlined text-[16px]">grain</span>
+          <span>03 // Beans & Precision Grind</span>
+        </div>
+        <h3 class="text-xl md:text-2xl font-bold text-white font-display">Whole Beans & Ground</h3>
+        <p class="text-xs text-gray-300 mt-2.5 leading-relaxed">
+          Choice of fresh whole beans for grinders, or precision-ground for French Press, Espresso, Aeropress, and Pour-over rituals.
+        </p>
+        <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-gray-300">
+          <span>Freshly packaged on order</span>
+          <span class="text-coffeeGold font-bold">100% Pure</span>
+        </div>
+      </div>
+
+      <!-- Stage 4: Ready Bag & Valve Freshness -->
+      <div id="card-4" class="absolute z-10 bottom-24 right-6 md:right-16 opacity-0 liquid-glass-accent p-6 md:p-7 rounded-3xl max-w-sm">
+        <div class="flex items-center gap-2 text-coffeeGold font-mono text-[10px] uppercase tracking-widest mb-1.5">
+          <span class="material-symbols-outlined text-[16px]">lock</span>
+          <span>04 // Sealed Freshness</span>
+        </div>
+        <h3 class="text-xl md:text-2xl font-bold text-white font-display">Aroma-Lock Valve</h3>
+        <p class="text-xs text-gray-300 mt-2.5 leading-relaxed">
+          Premium matte black standing pouch with pull-tab tear seal and degassing valve to preserve peak aromatic freshness.
+        </p>
+        <a href="#catalog" class="mt-4 inline-flex items-center gap-2 bg-gradient-to-r from-coffeeGold to-amber-400 hover:from-amber-400 hover:to-coffeeGoldLight text-black text-xs font-black px-5 py-2.5 rounded-full uppercase tracking-wider transition-all shadow-[0_0_25px_rgba(212,163,89,0.5)]">
+          <span>Shop All Sizes & Brews</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- STORE CATALOG: 4K Products, Dynamic Filters, Custom Bags, Equipment       -->
+  <!-- ========================================================================= -->
+  <section id="catalog" class="relative z-20 py-20 px-6 md:px-12 max-w-7xl mx-auto">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
       <div>
-        <div class="flex items-center justify-between pb-4 border-b border-white/10">
-          <h3 class="text-xl font-bold font-display text-white">Your Cart</h3>
-          <button onclick="closeCart()" class="text-gray-400 hover:text-white p-1">
+        <div class="inline-flex items-center gap-2 text-coffeeGold font-mono text-xs uppercase tracking-widest mb-2">
+          <span class="material-symbols-outlined text-[16px]">coffee</span>
+          <span>Official 2026 Price List & Store</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-bold text-white font-display">
+          Crafted for <span class="gold-gradient-text">Every Ritual.</span>
+        </h2>
+        <p class="text-gray-400 text-xs md:text-sm mt-2">
+          All prices in Tanzanian Shillings (TZS) • Shipped direct from Dar es Salaam
+        </p>
+      </div>
+
+      <!-- Filter Pills -->
+      <div class="flex gap-2 flex-wrap hide-scrollbar" id="cat-bar">
+        <button class="cat-pill active" data-cat="All" onclick="setCategory('All')">All Products</button>
+        <button class="cat-pill" data-cat="Beans" onclick="setCategory('Beans')">Whole Beans</button>
+        <button class="cat-pill" data-cat="Ground" onclick="setCategory('Ground')">Ground Coffee</button>
+        <button class="cat-pill" data-cat="1kg" onclick="setCategory('1kg')">1.0 KG Pack</button>
+        <button class="cat-pill" data-cat="500g" onclick="setCategory('500g')">500 Grams</button>
+        <button class="cat-pill" data-cat="250g" onclick="setCategory('250g')">250g Starter</button>
+        <button class="cat-pill" data-cat="Equipment" onclick="setCategory('Equipment')">⚗️ Equipment</button>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      <!-- Dynamically populated via loadProducts() -->
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- ABOUT & STORY SECTION                                                     -->
+  <!-- ========================================================================= -->
+  <section id="about" class="py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-white/5 relative">
+    <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+      
+      <!-- Visual Card -->
+      <div class="relative">
+        <div class="absolute -inset-4 bg-coffeeGold/15 rounded-[40px] blur-[60px]"></div>
+        <div class="glass-card rounded-[32px] overflow-hidden relative border border-white/10 shadow-2xl">
+          <img src="/images/bag_dark_beans_1kg.jpg" alt="Danki Coffee Bag" 
+               class="w-full h-[390px] object-cover" style="mask-image:none;-webkit-mask-image:none;">
+          <div class="absolute inset-0 bg-gradient-to-t from-[#080604] via-transparent to-transparent"></div>
+          <div class="absolute bottom-6 left-6 right-6">
+            <div class="inline-block bg-coffeeGold/20 text-coffeeGold font-mono text-[10px] px-3 py-1 rounded-full uppercase mb-2">
+              Highland Harvest
+            </div>
+            <h3 class="text-2xl font-bold text-white font-display">From Volcano Soil to Your Cup</h3>
+            <p class="text-xs text-gray-300 mt-1">Southern Highlands of Tanzania</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Story Copy -->
+      <div>
+        <div class="inline-flex items-center gap-2 text-coffeeGold font-mono text-xs uppercase tracking-widest mb-3">
+          <span class="material-symbols-outlined text-[16px]">history_edu</span>
+          <span>The Danki Heritage</span>
+        </div>
+        <h2 class="text-3xl md:text-5xl font-bold text-white font-display leading-tight mb-6">
+          Born in the Highlands,<br><span class="gold-gradient-text">Roasted for You.</span>
+        </h2>
+        <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
+          Danki Coffee was established with a singular vision: to honor the exceptional quality of Tanzania's world-renowned Grade AA Arabica, cultivated in the high altitudes of the Southern Highlands.
+        </p>
+        <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-8">
+          Every batch is roasted to bring out the distinct notes of caramel, rich dark chocolate, and subtle citrus sweetness that can only come from high-elevation volcanic terroir.
+        </p>
+
+        <!-- 4 Core Pillars -->
+        <div class="grid grid-cols-2 gap-4">
+          <div class="glass-card p-4 rounded-2xl">
+            <span class="material-symbols-outlined text-coffeeGold text-2xl mb-1.5">landscape</span>
+            <h4 class="text-sm font-bold text-white font-display">1,500m Elevation</h4>
+            <p class="text-[11px] text-gray-400 mt-0.5">Highland slow-maturing beans</p>
+          </div>
+          <div class="glass-card p-4 rounded-2xl">
+            <span class="material-symbols-outlined text-coffeeGold text-2xl mb-1.5">verified</span>
+            <h4 class="text-sm font-bold text-white font-display">Grade AA Certified</h4>
+            <p class="text-[11px] text-gray-400 mt-0.5">Handpicked premium screen size</p>
+          </div>
+          <div class="glass-card p-4 rounded-2xl">
+            <span class="material-symbols-outlined text-coffeeGold text-2xl mb-1.5">local_fire_department</span>
+            <h4 class="text-sm font-bold text-white font-display">Artisan Roasting</h4>
+            <p class="text-[11px] text-gray-400 mt-0.5">Precision small-batch roast</p>
+          </div>
+          <div class="glass-card p-4 rounded-2xl">
+            <span class="material-symbols-outlined text-coffeeGold text-2xl mb-1.5">local_shipping</span>
+            <h4 class="text-sm font-bold text-white font-display">Nationwide Delivery</h4>
+            <p class="text-[11px] text-gray-400 mt-0.5">Fast courier across Tanzania</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- CONTACT & ENTITY FOOTER                                                   -->
+  <!-- ========================================================================= -->
+  <section id="contact" class="py-20 px-6 md:px-12 max-w-7xl mx-auto border-t border-white/5">
+    <div class="liquid-glass p-8 md:p-12 rounded-3xl flex flex-col md:flex-row justify-between items-center gap-8 relative overflow-hidden">
+      <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-coffeeGold/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="max-w-xl">
+        <span class="text-coffeeGold font-mono text-xs uppercase tracking-widest">Direct Contact</span>
+        <h3 class="text-2xl md:text-4xl font-bold text-white mt-1 font-display">Need Coffee for Home or Office?</h3>
+        <p class="text-gray-300 text-xs md:text-sm mt-2 leading-relaxed">
+          We supply individual coffee lovers, offices, restaurants, and cafes. Talk to our master roaster directly on WhatsApp.
+        </p>
+        <div class="flex flex-wrap gap-4 mt-6">
+          <a href="https://wa.me/255744600042?text=Hello%20Danki%20Coffee%2C%20I%20would%20like%20to%20inquire%20about%20your%20coffee." 
+             target="_blank" 
+             class="inline-flex items-center gap-2 bg-coffeeGold hover:bg-coffeeGoldLight text-black px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-[0_0_25px_rgba(212,163,89,0.4)]">
+            <span class="material-symbols-outlined text-[18px]">chat</span>
+            <span>Chat on WhatsApp</span>
+          </a>
+          <a href="tel:+255744600042" class="liquid-glass hover:text-coffeeGold px-6 py-3 rounded-full text-xs font-semibold flex items-center gap-2 transition-colors">
+            <span class="material-symbols-outlined text-[18px]">call</span>
+            <span>+255 744 600042</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="text-left md:text-right font-mono text-xs text-gray-400 space-y-2 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8">
+        <p class="text-white font-bold text-sm font-display">DANKI INVESTMENTS</p>
+        <p>P.O. Box 60332, Mbezi Beach A</p>
+        <p>Dar es Salaam, Tanzania</p>
+        <p>Email: <a href="mailto:info@dankicoffee.co.tz" class="text-coffeeGold underline">info@dankicoffee.co.tz</a></p>
+        <p class="text-gray-500 pt-2 text-[10px]">TIN: 136-192-213 • Valid: Jan 2026 – Dec 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- MOBILE BOTTOM NAVIGATION (Ergonomic Pill)                                 -->
+  <!-- ========================================================================= -->
+  <div class="mobile-bottom-nav md:hidden" id="mobile-nav">
+    <button class="bottom-nav-btn active" id="nav-btn-journey" onclick="scrollToId('journey', this)">
+      <span class="material-symbols-outlined text-[20px]">movie</span>
+      <span>Journey</span>
+    </button>
+    <button class="bottom-nav-btn" id="nav-btn-catalog" onclick="scrollToId('catalog', this)">
+      <span class="material-symbols-outlined text-[20px]">storefront</span>
+      <span>Shop</span>
+    </button>
+    <button class="bottom-nav-btn" id="nav-btn-about" onclick="scrollToId('about', this)">
+      <span class="material-symbols-outlined text-[20px]">info</span>
+      <span>About</span>
+    </button>
+    <button class="bottom-nav-btn relative" id="nav-btn-cart" onclick="toggleCart()">
+      <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+      <span>Cart</span>
+      <span id="cart-badge-bottom" class="hidden absolute -top-1 -right-2 bg-coffeeGold text-black text-[9px] w-4 h-4 rounded-full items-center justify-center font-bold">0</span>
+    </button>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- SLIDE-OUT CART DRAWER                                                     -->
+  <!-- ========================================================================= -->
+  <div id="cart-overlay" class="drawer-overlay" onclick="toggleCart()"></div>
+  <aside id="cart-drawer" class="cart-drawer-panel">
+    
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-white/10 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-coffeeGold">shopping_bag</span>
+        <h3 class="text-lg font-bold text-white font-display">Your Selections</h3>
+      </div>
+      <button onclick="toggleCart()" class="text-gray-400 hover:text-white p-1 rounded-lg">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <!-- Items List -->
+    <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-3.5">
+      <p class="text-xs text-gray-500 text-center py-12">Your cart is empty.</p>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-5 border-t border-white/10 bg-[#0a0805]">
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-xs uppercase tracking-wider text-gray-400">Total Order Amount:</span>
+        <span id="cart-total" class="font-mono text-coffeeGold font-bold text-lg">TZS 0</span>
+      </div>
+      <button onclick="openCheckoutModal()" class="w-full bg-gradient-to-r from-coffeeGold to-amber-400 hover:from-amber-400 hover:to-coffeeGoldLight text-black font-black py-3.5 rounded-xl uppercase tracking-wider text-xs transition-all shadow-[0_0_20px_rgba(212,163,89,0.35)] flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-[18px]">lock</span>
+        <span>Proceed to Checkout</span>
+      </button>
+      <p class="text-center text-[10px] text-gray-500 mt-2">Delivery location & Payment method selected next</p>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- CHECKOUT MODAL (Location & Payment Method)                                -->
+  <!-- ========================================================================= -->
+  <div id="checkout-overlay" class="checkout-modal-overlay" onclick="closeCheckoutModal(event)">
+    <div id="checkout-sheet" class="checkout-modal-sheet">
+      
+      <!-- Drag handle (Mobile) -->
+      <div class="flex justify-center pt-3 pb-1 md:hidden">
+        <div class="w-12 h-1 bg-white/20 rounded-full"></div>
+      </div>
+
+      <div class="p-6">
+        
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h3 class="text-xl font-bold text-white font-display">Complete Your Order</h3>
+            <p class="text-xs text-coffeeGold font-mono mt-0.5">Quick WhatsApp Dispatch</p>
+          </div>
+          <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-white p-1">
             <span class="material-symbols-outlined">close</span>
           </button>
         </div>
 
-        <div id="cartItems" class="py-4 space-y-3">
-          <div class="text-sm text-gray-400 italic">Your cart is empty.</div>
+        <!-- Order Mini Summary -->
+        <div class="glass-card p-4 rounded-2xl mb-5">
+          <p class="text-[10px] text-gray-400 font-mono uppercase tracking-wider mb-2">Order Summary</p>
+          <div id="checkout-items-summary" class="space-y-1.5 max-h-32 overflow-y-auto text-xs"></div>
+          <div class="border-t border-white/10 mt-3 pt-2.5 flex justify-between items-center text-sm">
+            <span class="font-bold text-white">Grand Total</span>
+            <span id="checkout-grand-total" class="font-mono text-coffeeGold font-bold text-base">TZS 0</span>
+          </div>
         </div>
-      </div>
 
-      <div class="space-y-4 pt-4 border-t border-white/10">
-        <div class="flex justify-between text-sm font-semibold">
-          <span class="text-gray-400">Total Amount</span>
-          <span id="cartTotal" class="text-coffeeGold font-bold text-lg">TZS 0</span>
+        <!-- Customer Form -->
+        <div class="space-y-3.5 mb-5">
+          <p class="text-xs font-bold uppercase tracking-wider text-gray-300 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-coffeeGold text-[16px]">person</span>
+            <span>Your Contact</span>
+          </p>
+          <input id="cust-name" type="text" class="form-control" placeholder="Your Full Name *" required>
+          <input id="cust-phone" type="tel" class="form-control" placeholder="Phone Number * (e.g. 0744 600 042)" required>
         </div>
-        <button onclick="checkout()" class="w-full btn-gold py-3.5 rounded-full text-center text-sm font-bold">
-          Checkout Securely
+
+        <!-- Delivery Location -->
+        <div class="space-y-3.5 mb-5">
+          <p class="text-xs font-bold uppercase tracking-wider text-gray-300 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-coffeeGold text-[16px]">location_on</span>
+            <span>Delivery Location</span>
+          </p>
+          <input id="cust-area" type="text" class="form-control" placeholder="Area / Neighborhood * (e.g. Mbezi Beach, Mikocheni, Oysterbay)" required>
+          <input id="cust-street" type="text" class="form-control" placeholder="Street / Landmark / House No.">
+          <input id="cust-city" type="text" class="form-control" placeholder="City (Default: Dar es Salaam)" value="Dar es Salaam">
+        </div>
+
+        <!-- Payment Method Choice -->
+        <div class="space-y-2.5 mb-6">
+          <p class="text-xs font-bold uppercase tracking-wider text-gray-300 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-coffeeGold text-[16px]">payments</span>
+            <span>Payment Method</span>
+          </p>
+          
+          <label class="pay-card selected" onclick="selectPayMethod(this, 'M-Pesa / Airtel Money / Tigo Pesa')">
+            <input type="radio" name="paymethod" value="M-Pesa / Airtel Money / Tigo Pesa" checked class="hidden">
+            <span class="text-xl">📱</span>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-white">Mobile Money</p>
+              <p class="text-[10px] text-gray-400">M-Pesa, Airtel Money, Tigo Pesa</p>
+            </div>
+            <span class="material-symbols-outlined text-coffeeGold text-[18px] check-mark">check_circle</span>
+          </label>
+
+          <label class="pay-card" onclick="selectPayMethod(this, 'Cash on Delivery')">
+            <input type="radio" name="paymethod" value="Cash on Delivery" class="hidden">
+            <span class="text-xl">💵</span>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-white">Cash on Delivery</p>
+              <p class="text-[10px] text-gray-400">Pay cash upon receiving your coffee</p>
+            </div>
+            <span class="material-symbols-outlined text-gray-600 text-[18px] check-mark">radio_button_unchecked</span>
+          </label>
+
+          <label class="pay-card" onclick="selectPayMethod(this, 'Bank Transfer / CRDB / NMB')">
+            <input type="radio" name="paymethod" value="Bank Transfer / CRDB / NMB" class="hidden">
+            <span class="text-xl">🏦</span>
+            <div class="flex-1">
+              <p class="text-xs font-bold text-white">Bank Transfer</p>
+              <p class="text-[10px] text-gray-400">CRDB / NMB / Standard Bank details provided</p>
+            </div>
+            <span class="material-symbols-outlined text-gray-600 text-[18px] check-mark">radio_button_unchecked</span>
+          </label>
+        </div>
+
+        <!-- Submit to WhatsApp -->
+        <button onclick="dispatchWhatsAppOrder()" class="w-full bg-gradient-to-r from-coffeeGold to-amber-400 hover:from-amber-400 hover:to-coffeeGoldLight text-black font-black py-4 rounded-xl uppercase tracking-wider text-xs transition-all shadow-[0_0_25px_rgba(212,163,89,0.45)] flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-[20px]">send</span>
+          <span>Send Order via WhatsApp</span>
         </button>
+
       </div>
     </div>
   </div>
 
-  <!-- AESTHETIC CANVAS BACKGROUND SCRIPT & STOREFRONT LOGIC -->
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT APPLICATION LOGIC                                              -->
+  <!-- ========================================================================= -->
   <script>
-    /* ===== 2D ANIMATED COFFEE CANVAS ===== */
+    // --- 1. Ambient 4K Coffee Particle Canvas ---
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
-    let width, height;
     let particles = [];
 
     function resizeCanvas() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
@@ -310,27 +760,25 @@
         this.reset();
       }
       reset() {
-        this.x = Math.random() * width;
-        this.y = height + Math.random() * 100;
-        this.size = Math.random() * 4 + 1.5;
-        this.speedY = Math.random() * 0.8 + 0.3;
-        this.speedX = (Math.random() - 0.5) * 0.4;
-        this.opacity = Math.random() * 0.5 + 0.15;
-        this.color = Math.random() > 0.4 ? '#d4a359' : '#b86618';
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2.2 + 0.6;
+        this.speedY = -(Math.random() * 0.4 + 0.15);
+        this.speedX = (Math.random() - 0.5) * 0.2;
+        this.opacity = Math.random() * 0.45 + 0.1;
       }
       update() {
-        this.y -= this.speedY;
+        this.y += this.speedY;
         this.x += this.speedX;
-        if (this.y < -20) this.reset();
+        if (this.y < -10) this.y = canvas.height + 10;
+        if (this.x < -10) this.x = canvas.width + 10;
+        if (this.x > canvas.width + 10) this.x = -10;
       }
       draw() {
-        ctx.save();
-        ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = `rgba(212, 163, 89, ${this.opacity})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
-        ctx.restore();
       }
     }
 
@@ -338,196 +786,395 @@
       particles.push(new Particle());
     }
 
-    function animateBg() {
-      ctx.clearRect(0, 0, width, height);
-
-      // Radial background aura
-      const grad = ctx.createRadialGradient(width * 0.5, height * 0.3, 50, width * 0.5, height * 0.3, width * 0.7);
-      grad.addColorStop(0, 'rgba(180, 100, 30, 0.08)');
-      grad.addColorStop(1, 'rgba(8, 6, 4, 0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, width, height);
-
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(p => {
         p.update();
         p.draw();
       });
-      requestAnimationFrame(animateBg);
+      requestAnimationFrame(animateParticles);
     }
-    animateBg();
+    animateParticles();
 
-    /* ===== STOREFRONT PRODUCTS & CARTS LOGIC ===== */
+    // --- 2. GSAP 4K Video Scrubbing Timeline ---
+    gsap.registerPlugin(ScrollTrigger);
+
+    const video = document.getElementById("coffee-video");
+
+    function initScrollAnimation() {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: "#journey",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1.2,
+        }
+      });
+
+      // Scrub the video smoothly through its duration
+      tl.to(video, { 
+        currentTime: video.duration || 10, 
+        ease: "none" 
+      }, 0);
+
+      // Card 0 (Intro Title): Fades out on initial scroll
+      tl.to("#card-0", { opacity: 0, y: -40, duration: 0.1 }, 0.04);
+
+      // Card 1 (Origin & Harvest): 10% - 28%
+      tl.to("#card-1", { opacity: 1, y: 0, duration: 0.08 }, 0.10)
+        .to("#card-1", { opacity: 0, y: -20, duration: 0.08 }, 0.28);
+
+      // Card 2 (Roasting Profile): 32% - 50%
+      tl.to("#card-2", { opacity: 1, y: 0, duration: 0.08 }, 0.32)
+        .to("#card-2", { opacity: 0, y: -20, duration: 0.08 }, 0.50);
+
+      // Card 3 (Precision Grind): 54% - 72%
+      tl.to("#card-3", { opacity: 1, y: 0, duration: 0.08 }, 0.54)
+        .to("#card-3", { opacity: 0, y: -20, duration: 0.08 }, 0.72);
+
+      // Card 4 (Packaging & Valve): 76% - 98%
+      tl.to("#card-4", { opacity: 1, y: 0, duration: 0.08 }, 0.76)
+        .to("#card-4", { opacity: 0, y: -20, duration: 0.08 }, 0.98);
+    }
+
+    if (video.readyState >= 1) {
+      initScrollAnimation();
+    } else {
+      video.addEventListener("loadedmetadata", initScrollAnimation);
+    }
+
+    // --- 3. Product Catalog & Custom Bag Mapping ---
+    let PRODUCTS = [];
     let cart = [];
-    let allProducts = [];
+    let currentCategory = 'All';
 
-    const featuredBrews = [
-      { id:'prod-1', name:'Organic Espresso Roast', category:'Dark Roast', weight:'1kg', price:30000, displayPrice:'$18.99', rating:'4.9', img:'/images/bag_dark_beans_1kg.jpg' },
-      { id:'prod-2', name:'Ethiopian Yirgacheffe', category:'Medium Roast', weight:'500g', price:35000, displayPrice:'$21.50', rating:'4.8', img:'/images/bag_medium_beans_500g.jpg' },
-      { id:'prod-3', name:'Vanilla Oat Latte', category:'Medium Roast', weight:'250ml', price:12000, displayPrice:'$6.50', rating:'4.7', img:'/images/bag_dark_ground_250g.jpg' },
-      { id:'prod-4', name:'Single Origin Rwanda', category:'Dark Roast', weight:'500g', price:36000, displayPrice:'$22.00', rating:'4.9', img:'/images/bag_med_dark_beans_250g.jpg' }
-    ];
+    function getProductImage(p) {
+      if (p.img) return p.img;
+      if (p.category === 'Equipment' || p.format === 'Equipment') return null;
+
+      let roast = 'medium';
+      if (p.category === 'Dark Roast') roast = 'dark';
+      else if (p.category && p.category.toLowerCase().includes('medium to dark')) roast = 'medium-dark';
+      
+      const fmt = p.format.toLowerCase();
+      const wt = p.weight;
+
+      if (wt === '250g') {
+        return roast === 'dark'
+          ? (fmt === 'ground' ? '/images/bag_dark_ground_250g.jpg' : '/images/bag_dark_beans_250g.jpg')
+          : (fmt === 'ground' ? '/images/bag_med_dark_ground_250g.jpg' : '/images/bag_med_dark_beans_250g.jpg');
+      }
+      return `/images/bag_${roast}_${fmt}_${wt}.jpg`;
+    }
 
     async function loadProducts() {
       try {
         const res = await fetch('/api/products');
-        const apiProds = await res.json();
-        allProducts = [...featuredBrews, ...apiProds];
-        renderGrid(allProducts);
-      } catch(err) {
-        allProducts = featuredBrews;
-        renderGrid(allProducts);
+        if (res.ok) {
+          PRODUCTS = await res.json();
+          renderProducts();
+        }
+      } catch (err) {
+        console.error("Failed to load products from API", err);
       }
     }
 
-    function renderGrid(products) {
-      const grid = document.getElementById('productGrid');
-      grid.innerHTML = '';
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.cat === cat);
+      });
 
-      if (products.length === 0) {
-        grid.innerHTML = '<div class="col-span-full text-center py-10 text-amber-200/50 italic text-sm">No coffee brews found matching category.</div>';
-        return;
-      }
+      gsap.to('.product-card', {
+        y: 20, opacity: 0, duration: 0.22, stagger: 0.02,
+        onComplete: renderProducts
+      });
+    }
 
-      products.forEach(p => {
-        const rating = p.rating || (4.7 + (Math.random() * 0.2)).toFixed(1);
-        const card = document.createElement('div');
-        card.className = 'glass-card p-4 sm:p-5 flex flex-col justify-between space-y-4 relative group';
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      const filtered = PRODUCTS.filter(p =>
+        currentCategory === 'All' ||
+        p.format === currentCategory ||
+        p.weight === currentCategory ||
+        p.category === currentCategory
+      );
 
-        const imgSrc = p.img || '/images/bag_dark_beans_1kg.jpg';
-        const priceLabel = p.displayPrice || `TZS ${(p.price).toLocaleString()}`;
+      grid.innerHTML = filtered.map(p => {
+        const isEquipment = p.category === 'Equipment' || p.format === 'Equipment';
+        const imgSrc = getProductImage(p);
 
-        card.innerHTML = `
-          <div class="relative flex justify-center py-2 sm:py-4">
-            <span class="absolute top-0 right-0 text-[10px] sm:text-xs font-bold text-coffeeGold flex items-center space-x-0.5 bg-black/60 px-2 py-0.5 rounded-full backdrop-blur-sm border border-coffeeGold/30">
-              <span class="text-amber-400">★</span>
-              <span>${rating}</span>
-            </span>
-            <img src="${imgSrc}" alt="${p.name}" class="h-32 sm:h-40 object-contain drop-shadow-2xl group-hover:scale-105 transition duration-500">
+        const visualHtml = isEquipment
+          ? `<div class="overflow-hidden rounded-2xl mb-3 bg-gradient-to-br from-coffeeGold/10 to-black/40 flex items-center justify-center relative" style="height:230px;">
+               <div class="absolute top-3 left-3 z-10 liquid-glass rounded-full px-2.5 py-1 text-[10px] font-bold text-coffeeGold flex items-center gap-1">
+                 <span>⚗️</span><span>Equipment</span>
+               </div>
+               <svg width="120" height="120" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg" class="transform hover:scale-110 transition-transform duration-500">
+                 <rect x="30" y="12" width="50" height="68" rx="6" fill="rgba(212,163,89,0.12)" stroke="rgba(212,163,89,0.6)" stroke-width="2"/>
+                 <rect x="38" y="12" width="34" height="5" rx="2" fill="rgba(212,163,89,0.4)"/>
+                 <rect x="48" y="3" width="14" height="11" rx="3" fill="rgba(212,163,89,0.7)"/>
+                 <rect x="53" y="14" width="4" height="53" rx="2" fill="rgba(212,163,89,0.6)"/>
+                 <rect x="34" y="58" width="42" height="4" rx="2" fill="rgba(212,163,89,0.5)"/>
+                 <rect x="25" y="80" width="60" height="6" rx="3" fill="rgba(212,163,89,0.3)" stroke="rgba(212,163,89,0.5)" stroke-width="1.5"/>
+                 <rect x="20" y="86" width="70" height="14" rx="4" fill="rgba(212,163,89,0.18)" stroke="rgba(212,163,89,0.4)" stroke-width="1.5"/>
+               </svg>
+             </div>`
+          : `<div class="overflow-hidden rounded-2xl mb-3 bg-black/40 relative">
+               <div class="absolute top-3 left-3 z-10 liquid-glass rounded-full px-2.5 py-1 text-[10px] font-bold flex items-center gap-1">
+                 <span class="text-coffeeGold">★</span><span>4.9</span>
+               </div>
+               <img src="${imgSrc}" class="product-img" alt="${p.name}">
+             </div>`;
+
+        return `
+        <div class="glass-card product-card p-3.5 flex flex-col justify-between opacity-0" style="transform:translateY(30px)">
+          ${visualHtml}
+          <div class="px-1.5 pb-1 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="text-[9px] font-mono uppercase tracking-widest text-coffeeGold mb-1">${p.category || 'Coffee'}</p>
+              <h3 class="font-display font-bold text-sm leading-snug text-white">${p.name}</h3>
+              <p class="text-xs text-gray-400 mt-0.5 mb-3">${isEquipment ? p.weight : p.format + ' · ' + p.weight}</p>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-white/5">
+              <div>
+                <span class="font-mono text-coffeeGold font-bold text-sm md:text-base">TZS ${p.price.toLocaleString()}</span>
+              </div>
+              <button onclick="addToCart('${p.id}')" class="bg-coffeeGold hover:bg-coffeeGoldLight text-black rounded-full w-8 h-8 flex items-center justify-center transition-transform hover:scale-110 shadow-lg">
+                <span class="material-symbols-outlined text-[18px]">add</span>
+              </button>
+            </div>
           </div>
-
-          <div class="space-y-1">
-            <h4 class="text-xs sm:text-sm font-bold text-white line-clamp-1 font-display uppercase tracking-wide">${p.name}</h4>
-            <p class="text-[10px] sm:text-xs text-amber-200/60 font-medium">${p.weight || 'Grade AA'}</p>
-          </div>
-
-          <div class="flex items-center justify-between pt-2 border-t border-white/10">
-            <span class="text-xs sm:text-sm font-extrabold text-coffeeGold font-mono">${priceLabel}</span>
-            <button onclick="addToCart('${p.id}')" class="w-8 h-8 rounded-full btn-gold flex items-center justify-center shadow-lg active:scale-95 transition">
-              <span class="material-symbols-outlined text-base font-bold">add</span>
-            </button>
-          </div>
+        </div>
         `;
-        grid.appendChild(card);
-      });
+      }).join('');
 
-      gsap.from('#productGrid .glass-card', { opacity: 0, y: 15, duration: 0.35, stagger: 0.05, ease: 'power2.out' });
+      // Stagger animate cards in
+      setTimeout(() => {
+        gsap.to('.product-card', {
+          y: 0, opacity: 1, duration: 0.5, stagger: 0.05, ease: 'power3.out'
+        });
+      }, 30);
     }
 
-    function filterCategory(btn, cat) {
-      document.querySelectorAll('.cat-pill').forEach(el => {
-        el.classList.remove('active');
-      });
-      btn.classList.add('active');
-
-      if (cat === 'All') {
-        renderGrid(allProducts);
-      } else {
-        const filtered = allProducts.filter(p => p.category === cat);
-        renderGrid(filtered);
-      }
-    }
-
-    function filterBySearch(query) {
-      const q = query.toLowerCase();
-      const filtered = allProducts.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
-      renderGrid(filtered);
+    // --- 4. Shopping Cart Logic ---
+    function toggleCart() {
+      const overlay = document.getElementById("cart-overlay");
+      const drawer = document.getElementById("cart-drawer");
+      overlay.classList.toggle("open");
+      drawer.classList.toggle("open");
     }
 
     function addToCart(id) {
-      const prod = allProducts.find(p => p.id === id);
+      const prod = PRODUCTS.find(p => p.id === id);
       if (!prod) return;
-      const existing = cart.find(i => i.id === id);
+
+      const existing = cart.find(item => item.id === id);
       if (existing) {
-        existing.qty++;
+        existing.qty += 1;
       } else {
         cart.push({ ...prod, qty: 1 });
       }
-      updateCartUI();
-      openCart();
+      renderCart();
+      
+      const drawer = document.getElementById("cart-drawer");
+      if (!drawer.classList.contains("open")) {
+        toggleCart();
+      }
     }
 
-    function updateCartUI() {
-      const badge = document.getElementById('cartBadge');
-      const totalQty = cart.reduce((acc, item) => acc + item.qty, 0);
-      if (totalQty > 0) {
-        badge.textContent = totalQty;
-        badge.classList.remove('hidden');
+    function updateQty(id, delta) {
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) {
+          cart = cart.filter(i => i.id !== id);
+        }
+      }
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById("cart-items");
+      const badgeTop = document.getElementById("cart-badge-top");
+      const badgeBottom = document.getElementById("cart-badge-bottom");
+      const totalEl = document.getElementById("cart-total");
+
+      const totalItems = cart.reduce((sum, i) => sum + i.qty, 0);
+      const totalPrice = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+
+      // Badges
+      if (totalItems > 0) {
+        badgeTop.innerText = totalItems;
+        badgeTop.classList.remove("hidden");
+        badgeBottom.innerText = totalItems;
+        badgeBottom.classList.remove("hidden");
+        badgeBottom.classList.add("flex");
       } else {
-        badge.classList.add('hidden');
+        badgeTop.classList.add("hidden");
+        badgeBottom.classList.add("hidden");
+        badgeBottom.classList.remove("flex");
       }
 
-      const container = document.getElementById('cartItems');
-      const totalEl = document.getElementById('cartTotal');
-      let totalPrice = 0;
+      totalEl.innerText = `TZS ${totalPrice.toLocaleString()}`;
 
       if (cart.length === 0) {
-        container.innerHTML = '<div class="text-sm text-gray-400 italic">Your cart is empty.</div>';
-        totalEl.textContent = 'TZS 0';
+        container.innerHTML = `
+          <div class="text-center py-16 text-gray-500">
+            <span class="material-symbols-outlined text-4xl mb-2 block text-gray-600">coffee</span>
+            <p class="text-xs">Your cart is currently empty.</p>
+          </div>
+        `;
         return;
       }
 
-      container.innerHTML = '';
-      cart.forEach(item => {
-        totalPrice += (item.price || 25000) * item.qty;
-        const div = document.createElement('div');
-        div.className = 'flex items-center justify-between bg-white/5 p-3 rounded-xl border border-white/10';
-        div.innerHTML = `
-          <div>
-            <div class="text-xs font-bold text-white">${item.name}</div>
-            <div class="text-[10px] text-coffeeGold">${item.displayPrice || 'TZS ' + item.price.toLocaleString()} x ${item.qty}</div>
+      container.innerHTML = cart.map(item => {
+        const isEquipment = item.category === 'Equipment' || item.format === 'Equipment';
+        const img = getProductImage(item);
+        const thumb = img 
+          ? `<img src="${img}" class="w-12 h-12 rounded-xl object-cover bg-black/40">`
+          : `<div class="w-12 h-12 rounded-xl bg-coffeeGold/10 flex items-center justify-center text-lg">⚗️</div>`;
+
+        return `
+        <div class="flex items-center justify-between p-3 rounded-2xl bg-white/[0.03] border border-white/5">
+          <div class="flex items-center gap-3">
+            ${thumb}
+            <div>
+              <p class="text-xs font-bold text-white line-clamp-1">${item.name}</p>
+              <p class="text-[10px] text-gray-400">${item.weight}</p>
+              <p class="text-xs font-mono text-coffeeGold font-semibold mt-0.5">TZS ${(item.price * item.qty).toLocaleString()}</p>
+            </div>
           </div>
-          <div class="flex items-center space-x-2">
-            <button onclick="changeQty('${item.id}', -1)" class="w-6 h-6 rounded bg-white/10 text-white font-bold text-xs flex items-center justify-center">-</button>
-            <span class="text-xs text-white">${item.qty}</span>
-            <button onclick="changeQty('${item.id}', 1)" class="w-6 h-6 rounded bg-white/10 text-white font-bold text-xs flex items-center justify-center">+</button>
+          <div class="flex items-center gap-2">
+            <button onclick="updateQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white/10 hover:bg-white/20 text-xs text-white flex items-center justify-center">-</button>
+            <span class="text-xs font-mono font-bold">${item.qty}</span>
+            <button onclick="updateQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-white/10 hover:bg-white/20 text-xs text-white flex items-center justify-center">+</button>
           </div>
+        </div>
         `;
-        container.appendChild(div);
-      });
-
-      totalEl.textContent = `TZS ${totalPrice.toLocaleString()}`;
+      }).join('');
     }
 
-    function changeQty(id, delta) {
-      const item = cart.find(i => i.id === id);
-      if (!item) return;
-      item.qty += delta;
-      if (item.qty <= 0) {
-        cart = cart.filter(i => i.id !== id);
+    // --- 5. Location & Payment Checkout Modal ---
+    let selectedPayment = 'M-Pesa / Airtel Money / Tigo Pesa';
+
+    function openCheckoutModal() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
       }
-      updateCartUI();
+      toggleCart(); // Close cart drawer
+      
+      const summaryContainer = document.getElementById("checkout-items-summary");
+      const grandTotalEl = document.getElementById("checkout-grand-total");
+      const totalPrice = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+
+      summaryContainer.innerHTML = cart.map(item => `
+        <div class="flex justify-between text-gray-300">
+          <span>${item.name} (${item.weight}) × ${item.qty}</span>
+          <span class="font-mono font-semibold text-white">TZS ${(item.price * item.qty).toLocaleString()}</span>
+        </div>
+      `).join('');
+
+      grandTotalEl.innerText = `TZS ${totalPrice.toLocaleString()}`;
+
+      document.getElementById("checkout-overlay").classList.add("open");
+      document.getElementById("checkout-sheet").classList.add("open");
     }
 
-    function openCart() {
-      document.getElementById('cartModal').classList.remove('hidden');
+    function closeCheckoutModal(e) {
+      if (e && e.target !== document.getElementById("checkout-overlay")) return;
+      document.getElementById("checkout-overlay").classList.remove("open");
+      document.getElementById("checkout-sheet").classList.remove("open");
     }
 
-    function closeCart() {
-      document.getElementById('cartModal').classList.add('hidden');
+    function selectPayMethod(element, method) {
+      selectedPayment = method;
+      document.querySelectorAll('.pay-card').forEach(card => {
+        card.classList.remove('selected');
+        const icon = card.querySelector('.check-mark');
+        if (icon) {
+          icon.innerText = 'radio_button_unchecked';
+          icon.classList.remove('text-coffeeGold');
+          icon.classList.add('text-gray-600');
+        }
+      });
+      element.classList.add('selected');
+      const icon = element.querySelector('.check-mark');
+      if (icon) {
+        icon.innerText = 'check_circle';
+        icon.classList.add('text-coffeeGold');
+        icon.classList.remove('text-gray-600');
+      }
     }
 
-    function scrollToShop() {
-      document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+    function dispatchWhatsAppOrder() {
+      const name = document.getElementById("cust-name").value.trim();
+      const phone = document.getElementById("cust-phone").value.trim();
+      const area = document.getElementById("cust-area").value.trim();
+      const street = document.getElementById("cust-street").value.trim();
+      const city = document.getElementById("cust-city").value.trim() || 'Dar es Salaam';
+
+      if (!name) {
+        alert("Please enter your Full Name.");
+        document.getElementById("cust-name").focus();
+        return;
+      }
+      if (!phone) {
+        alert("Please enter your Phone Number.");
+        document.getElementById("cust-phone").focus();
+        return;
+      }
+      if (!area) {
+        alert("Please enter your Delivery Area / Neighborhood.");
+        document.getElementById("cust-area").focus();
+        return;
+      }
+
+      const totalPrice = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+      const deliveryLocation = [area, street, city].filter(Boolean).join(', ');
+
+      const lines = cart.map(i => `• ${i.name} (${i.weight}) × ${i.qty} = TZS ${(i.price * i.qty).toLocaleString()}`).join('\n');
+
+      const message = [
+        '☕ *NEW ORDER — DANKI PREMIUM COFFEE*',
+        '━━━━━━━━━━━━━━━━━━━━',
+        '👤 *Customer Details:*',
+        `• Name: ${name}`,
+        `• Phone: ${phone}`,
+        '',
+        '📦 *Order Items:*',
+        lines,
+        '',
+        `💰 *Total Amount:* TZS ${totalPrice.toLocaleString()}`,
+        '',
+        '📍 *Delivery Location:*',
+        `• ${deliveryLocation}`,
+        '',
+        '💳 *Payment Method:*',
+        `• ${selectedPayment}`,
+        '━━━━━━━━━━━━━━━━━━━━',
+        'Please confirm stock and dispatch schedule. Asante sana!'
+      ].join('\n');
+
+      const encoded = encodeURIComponent(message);
+      window.open(`https://wa.me/255744600042?text=${encoded}`, '_blank');
+      
+      closeCheckoutModal();
     }
 
-    function checkout() {
-      alert('Order placed successfully! Thank you for ordering from Danki Coffee.');
-      cart = [];
-      updateCartUI();
-      closeCart();
+    // Mobile scroll helper
+    function scrollToId(id, btn) {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+      document.querySelectorAll('.bottom-nav-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
     }
 
+    // Initialize App
     loadProducts();
+    renderCart();
   </script>
 </body>
 </html>
