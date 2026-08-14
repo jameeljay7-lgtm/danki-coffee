@@ -345,9 +345,9 @@
   </nav>
 
   <!-- ========================================================================= -->
-  <!-- 4K PINNED SCROLL STAGE: Interactive Video Storytelling (650vh scrub)    -->
+  <!-- 4K PINNED SCROLL STAGE: Interactive Video Storytelling (800vh scrub)    -->
   <!-- ========================================================================= -->
-  <section id="journey" class="relative w-full h-[650vh] gpu-layer">
+  <section id="journey" class="relative w-full h-[800vh] gpu-layer">
     <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden gpu-layer">
       
       <!-- 4K Ultra Canvas Sequence Loader (2.5K/4K Super-Sampled Native Clarity) -->
@@ -860,53 +860,61 @@
 
     function renderHeroFrame() {
       if (!heroCanvas || !heroCtx) return;
-      let targetIdx = Math.min(Math.max(Math.round(imageSeq.frame), 0), frameCount - 1);
-      let img = images[targetIdx];
+      const current = Math.max(0, Math.min(imageSeq.frame, frameCount - 1));
+      const baseIndex = Math.floor(current);
+      const nextIndex = Math.min(baseIndex + 1, frameCount - 1);
+      const frac = current - baseIndex;
 
-      // Fallback to closest buffered frame so screen is never blank
-      if (!img || !img.complete || img.naturalWidth === 0) {
-        for (let offset = 1; offset < frameCount; offset++) {
-          const prev = images[targetIdx - offset];
-          if (prev && prev.complete && prev.naturalWidth !== 0) { img = prev; break; }
-          const next = images[targetIdx + offset];
-          if (next && next.complete && next.naturalWidth !== 0) { img = next; break; }
-        }
-      }
+      let img1 = images[baseIndex];
+      let img2 = images[nextIndex];
 
-      if (img && img.complete && img.naturalWidth !== 0) {
+      if (img1 && img1.complete && img1.naturalWidth !== 0) {
         if (heroCanvas.width === 0 || heroCanvas.height === 0) {
           const dpr = Math.min(window.devicePixelRatio || 1, 2);
           heroCanvas.width = window.innerWidth * dpr;
           heroCanvas.height = window.innerHeight * dpr;
         }
 
-        const hRatio = heroCanvas.width / img.width;
-        const vRatio = heroCanvas.height / img.height;
+        const hRatio = heroCanvas.width / img1.width;
+        const vRatio = heroCanvas.height / img1.height;
         const ratio = Math.max(hRatio, vRatio);
-        const centerShiftX = (heroCanvas.width - img.width * ratio) / 2;
-        const centerShiftY = (heroCanvas.height - img.height * ratio) / 2;
+        const centerShiftX = (heroCanvas.width - img1.width * ratio) / 2;
+        const centerShiftY = (heroCanvas.height - img1.height * ratio) / 2;
 
         heroCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
         heroCtx.imageSmoothingEnabled = true;
         heroCtx.imageSmoothingQuality = "high";
+
+        // Draw primary base frame
+        heroCtx.globalAlpha = 1.0;
         heroCtx.drawImage(
-          img, 
-          0, 0, img.width, img.height,
-          centerShiftX, centerShiftY, img.width * ratio, img.height * ratio
+          img1, 
+          0, 0, img1.width, img1.height,
+          centerShiftX, centerShiftY, img1.width * ratio, img1.height * ratio
         );
+
+        // Sub-frame cross-blend for silky 120fps motion
+        if (frac > 0.01 && img2 && img2.complete && img2.naturalWidth !== 0) {
+          heroCtx.globalAlpha = frac;
+          heroCtx.drawImage(
+            img2, 
+            0, 0, img2.width, img2.height,
+            centerShiftX, centerShiftY, img2.width * ratio, img2.height * ratio
+          );
+          heroCtx.globalAlpha = 1.0;
+        }
       }
     }
 
-    // ScrollTrigger smoothly maps scroll position to active frame index
+    // ScrollTrigger smoothly maps scroll position to active frame index with fluid 1.2s momentum
     gsap.to(imageSeq, {
       frame: frameCount - 1,
-      snap: "frame",
       ease: "none",
       scrollTrigger: {
         trigger: "#journey",
         start: "top top",
         end: "bottom bottom",
-        scrub: 0.5,
+        scrub: 1.2,
         onUpdate: renderHeroFrame
       }
     });
