@@ -34,7 +34,7 @@ app.get('/dashboard', (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'public'), { etag: false, maxAge: 0 }));
 
-app.get('/health', (req, res) => {
+app.all('/health', (req, res) => {
     res.status(200).json({ status: 'healthy', app: 'Danki Coffee Web Server', timestamp: new Date().toISOString() });
 });
 
@@ -84,7 +84,7 @@ app.get('/api/products', (req, res) => {
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
 // Uptime / Keep-Alive Bot (Prevents Render Free Tier Sleep)
-const RENDER_URL = process.env.RENDER_EXTERNAL_URL || 'https://danki-coffee-2bmn.onrender.com';
+const RENDER_URL = process.env.RENDER_EXTERNAL_URL || 'https://danki-coffee-gzoq.onrender.com';
 const PING_INTERVAL_MS = 14 * 60 * 1000; // Ping every 14 minutes
 
 function startUptimeBot() {
